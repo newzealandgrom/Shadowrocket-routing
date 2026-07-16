@@ -13,11 +13,8 @@ DOMAIN-KEYWORD,rutor
 DOMAIN-KEYWORD,rutracker
 DOMAIN-KEYWORD,tiktok
 DOMAIN-KEYWORD,chatgpt
-DOMAIN-SUFFIX,fbcdn.net
 DOMAIN-SUFFIX,ign.com
 DOMAIN-SUFFIX,twitch.tv
-DOMAIN-SUFFIX,cub.red
-DOMAIN-SUFFIX,dyson.com
 DOMAIN-SUFFIX,iherb.com
 DOMAIN-SUFFIX,ikea.com
 DOMAIN-SUFFIX,ttvnw.net
@@ -26,17 +23,12 @@ DOMAIN-SUFFIX,scdn.co
 DOMAIN-SUFFIX,aol.com
 DOMAIN-SUFFIX,api2.support-kp.com
 DOMAIN-SUFFIX,canva.dev
-DOMAIN-SUFFIX,cloudflare.com
-DOMAIN-SUFFIX,digitalocean.com
 DOMAIN-SUFFIX,mixcloud.com
 DOMAIN-SUFFIX,redislabs.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,apple-relay.apple.com
 DOMAIN-SUFFIX,claude.ai
-DOMAIN-SUFFIX,composer.opera-api.com
-DOMAIN-SUFFIX,copilot.microsoft.com
 DOMAIN-SUFFIX,deepl.com
-DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,searchgpt.com
 DOMAIN-SUFFIX,anzu-us.com
@@ -45,8 +37,6 @@ DOMAIN-SUFFIX,clashofclans.com
 DOMAIN-SUFFIX,clashofclans.inbox.supercell.com
 DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,speedtest.net
-DOMAIN-SUFFIX,datacamp.com
-DOMAIN-SUFFIX,euronews.com
 DOMAIN-SUFFIX,grani.ru
 DOMAIN-SUFFIX,gulagu.net
 DOMAIN-SUFFIX,vznakomstve.com
@@ -69,17 +59,12 @@ DOMAIN,chatgpt.livekit.cloud
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
-DOMAIN-SUFFIX,cloudfunctions.net
 DOMAIN-SUFFIX,codeium.com
-DOMAIN-SUFFIX,composer.opera-api.com
-DOMAIN-SUFFIX,copilot.microsoft.com
 DOMAIN-SUFFIX,datadoghq.com
 DOMAIN-SUFFIX,deepl.app
 DOMAIN-SUFFIX,deepl.com
-DOMAIN-SUFFIX,deepmind.com
 DOMAIN-SUFFIX,designify.com
 DOMAIN-SUFFIX,devin.ai
-DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,elevenreader.io
 DOMAIN-SUFFIX,grammarly.io
 DOMAIN-SUFFIX,intercomassets.com
@@ -106,11 +91,9 @@ DOMAIN-SUFFIX,cdn.whatsapp.net
 DOMAIN-SUFFIX,cdninstagram.com
 
 # CDN / NETWORK
-DOMAIN-SUFFIX,cloudflare.com
 DOMAIN-SUFFIX,cdn.cloudflare.net
 DOMAIN-SUFFIX,cloudfront.net
 DOMAIN-SUFFIX,workers.dev
-DOMAIN-SUFFIX,cloudflare-dns.com
 DOMAIN-SUFFIX,spotify.com
 DOMAIN-SUFFIX,burgerkingrus.ru
 DOMAIN-SUFFIX,cdn-tinkoff.ru
@@ -146,7 +129,6 @@ DOMAIN-SUFFIX,app-measurement.com
 DOMAIN-SUFFIX,apptracer.ru
 DOMAIN-SUFFIX,inner-active.mobi
 DOMAIN-SUFFIX,qplus.ru
-DOMAIN-SUFFIX,crashlytics.com
 DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,adguard-dns.io
 DOMAIN-SUFFIX,dodois.com
