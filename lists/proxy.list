@@ -1,9 +1,6 @@
 DOMAIN-SUFFIX,mask.apple-dns.net
 DOMAIN-SUFFIX,mask.icloud.com
-DOMAIN-SUFFIX,*.whatsapp.net
-DOMAIN-SUFFIX,whatsapp.net
 DOMAIN-SUFFIX,*.whatsapp.com
-DOMAIN-SUFFIX,whatsapp.com
 DOMAIN-KEYWORD,4pda
 DOMAIN-KEYWORD,discord
 DOMAIN-KEYWORD,facebook
@@ -23,7 +20,6 @@ DOMAIN-SUFFIX,googlevideo.com
 DOMAIN-SUFFIX,gstatic.com
 DOMAIN-SUFFIX,i.ytimg.com
 DOMAIN-SUFFIX,i9.ytimg.com
-DOMAIN-SUFFIX,youtube.com
 DOMAIN-SUFFIX,ytimg.l.google.com
 DOMAIN-SUFFIX,ytstatic.l.google.com
 DOMAIN-SUFFIX,fbcdn.net
@@ -40,7 +36,6 @@ DOMAIN-SUFFIX,hackernoon.com
 DOMAIN-SUFFIX,iherb.com
 DOMAIN-SUFFIX,ikea.com
 DOMAIN-SUFFIX,seasonvar.ru
-DOMAIN-SUFFIX,skladchik.com
 DOMAIN-SUFFIX,ttvnw.net
 DOMAIN-SUFFIX,patreon.com
 DOMAIN-SUFFIX,spotifycdn.com
@@ -60,8 +55,6 @@ DOMAIN-SUFFIX,notionusercontent.com
 DOMAIN-SUFFIX,proton.me
 DOMAIN-SUFFIX,realguide.com
 DOMAIN-SUFFIX,redislabs.com
-DOMAIN-SUFFIX,semrush.com
-DOMAIN-SUFFIX,setapp.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,apple-relay.apple.com
 DOMAIN-SUFFIX,claude.ai
@@ -178,12 +171,9 @@ DOMAIN-SUFFIX,pollo.ai
 DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 DOMAIN-SUFFIX,recraft.ai
 DOMAIN-SUFFIX,searchgpt.com
-DOMAIN-SUFFIX,segment.io
-DOMAIN-SUFFIX,sora.com
 DOMAIN-SUFFIX,statsig.com
 DOMAIN-SUFFIX,statsigapi.net
 DOMAIN-SUFFIX,unscreen.com
-DOMAIN-SUFFIX,x.ai
 DOMAIN-SUFFIX,habr.com
 
 # META / WHATSAPP / INSTAGRAM
@@ -255,8 +245,6 @@ DOMAIN-SUFFIX,qplus.ru
 DOMAIN-SUFFIX,crashlytics.com
 DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,grok.com
-DOMAIN-SUFFIX,twitter.com
-DOMAIN-SUFFIX,twimg.com
 DOMAIN-SUFFIX,adguard-dns.io
 DOMAIN-SUFFIX,dodois.com
 DOMAIN-SUFFIX,dodopizza.com
