@@ -13,12 +13,6 @@ DOMAIN-KEYWORD,rutor
 DOMAIN-KEYWORD,rutracker
 DOMAIN-KEYWORD,tiktok
 DOMAIN-KEYWORD,chatgpt
-DOMAIN-SUFFIX,googleapis.com
-DOMAIN-SUFFIX,googleusercontent.com
-DOMAIN-SUFFIX,googlevideo.com
-DOMAIN-SUFFIX,gstatic.com
-DOMAIN-SUFFIX,ytimg.l.google.com
-DOMAIN-SUFFIX,ytstatic.l.google.com
 DOMAIN-SUFFIX,fbcdn.net
 DOMAIN-SUFFIX,fbsbx.com
 DOMAIN-SUFFIX,ign.com
@@ -45,7 +39,6 @@ DOMAIN-SUFFIX,composer.opera-api.com
 DOMAIN-SUFFIX,copilot.microsoft.com
 DOMAIN-SUFFIX,deepl.com
 DOMAIN-SUFFIX,elevenlabs.io
-DOMAIN-SUFFIX,grok.com
 DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,searchgpt.com
 DOMAIN-SUFFIX,anzu-us.com
@@ -66,7 +59,6 @@ DOMAIN-SUFFIX,vznakomstve.com
 DOMAIN-SUFFIX,adult.noodlemagazine.com
 DOMAIN-SUFFIX,a-msedge.net
 DOMAIN-SUFFIX,ai.com
-DOMAIN-SUFFIX,aistudio.google.com
 DOMAIN-SUFFIX,algolia.net
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,antigravity-unleash.goog
@@ -74,7 +66,6 @@ DOMAIN-SUFFIX,appcenter.ms
 DOMAIN-SUFFIX,arkoselabs.com
 DOMAIN-SUFFIX,auth0.com
 DOMAIN-SUFFIX,azureedge.net
-DOMAIN-SUFFIX,bard.google.com
 DOMAIN-SUFFIX,bing.com
 DOMAIN-SUFFIX,bingapis.com
 DOMAIN,browser-intake-datadoghq.com
@@ -84,7 +75,6 @@ DOMAIN,chatgpt.livekit.cloud
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
-DOMAIN-SUFFIX,clients6.google.com
 DOMAIN-SUFFIX,cloudfunctions.net
 DOMAIN-SUFFIX,codeium.com
 DOMAIN-SUFFIX,composer.opera-api.com
@@ -98,25 +88,16 @@ DOMAIN-SUFFIX,devin.ai
 DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,elevenreader.io
 DOMAIN-SUFFIX,featuregates.org
-DOMAIN-SUFFIX,geller-pa.googleapis.com
-DOMAIN-SUFFIX,gemini.google.com
 DOMAIN-SUFFIX,generativelanguage.googleapis.com
 DOMAIN-SUFFIX,githubcopilot.com
-DOMAIN-SUFFIX,githubusercontent.com
-DOMAIN-SUFFIX,google.dev
-DOMAIN-SUFFIX,grammarly.com
 DOMAIN-SUFFIX,grammarly.io
-DOMAIN-SUFFIX,grok.com
 DOMAIN-SUFFIX,intercomassets.com
-DOMAIN-SUFFIX,jules.google.com
 DOMAIN-SUFFIX,kaleido.ai
 DOMAIN-SUFFIX,kilo.ai
-DOMAIN-SUFFIX,makersuite.google.com
 DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,manuscdn.com
 DOMAIN-SUFFIX,meta.ai
 DOMAIN-SUFFIX,microsoftapp.net
-DOMAIN-SUFFIX,notebooklm.google.com
 DOMAIN,o33249.ingest.sentry.io
 DOMAIN-SUFFIX,openai.fund
 DOMAIN-SUFFIX,openai.org
@@ -129,7 +110,6 @@ DOMAIN-SUFFIX,searchgpt.com
 DOMAIN-SUFFIX,statsig.com
 DOMAIN-SUFFIX,statsigapi.net
 DOMAIN-SUFFIX,unscreen.com
-DOMAIN-SUFFIX,habr.com
 
 # META / WHATSAPP / INSTAGRAM
 DOMAIN-SUFFIX,cdn.whatsapp.net
@@ -138,12 +118,8 @@ DOMAIN-SUFFIX,cdninstagram.com
 DOMAIN-SUFFIX,fbcdn.net
 
 # GOOGLE / YOUTUBE
-DOMAIN-SUFFIX,google.com
 DOMAIN-SUFFIX,googleapis.com
-DOMAIN-SUFFIX,gstatic.com
-DOMAIN-SUFFIX,googlevideo.com
 DOMAIN-SUFFIX,ggpht.com
-DOMAIN-SUFFIX,googleusercontent.com
 
 # CDN / NETWORK
 DOMAIN-SUFFIX,cloudflare.com
@@ -169,13 +145,10 @@ DOMAIN-SUFFIX,appsflyersdk.com
 DOMAIN-SUFFIX,t-static.ru
 DOMAIN-SUFFIX,locketcamera.com
 DOMAIN-SUFFIX,github.com
-DOMAIN-SUFFIX,githubusercontent.com
 DOMAIN-SUFFIX,swiftgram.app
 DOMAIN-SUFFIX,app-analytics-services.com
-DOMAIN-SUFFIX,gmail.com
 DOMAIN-SUFFIX,adrenaline-fast.ru
 DOMAIN-SUFFIX,app-measurement.com
-DOMAIN-SUFFIX,raw.githubusercontent.com
 DOMAIN-SUFFIX,imap.gmail.com
 DOMAIN-SUFFIX,canvaz.scdn.co
 DOMAIN-SUFFIX,p31-imap.mail.me.com
@@ -192,7 +165,6 @@ DOMAIN-SUFFIX,inner-active.mobi
 DOMAIN-SUFFIX,qplus.ru
 DOMAIN-SUFFIX,crashlytics.com
 DOMAIN-SUFFIX,app-analytics-services.com
-DOMAIN-SUFFIX,grok.com
 DOMAIN-SUFFIX,adguard-dns.io
 DOMAIN-SUFFIX,dodois.com
 DOMAIN-SUFFIX,dodopizza.com
@@ -208,31 +180,11 @@ DOMAIN-SUFFIX,api.swiftgram.app
 DOMAIN-SUFFIX,api.locketcamera.com
 DOMAIN-SUFFIX,audio-fa.scdn.co
 DOMAIN-SUFFIX,app.loonabrowser.ru
-DOMAIN-SUFFIX,gvt1.com
-DOMAIN-SUFFIX,googleplay.com
-DOMAIN-SUFFIX,play.googleapis.com
-DOMAIN-SUFFIX,play-fe.googleapis.com
-DOMAIN-SUFFIX,prod-lt-playstoregatewayadapter-pa.googleapis.com
-DOMAIN-SUFFIX,playstoregatewayadapter-pa.googleapis.com
-DOMAIN-SUFFIX,play-lh.googleusercontent.com
-DOMAIN-SUFFIX,connectivitycheck.gstatic.com
-DOMAIN-SUFFIX,android.clients.google.com
-DOMAIN-SUFFIX,lh3.googleusercontent.com
-DOMAIN-SUFFIX,android-safebrowsing.google.com
-DOMAIN-SUFFIX,voledevice-pa.googleapis.com
-DOMAIN-SUFFIX,play-apps-features.googleusercontent.com
 DOMAIN-SUFFIX,playconsole.static.usercontent.goog
-DOMAIN-SUFFIX,digitalassetlinks.googleapis.com
-DOMAIN-SUFFIX,playgateway-pa.googleapis.com
-DOMAIN-SUFFIX,mtalk.google.com
 DOMAIN-SUFFIX,googleads.g.doubleclick.net
-DOMAIN-SUFFIX,infinitedata-pa.googleapis.com
 DOMAIN-SUFFIX,google-ohttp-relay-safebrowsing.fastly-edge.com
 DOMAIN-SUFFIX,app-measurement.com
-DOMAIN-SUFFIX,quake-pa.googleapis.com
-DOMAIN-SUFFIX,safebrowsing.googleapis.com
 DOMAIN-SUFFIX,ota.googlezip.net
 DOMAIN-SUFFIX,ota-cache1.googlezip.net
 DOMAIN-SUFFIX,ota-cache2.googlezip.net
 DOMAIN-SUFFIX,ota-cache3.googlezip.net
-DOMAIN-SUFFIX,firebaseinstallations.googleapis.com
