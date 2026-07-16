@@ -8,7 +8,7 @@ DST-PORT,3484,PROXY
 # WhatsApp — Видео
 # https://developers.facebook.com/docs/whatsapp/guides/network-requirements/
 DST-PORT,5222,PROXY
-# Telegram — Голос и видео (RTP / P2P)
+# Telegram — Голос и видео (RTP / P2P).
 DST-PORT,596-599,PROXY
 # DST-PORT,50000-59999,PROXY
 # TCP порт для сигнальных звонков Telegram
