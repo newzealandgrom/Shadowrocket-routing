@@ -19,7 +19,6 @@ DOMAIN-SUFFIX,ign.com
 DOMAIN-SUFFIX,twitch.tv
 DOMAIN-SUFFIX,cub.red
 DOMAIN-SUFFIX,dyson.com
-DOMAIN-SUFFIX,hackernoon.com
 DOMAIN-SUFFIX,iherb.com
 DOMAIN-SUFFIX,ikea.com
 DOMAIN-SUFFIX,ttvnw.net
@@ -48,7 +47,6 @@ DOMAIN-SUFFIX,clashofclans.inbox.supercell.com
 DOMAIN-SUFFIX,game-assets.clashofclans.com
 DOMAIN-SUFFIX,game.boombeachgame.com
 DOMAIN-SUFFIX,game.clashofclans.com
-DOMAIN-SUFFIX,gameloft.com
 DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,speedtest.net
 DOMAIN-SUFFIX,datacamp.com
@@ -88,8 +86,6 @@ DOMAIN-SUFFIX,devin.ai
 DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,elevenreader.io
 DOMAIN-SUFFIX,featuregates.org
-DOMAIN-SUFFIX,generativelanguage.googleapis.com
-DOMAIN-SUFFIX,githubcopilot.com
 DOMAIN-SUFFIX,grammarly.io
 DOMAIN-SUFFIX,intercomassets.com
 DOMAIN-SUFFIX,kaleido.ai
@@ -104,7 +100,6 @@ DOMAIN-SUFFIX,openai.org
 DOMAIN-SUFFIX,openrouter.ai
 DOMAIN-SUFFIX,perplexity.ai
 DOMAIN-SUFFIX,pollo.ai
-DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com
 DOMAIN-SUFFIX,recraft.ai
 DOMAIN-SUFFIX,searchgpt.com
 DOMAIN-SUFFIX,statsig.com
@@ -116,10 +111,6 @@ DOMAIN-SUFFIX,cdn.whatsapp.net
 DOMAIN-SUFFIX,facebook.com
 DOMAIN-SUFFIX,cdninstagram.com
 DOMAIN-SUFFIX,fbcdn.net
-
-# GOOGLE / YOUTUBE
-DOMAIN-SUFFIX,googleapis.com
-DOMAIN-SUFFIX,ggpht.com
 
 # CDN / NETWORK
 DOMAIN-SUFFIX,cloudflare.com
@@ -144,7 +135,6 @@ DOMAIN-SUFFIX,scdn.co
 DOMAIN-SUFFIX,appsflyersdk.com
 DOMAIN-SUFFIX,t-static.ru
 DOMAIN-SUFFIX,locketcamera.com
-DOMAIN-SUFFIX,github.com
 DOMAIN-SUFFIX,swiftgram.app
 DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,adrenaline-fast.ru
