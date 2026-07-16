@@ -20,42 +20,27 @@ DOMAIN-SUFFIX,ikea.com
 DOMAIN-SUFFIX,ttvnw.net
 DOMAIN-SUFFIX,spotifycdn.com
 DOMAIN-SUFFIX,scdn.co
-DOMAIN-SUFFIX,aol.com
-DOMAIN-SUFFIX,api2.support-kp.com
-DOMAIN-SUFFIX,canva.dev
 DOMAIN-SUFFIX,mixcloud.com
 DOMAIN-SUFFIX,redislabs.com
 DOMAIN-SUFFIX,anthropic.com
-DOMAIN-SUFFIX,apple-relay.apple.com
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,deepl.com
 DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,searchgpt.com
-DOMAIN-SUFFIX,anzu-us.com
-DOMAIN-SUFFIX,cdn.id.supercell.com
-DOMAIN-SUFFIX,clashofclans.com
 DOMAIN-SUFFIX,clashofclans.inbox.supercell.com
-DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,speedtest.net
 DOMAIN-SUFFIX,grani.ru
 DOMAIN-SUFFIX,gulagu.net
 DOMAIN-SUFFIX,vznakomstve.com
 DOMAIN-SUFFIX,adult.noodlemagazine.com
 DOMAIN-SUFFIX,a-msedge.net
-DOMAIN-SUFFIX,ai.com
-DOMAIN-SUFFIX,algolia.net
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,antigravity-unleash.goog
 DOMAIN-SUFFIX,appcenter.ms
 DOMAIN-SUFFIX,arkoselabs.com
-DOMAIN-SUFFIX,auth0.com
 DOMAIN-SUFFIX,azureedge.net
 DOMAIN-SUFFIX,bing.com
 DOMAIN-SUFFIX,bingapis.com
-DOMAIN,browser-intake-datadoghq.com
-DOMAIN,chat.com
-DOMAIN-SUFFIX,chatgpt.com
-DOMAIN,chatgpt.livekit.cloud
 DOMAIN-SUFFIX,claude.ai
 DOMAIN-SUFFIX,claude.com
 DOMAIN-SUFFIX,claudeusercontent.com
@@ -88,7 +73,6 @@ DOMAIN-SUFFIX,unscreen.com
 
 # META / WHATSAPP / INSTAGRAM
 DOMAIN-SUFFIX,cdn.whatsapp.net
-DOMAIN-SUFFIX,cdninstagram.com
 
 # CDN / NETWORK
 DOMAIN-SUFFIX,cdn.cloudflare.net
@@ -112,9 +96,7 @@ DOMAIN-SUFFIX,appsflyersdk.com
 DOMAIN-SUFFIX,t-static.ru
 DOMAIN-SUFFIX,locketcamera.com
 DOMAIN-SUFFIX,swiftgram.app
-DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,adrenaline-fast.ru
-DOMAIN-SUFFIX,app-measurement.com
 DOMAIN-SUFFIX,imap.gmail.com
 DOMAIN-SUFFIX,canvaz.scdn.co
 DOMAIN-SUFFIX,p31-imap.mail.me.com
@@ -125,11 +107,9 @@ DOMAIN-SUFFIX,pin.apiblink.ru
 DOMAIN-SUFFIX,roblox.com
 DOMAIN-SUFFIX,pagead2.googlesyndication.com
 DOMAIN-SUFFIX,studilka.ru
-DOMAIN-SUFFIX,app-measurement.com
 DOMAIN-SUFFIX,apptracer.ru
 DOMAIN-SUFFIX,inner-active.mobi
 DOMAIN-SUFFIX,qplus.ru
-DOMAIN-SUFFIX,app-analytics-services.com
 DOMAIN-SUFFIX,adguard-dns.io
 DOMAIN-SUFFIX,dodois.com
 DOMAIN-SUFFIX,dodopizza.com
@@ -139,16 +119,12 @@ DOMAIN-SUFFIX,inappstory.ru
 DOMAIN-SUFFIX,uds.app
 DOMAIN-SUFFIX,is1-ssl.mzstatic.com
 DOMAIN-SUFFIX,plati.market
-DOMAIN-SUFFIX,2ip.io
-DOMAIN-SUFFIX,2ip.ru
-DOMAIN-SUFFIX,api.swiftgram.app
 DOMAIN-SUFFIX,api.locketcamera.com
 DOMAIN-SUFFIX,audio-fa.scdn.co
 DOMAIN-SUFFIX,app.loonabrowser.ru
 DOMAIN-SUFFIX,playconsole.static.usercontent.goog
 DOMAIN-SUFFIX,googleads.g.doubleclick.net
 DOMAIN-SUFFIX,google-ohttp-relay-safebrowsing.fastly-edge.com
-DOMAIN-SUFFIX,app-measurement.com
 DOMAIN-SUFFIX,ota.googlezip.net
 DOMAIN-SUFFIX,ota-cache1.googlezip.net
 DOMAIN-SUFFIX,ota-cache2.googlezip.net
