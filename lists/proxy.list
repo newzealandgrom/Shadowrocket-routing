@@ -14,7 +14,6 @@ DOMAIN-KEYWORD,rutracker
 DOMAIN-KEYWORD,tiktok
 DOMAIN-KEYWORD,chatgpt
 DOMAIN-SUFFIX,fbcdn.net
-DOMAIN-SUFFIX,fbsbx.com
 DOMAIN-SUFFIX,ign.com
 DOMAIN-SUFFIX,twitch.tv
 DOMAIN-SUFFIX,cub.red
@@ -44,9 +43,6 @@ DOMAIN-SUFFIX,anzu-us.com
 DOMAIN-SUFFIX,cdn.id.supercell.com
 DOMAIN-SUFFIX,clashofclans.com
 DOMAIN-SUFFIX,clashofclans.inbox.supercell.com
-DOMAIN-SUFFIX,game-assets.clashofclans.com
-DOMAIN-SUFFIX,game.boombeachgame.com
-DOMAIN-SUFFIX,game.clashofclans.com
 DOMAIN-SUFFIX,browserleaks.com
 DOMAIN-SUFFIX,speedtest.net
 DOMAIN-SUFFIX,datacamp.com
@@ -85,7 +81,6 @@ DOMAIN-SUFFIX,designify.com
 DOMAIN-SUFFIX,devin.ai
 DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,elevenreader.io
-DOMAIN-SUFFIX,featuregates.org
 DOMAIN-SUFFIX,grammarly.io
 DOMAIN-SUFFIX,intercomassets.com
 DOMAIN-SUFFIX,kaleido.ai
@@ -108,9 +103,7 @@ DOMAIN-SUFFIX,unscreen.com
 
 # META / WHATSAPP / INSTAGRAM
 DOMAIN-SUFFIX,cdn.whatsapp.net
-DOMAIN-SUFFIX,facebook.com
 DOMAIN-SUFFIX,cdninstagram.com
-DOMAIN-SUFFIX,fbcdn.net
 
 # CDN / NETWORK
 DOMAIN-SUFFIX,cloudflare.com
