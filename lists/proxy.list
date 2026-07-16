@@ -1,5 +1,4 @@
 DOMAIN-SUFFIX,mask.apple-dns.net
-DOMAIN-SUFFIX,mask.icloud.com
 DOMAIN-SUFFIX,*.whatsapp.com
 DOMAIN-KEYWORD,4pda
 DOMAIN-KEYWORD,discord
@@ -18,16 +17,11 @@ DOMAIN-SUFFIX,googleapis.com
 DOMAIN-SUFFIX,googleusercontent.com
 DOMAIN-SUFFIX,googlevideo.com
 DOMAIN-SUFFIX,gstatic.com
-DOMAIN-SUFFIX,i.ytimg.com
-DOMAIN-SUFFIX,i9.ytimg.com
 DOMAIN-SUFFIX,ytimg.l.google.com
 DOMAIN-SUFFIX,ytstatic.l.google.com
 DOMAIN-SUFFIX,fbcdn.net
 DOMAIN-SUFFIX,fbsbx.com
-DOMAIN-SUFFIX,ig.me
 DOMAIN-SUFFIX,ign.com
-DOMAIN-SUFFIX,medium.com
-DOMAIN-SUFFIX,meta.com
 DOMAIN-SUFFIX,twitch.tv
 DOMAIN-SUFFIX,cub.red
 DOMAIN-SUFFIX,dyson.com
@@ -42,13 +36,7 @@ DOMAIN-SUFFIX,api2.support-kp.com
 DOMAIN-SUFFIX,canva.dev
 DOMAIN-SUFFIX,cloudflare.com
 DOMAIN-SUFFIX,digitalocean.com
-DOMAIN-SUFFIX,harvestapp.com
-DOMAIN-SUFFIX,hostinger.com
-DOMAIN-SUFFIX,intel.com
-DOMAIN-SUFFIX,jetbrains.com
 DOMAIN-SUFFIX,mixcloud.com
-DOMAIN-SUFFIX,netpeaksoftware.com
-DOMAIN-SUFFIX,notionusercontent.com
 DOMAIN-SUFFIX,redislabs.com
 DOMAIN-SUFFIX,anthropic.com
 DOMAIN-SUFFIX,apple-relay.apple.com
@@ -69,20 +57,11 @@ DOMAIN-SUFFIX,game.boombeachgame.com
 DOMAIN-SUFFIX,game.clashofclans.com
 DOMAIN-SUFFIX,gameloft.com
 DOMAIN-SUFFIX,browserleaks.com
-DOMAIN-SUFFIX,ifconfig.me
-DOMAIN-SUFFIX,maxmind.com
 DOMAIN-SUFFIX,speedtest.net
 DOMAIN-SUFFIX,datacamp.com
 DOMAIN-SUFFIX,euronews.com
 DOMAIN-SUFFIX,grani.ru
 DOMAIN-SUFFIX,gulagu.net
-DOMAIN-SUFFIX,holod.media
-DOMAIN-SUFFIX,meduza.io
-DOMAIN-SUFFIX,navalny.com
-DOMAIN-SUFFIX,novaya.no
-DOMAIN-SUFFIX,novayagazeta.eu
-DOMAIN-SUFFIX,novayagazeta.ru
-DOMAIN-SUFFIX,ntc.party
 DOMAIN-SUFFIX,vznakomstve.com
 DOMAIN-SUFFIX,adult.noodlemagazine.com
 DOMAIN-SUFFIX,a-msedge.net
@@ -128,15 +107,10 @@ DOMAIN-SUFFIX,google.dev
 DOMAIN-SUFFIX,grammarly.com
 DOMAIN-SUFFIX,grammarly.io
 DOMAIN-SUFFIX,grok.com
-DOMAIN,host.livekit.cloud
-DOMAIN-SUFFIX,identrust.com
-DOMAIN-SUFFIX,intercom.io
 DOMAIN-SUFFIX,intercomassets.com
-DOMAIN-SUFFIX,intercomcdn.com
 DOMAIN-SUFFIX,jules.google.com
 DOMAIN-SUFFIX,kaleido.ai
 DOMAIN-SUFFIX,kilo.ai
-DOMAIN-SUFFIX,launchdarkly.com
 DOMAIN-SUFFIX,makersuite.google.com
 DOMAIN-SUFFIX,manus.im
 DOMAIN-SUFFIX,manuscdn.com
@@ -144,7 +118,6 @@ DOMAIN-SUFFIX,meta.ai
 DOMAIN-SUFFIX,microsoftapp.net
 DOMAIN-SUFFIX,notebooklm.google.com
 DOMAIN,o33249.ingest.sentry.io
-DOMAIN-SUFFIX,oaiusercontent.com
 DOMAIN-SUFFIX,openai.fund
 DOMAIN-SUFFIX,openai.org
 DOMAIN-SUFFIX,openrouter.ai
@@ -161,13 +134,8 @@ DOMAIN-SUFFIX,habr.com
 # META / WHATSAPP / INSTAGRAM
 DOMAIN-SUFFIX,cdn.whatsapp.net
 DOMAIN-SUFFIX,facebook.com
-DOMAIN-SUFFIX,instagram.com
 DOMAIN-SUFFIX,cdninstagram.com
 DOMAIN-SUFFIX,fbcdn.net
-
-# OPENAI / CHATGPT
-DOMAIN-SUFFIX,chatgpt.com
-DOMAIN-SUFFIX,oaistatic.com
 
 # GOOGLE / YOUTUBE
 DOMAIN-SUFFIX,google.com
