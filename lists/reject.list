@@ -1,2 +1,2 @@
-DOMAIN-SUFFIX,report.appmetrica.yandex.net,REJECT
-DOMAIN-SUFFIX,*2gis.com,REJECT
+DOMAIN-SUFFIX,report.appmetrica.yandex.net
+DOMAIN-SUFFIX,*2gis.com
