@@ -1,0 +1,25 @@
+name: Check duplicate domains in lists/
+
+on:
+  push:
+    paths:
+      - 'lists/**'
+  pull_request:
+    paths:
+      - 'lists/**'
+  workflow_dispatch:   # можно запустить вручную из вкладки Actions
+
+jobs:
+  check-duplicates:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Check for duplicate domains
+        run: python github_actions/check_duplicates.py
