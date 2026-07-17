@@ -1,0 +1,10 @@
+#!name = M3U8 Link Notifier
+#!desc = Уведомление со ссылкой на m3u8-плейлист (Rutube/xHamster/YouTube)
+#!category = Tools
+#!author = you
+
+[Script]
+m3u8-capture = type=http-request,pattern=^https?:\/\/([^\/]*\.)?(rutube\.ru|xhamster\.com|xhamster2\.com|xhamster3\.com|youtube\.com|googlevideo\.com)\/.*\.m3u8(\?.*)?$,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/master/m3u8-capture.js,script-update-interval=0
+
+[MITM]
+hostname = %APPEND% rutube.ru, www.rutube.ru, xhamster.com, www.xhamster.com, xhamster2.com, xhamster3.com, youtube.com, www.youtube.com, m.youtube.com, *.googlevideo.com
