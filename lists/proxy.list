@@ -79,12 +79,8 @@ DOMAIN-SUFFIX,cloudfront.net
 DOMAIN-SUFFIX,workers.dev
 DOMAIN-SUFFIX,spotify.com
 DOMAIN-SUFFIX,burgerkingrus.ru
-DOMAIN-SUFFIX,cdn-tinkoff.ru
 DOMAIN-SUFFIX,ngenix.net
 DOMAIN-SUFFIX,trisigma.io
-DOMAIN-SUFFIX,kbapp.ru
-DOMAIN-SUFFIX,vkusnoitochka.ru
-DOMAIN-SUFFIX,kfc.ru
 DOMAIN-SUFFIX,ixbt.net
 DOMAIN-SUFFIX,spotifycdn.com
 DOMAIN-SUFFIX,mzstatic.com
@@ -92,7 +88,6 @@ DOMAIN-SUFFIX,measurment.com
 DOMAIN-SUFFIX,tosporify.com
 DOMAIN-SUFFIX,scdn.co
 DOMAIN-SUFFIX,appsflyersdk.com
-DOMAIN-SUFFIX,t-static.ru
 DOMAIN-SUFFIX,locketcamera.com
 DOMAIN-SUFFIX,swiftgram.app
 DOMAIN-SUFFIX,adrenaline-fast.ru
