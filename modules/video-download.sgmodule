@@ -1,10 +1,10 @@
 #!name = Video Download Button
-#!desc = Добавляет кнопку "Скачать видео" на страницах с <video> тегами
+#!desc = Кнопка "Скачать видео" для Rutube/xHamster (YouTube не поддерживается — blob-плеер)
 #!category = Tools
 #!author = you
 
 [Script]
-video-download-button = type=http-response,pattern=^https?:\/\/.+\.(html?)?(\?.*)?$,requires-body=true,max-size=-1,script-path=https://github.com/newzealandgrom/Shadowrocket-routing/raw/refs/heads/master/Script/video-download-button.js,tag=video-download-button
+video-download-button = type=http-response,pattern=^https?:\/\/(www\.)?(rutube\.ru|xhamster\.com|xhamster2\.com|xhamster3\.com)\/.*,requires-body=true,max-size=-1,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/master/video-download-button.js,tag=video-download-button
 
 [MITM]
-hostname = %APPEND% *
+hostname = %APPEND% rutube.ru, www.rutube.ru, xhamster.com, www.xhamster.com, xhamster2.com, xhamster3.com
