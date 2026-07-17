@@ -1,98 +1,94 @@
 // video-download-button.js
-// Инъекция кнопки "Скачать видео" на страницы с <video> тегами
+// Плавающая кнопка "Скачать видео" — не перекрывает плеер,
+// появляется только если найден прямой src (не blob/m3u8)
 
 (function () {
   'use strict';
 
-  const BTN_ID = '__sr_video_download_btn__';
-  const CHECK_INTERVAL_MS = 1500;
-  const processedVideos = new WeakSet();
+  const BTN_ID = '__sr_video_dl_btn__';
+  const SCAN_INTERVAL_MS = 1500;
+  let currentUrl = null;
 
-  function getVideoSrc(video) {
-    if (video.currentSrc) return video.currentSrc;
-    if (video.src) return video.src;
-    const source = video.querySelector('source[src]');
-    if (source) return source.src;
+  function findDownloadableVideoSrc() {
+    const videos = document.querySelectorAll('video');
+    for (const video of videos) {
+      const src = video.currentSrc || video.src ||
+        (video.querySelector('source[src]') ? video.querySelector('source[src]').src : null);
+      if (!src) continue;
+      if (src.startsWith('blob:')) continue;
+      if (/\.(m3u8|mpd)(\?.*)?$/i.test(src)) continue;
+      return src;
+    }
     return null;
   }
 
-  function isDirectFile(url) {
-    if (!url) return false;
-    if (url.startsWith('blob:')) return false;
-    return /\.(mp4|webm|mov|m4v)(\?.*)?$/i.test(url) || !/\.(m3u8|mpd)(\?.*)?$/i.test(url);
-  }
+  function ensureButton() {
+    let btn = document.getElementById(BTN_ID);
+    if (btn) return btn;
 
-  function createButton(video) {
-    const btn = document.createElement('button');
-    btn.textContent = '⬇ Скачать видео';
+    btn = document.createElement('div');
+    btn.id = BTN_ID;
+    btn.textContent = '⬇';
+    btn.title = 'Скачать видео';
     btn.style.cssText = [
-      'position:absolute',
+      'position:fixed',
       'z-index:2147483647',
-      'top:8px',
-      'right:8px',
-      'padding:6px 12px',
-      'background:rgba(0,0,0,0.75)',
+      'bottom:16px',
+      'right:16px',
+      'width:44px',
+      'height:44px',
+      'display:none',
+      'align-items:center',
+      'justify-content:center',
+      'background:rgba(0,0,0,0.55)',
       'color:#fff',
-      'border:none',
-      'border-radius:6px',
-      'font-size:13px',
+      'border-radius:50%',
+      'font-size:20px',
       'cursor:pointer',
-      'font-family:sans-serif'
+      'font-family:sans-serif',
+      'box-shadow:0 2px 6px rgba(0,0,0,0.3)',
+      'transition:opacity 0.2s',
+      'opacity:0.5'
     ].join(';');
+    btn.style.display = 'none';
+
+    btn.addEventListener('mouseenter', () => { btn.style.opacity = '1'; });
+    btn.addEventListener('mouseleave', () => { btn.style.opacity = '0.5'; });
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      const url = getVideoSrc(video);
-      if (!url) {
-        alert('Не удалось определить ссылку на видео');
-        return;
-      }
-      if (url.startsWith('blob:')) {
-        alert('Видео передаётся через blob-поток — прямое скачивание невозможно');
-        return;
-      }
-      if (/\.(m3u8|mpd)(\?.*)?$/i.test(url)) {
-        // HLS/DASH — просто открываем ссылку на плейлист,
-        // реальное скачивание требует внешнего инструмента (yt-dlp и т.п.)
-        window.open(url, '_blank');
-        return;
-      }
+      if (!currentUrl) return;
       const a = document.createElement('a');
-      a.href = url;
+      a.href = currentUrl;
       a.download = '';
       document.body.appendChild(a);
       a.click();
       a.remove();
     });
 
+    document.body.appendChild(btn);
     return btn;
   }
 
-  function attachButtonToVideo(video) {
-    if (processedVideos.has(video)) return;
-    if (!video.parentElement) return;
-
-    const parent = video.parentElement;
-    const computedPosition = window.getComputedStyle(parent).position;
-    if (computedPosition === 'static') {
-      parent.style.position = 'relative';
-    }
-
-    const btn = createButton(video);
-    btn.id = BTN_ID + Math.random().toString(36).slice(2);
-    parent.appendChild(btn);
-    processedVideos.add(video);
+  function scan() {
+    if (!document.body) return;
+    const btn = ensureButton();
+    const src = findDownloadableVideoSrc();
+    currentUrl = src;
+    btn.style.display = src ? 'flex' : 'none';
   }
 
-  function scanForVideos() {
-    const videos = document.querySelectorAll('video');
-    videos.forEach(attachButtonToVideo);
+  const start = () => {
+    scan();
+    setInterval(scan, SCAN_INTERVAL_MS);
+    const observer = new MutationObserver(scan);
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  };
+
+  if (document.body) {
+    start();
+  } else {
+    document.addEventListener('DOMContentLoaded', start);
   }
-
-  scanForVideos();
-  setInterval(scanForVideos, CHECK_INTERVAL_MS);
-
-  const observer = new MutationObserver(() => scanForVideos());
-  observer.observe(document.documentElement, { childList: true, subtree: true });
 })();
