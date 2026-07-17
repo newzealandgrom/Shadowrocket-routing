@@ -1,90 +1,100 @@
 // video-download-button.js
-// Плавающая кнопка "Скачать видео" — не перекрывает плеер,
-// появляется только если найден прямой src (не blob/m3u8)
+// ВАЖНО: этот код выполняется в песочнице Shadowrocket (НЕ в браузере).
+// Здесь нет document/window — только $request/$response/$done.
+// Скрипт вставляет браузерный код кнопки внутрь HTML-ответа как строку.
 
+let headers = $response.headers || {};
+let contentType = '';
+for (const key of Object.keys(headers)) {
+  if (key.toLowerCase() === 'content-type') {
+    contentType = String(headers[key]);
+    break;
+  }
+}
+
+// Трогаем только HTML-страницы — иначе можно сломать JSON/картинки/шрифты сайта
+if (!contentType || contentType.toLowerCase().indexOf('text/html') === -1) {
+  $done({});
+} else {
+  let body = $response.body || '';
+
+  // Снимаем CSP-заголовок (иначе браузер молча заблокирует наш инлайн-скрипт)
+  const newHeaders = {};
+  for (const key of Object.keys(headers)) {
+    const lower = key.toLowerCase();
+    if (lower === 'content-security-policy' || lower === 'content-security-policy-report-only') {
+      continue;
+    }
+    newHeaders[key] = headers[key];
+  }
+
+  // Снимаем CSP, если он задан через <meta> тег в самом HTML
+  body = body.replace(/<meta[^>]+http-equiv=["']?content-security-policy["']?[^>]*>/gi, '');
+
+  const injected = `
+<script>
 (function () {
   'use strict';
-
-  const BTN_ID = '__sr_video_dl_btn__';
-  const SCAN_INTERVAL_MS = 1500;
-  let currentUrl = null;
+  var BTN_ID = '__sr_video_dl_btn__';
+  var SCAN_INTERVAL_MS = 1500;
+  var currentUrl = null;
 
   function findDownloadableVideoSrc() {
-    const videos = document.querySelectorAll('video');
-    for (const video of videos) {
-      const src = video.currentSrc || video.src ||
-        (video.querySelector('source[src]') ? video.querySelector('source[src]').src : null);
+    var videos = document.querySelectorAll('video');
+    for (var i = 0; i < videos.length; i++) {
+      var video = videos[i];
+      var src = video.currentSrc || video.src;
+      if (!src) {
+        var source = video.querySelector('source[src]');
+        if (source) src = source.src;
+      }
       if (!src) continue;
-      if (src.startsWith('blob:')) continue;
-      if (/\.(m3u8|mpd)(\?.*)?$/i.test(src)) continue;
+      if (src.indexOf('blob:') === 0) continue;
+      if (/\\.(m3u8|mpd)(\\?.*)?$/i.test(src)) continue;
       return src;
     }
     return null;
   }
 
   function ensureButton() {
-    let btn = document.getElementById(BTN_ID);
+    var btn = document.getElementById(BTN_ID);
     if (btn) return btn;
-
     btn = document.createElement('div');
     btn.id = BTN_ID;
     btn.textContent = '⬇';
     btn.title = 'Скачать видео';
-    btn.style.cssText = [
-      'position:fixed',
-      'z-index:2147483647',
-      'bottom:16px',
-      'right:16px',
-      'width:44px',
-      'height:44px',
-      'display:none',
-      'align-items:center',
-      'justify-content:center',
-      'background:rgba(0,0,0,0.55)',
-      'color:#fff',
-      'border-radius:50%',
-      'font-size:20px',
-      'cursor:pointer',
-      'font-family:sans-serif',
-      'box-shadow:0 2px 6px rgba(0,0,0,0.3)',
-      'transition:opacity 0.2s',
-      'opacity:0.5'
-    ].join(';');
-    btn.style.display = 'none';
-
-    btn.addEventListener('mouseenter', () => { btn.style.opacity = '1'; });
-    btn.addEventListener('mouseleave', () => { btn.style.opacity = '0.5'; });
-
+    btn.style.cssText = 'position:fixed;z-index:2147483647;bottom:16px;right:16px;width:44px;height:44px;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);color:#fff;border-radius:50%;font-size:20px;cursor:pointer;font-family:sans-serif;box-shadow:0 2px 6px rgba(0,0,0,0.3);transition:opacity 0.2s;opacity:0.5';
+    btn.addEventListener('mouseenter', function () { btn.style.opacity = '1'; });
+    btn.addEventListener('mouseleave', function () { btn.style.opacity = '0.5'; });
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
       if (!currentUrl) return;
-      const a = document.createElement('a');
+      var a = document.createElement('a');
       a.href = currentUrl;
       a.download = '';
       document.body.appendChild(a);
       a.click();
       a.remove();
     });
-
     document.body.appendChild(btn);
     return btn;
   }
 
   function scan() {
     if (!document.body) return;
-    const btn = ensureButton();
-    const src = findDownloadableVideoSrc();
+    var btn = ensureButton();
+    var src = findDownloadableVideoSrc();
     currentUrl = src;
     btn.style.display = src ? 'flex' : 'none';
   }
 
-  const start = () => {
+  function start() {
     scan();
     setInterval(scan, SCAN_INTERVAL_MS);
-    const observer = new MutationObserver(scan);
+    var observer = new MutationObserver(scan);
     observer.observe(document.documentElement, { childList: true, subtree: true });
-  };
+  }
 
   if (document.body) {
     start();
@@ -92,3 +102,14 @@
     document.addEventListener('DOMContentLoaded', start);
   }
 })();
+</script>
+`;
+
+  if (body.indexOf('</body>') !== -1) {
+    body = body.replace('</body>', injected + '</body>');
+  } else {
+    body = body + injected;
+  }
+
+  $done({ body: body, headers: newHeaders });
+}
