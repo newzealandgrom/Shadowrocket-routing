@@ -63,8 +63,6 @@ DOMAIN-SUFFIX,chat.com
 DOMAIN-SUFFIX,checkout.buckaroo.nl
 DOMAIN-SUFFIX,chess.com
 DOMAIN-SUFFIX,cisco.com
-DOMAIN-SUFFIX,pbs.twimg.com.cdn.cloudflare.net
-DOMAIN-SUFFIX,video.twimg.com.cdn.cloudflare.net
 DOMAIN-SUFFIX,admin.instagram.com
 DOMAIN-SUFFIX,api.instagram.com
 DOMAIN-SUFFIX,aistudio.google.com
@@ -317,8 +315,6 @@ DOMAIN-SUFFIX,torrent.by
 DOMAIN-SUFFIX,tr.anidub.com
 DOMAIN-SUFFIX,tracker.opentrackr.org
 DOMAIN-SUFFIX,tutanota.com
-DOMAIN-SUFFIX,twimg.com
-DOMAIN-SUFFIX,abs-0.twimg.com
 DOMAIN-SUFFIX,ufile.io
 DOMAIN-SUFFIX,underver.se
 DOMAIN-SUFFIX,unfiltered.adguard-dns.com
@@ -2817,8 +2813,6 @@ DOMAIN-SUFFIX,abookru.info
 DOMAIN-SUFFIX,abordazh.com
 DOMAIN-SUFFIX,aboutrussia.org
 DOMAIN-SUFFIX,abpr2.railfan.net
-DOMAIN-SUFFIX,abs-0.twimg.com
-DOMAIN-SUFFIX,abs.twimg.com
 DOMAIN-SUFFIX,absentismo-laboral.com
 DOMAIN-SUFFIX,absfpro.com
 DOMAIN-SUFFIX,absoku072.com
@@ -25014,8 +25008,6 @@ DOMAIN-SUFFIX,pba-groups.net
 DOMAIN-SUFFIX,pbclub.top
 DOMAIN-SUFFIX,pbgazzz325.online
 DOMAIN-SUFFIX,pboc.su
-DOMAIN-SUFFIX,pbs.twimg.com
-DOMAIN-SUFFIX,pbs.twimg.com.cdn.cloudflare.net
 DOMAIN-SUFFIX,pbuj.pirat.one
 DOMAIN-SUFFIX,pbz-system.ru
 DOMAIN-SUFFIX,pc-torrent-games.net
@@ -32292,7 +32284,6 @@ DOMAIN-SUFFIX,t-options.com
 DOMAIN-SUFFIX,t-tg.cc
 DOMAIN-SUFFIX,t.1intworld.fun
 DOMAIN-SUFFIX,t.4k-hd.cyou
-DOMAIN-SUFFIX,t.co
 DOMAIN-SUFFIX,t.do4a.me
 DOMAIN-SUFFIX,t.fastworks.click
 DOMAIN-SUFFIX,t.gtorent.pro
@@ -34959,7 +34950,6 @@ DOMAIN-SUFFIX,twenty-two.ru
 DOMAIN-SUFFIX,twentydofm.xyz
 DOMAIN-SUFFIX,twerk-twerk.ru
 DOMAIN-SUFFIX,twicopy.com
-DOMAIN-SUFFIX,twimg.com
 DOMAIN-SUFFIX,twin.com
 DOMAIN-SUFFIX,twin71.com
 DOMAIN-SUFFIX,twinkfreeporn.com
@@ -37209,7 +37199,6 @@ DOMAIN-SUFFIX,whysite.me
 DOMAIN-SUFFIX,wibr-plus.ru
 DOMAIN-SUFFIX,wickedwild.net
 DOMAIN-SUFFIX,wickr.com
-DOMAIN-SUFFIX,wide-youtube.l.google.com
 DOMAIN-SUFFIX,wierstamann.net
 DOMAIN-SUFFIX,wifflegif.com
 DOMAIN-SUFFIX,wifigame.top
@@ -42323,9 +42312,7 @@ DOMAIN-SUFFIX,yourlibrary.at.ua
 DOMAIN-SUFFIX,yourshop.ddpills.com
 DOMAIN-SUFFIX,yousxretyuol.site
 DOMAIN-SUFFIX,youtor.org
-DOMAIN-SUFFIX,youtube-nocookie.com
 DOMAIN-SUFFIX,youtube.076.ne.jp
-DOMAIN-SUFFIX,youtube.googleapis.com
 DOMAIN-SUFFIX,youtube.lurkmore.com
 DOMAIN-SUFFIX,youtubeprime.com
 DOMAIN-SUFFIX,youtubu.tv
