@@ -4,7 +4,7 @@
 #!author = you
 
 [Script]
-video-download-button = type=http-response,pattern=^https?:\/\/.+\.(html?)?(\?.*)?$,requires-body=true,max-size=-1,script-path=https://raw.githubusercontent.com/your-username/your-repo/main/video-download-button.js,tag=video-download-button
+video-download-button = type=http-response,pattern=^https?:\/\/.+\.(html?)?(\?.*)?$,requires-body=true,max-size=-1,script-path=https://github.com/newzealandgrom/Shadowrocket-routing/raw/refs/heads/master/Script/video-download-button.js,tag=video-download-button
 
 [MITM]
 hostname = %APPEND% *
