@@ -1,0 +1,48 @@
+name: Sync YouTube module
+
+on:
+  schedule:
+    # Ежедневно в 03:43 UTC (06:43 МСК): YouTube меняет выдачу рекламы часто, а исправления
+    # у автора скриптов выходят быстро.
+    - cron: '43 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Та же группа, что у sync-upstream.yml: два workflow не пушат в master одновременно.
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Собрать модуль из свежего YouTube Enhance (Maasea)
+        run: python github_actions/sync_youtube_module.py
+
+      - name: Закоммитить изменения
+        run: |
+          git add -A modules/YT-Premium-V1-RU.module Script
+          if git diff --cached --quiet; then
+            echo "Модуль и скрипты не изменились."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          {
+            echo "Sync YouTube module with Maasea/sgmodule"
+            echo
+            grep -m1 '^# Источник:' modules/YT-Premium-V1-RU.module
+          } > /tmp/commit-msg.txt
+          git commit -F /tmp/commit-msg.txt
+          git push

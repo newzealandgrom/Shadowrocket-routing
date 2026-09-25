@@ -40,6 +40,8 @@ BM7 = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rul
 REFILTER = "https://raw.githubusercontent.com/1andrevich/Re-filter-lists/main/"
 METACUBEX = "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/"
 V2FLY = "https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/"
+MASTER_YOBA = "https://raw.githubusercontent.com/Master-Yoba/shadowrocket-rules/release/rules-geosite/"
+RCVPN = "https://raw.githubusercontent.com/nncat01/RCVPN-SR/release/rules-geosite/"
 
 # format:
 #   shadowrocket — файл уже в формате Shadowrocket/Surge (берётся как есть);
@@ -67,6 +69,17 @@ SOURCES: dict[str, dict] = {
     "ips_refilter.list": {"url": REFILTER + "ipsum.lst", "format": "cidrs"},
     "domains_geo_detect.list": {"url": METACUBEX + "category-ip-geo-detect.list", "format": "clash-domains"},
     "private.list": {"url": V2FLY + "private", "format": "v2fly"},
+    # Российские сервисы, которые должны идти напрямую: доступные только из РФ (runetfreedom),
+    # белый список мобильного интернета (hxehex) и белый список roscomvpn. Склеиваются в один список.
+    "ru_direct_community.list": {"url": [MASTER_YOBA + "geosite-ru-available-only-inside.list",
+                                         MASTER_YOBA + "geosite-ru-mobile-whitelist.list",
+                                         RCVPN + "whitelist.list"],
+                                 "format": "shadowrocket"},
+    # Зарубежные сайты, которые сами блокируют российские IP (roscomvpn category-geoblock-ru).
+    # URL-REGEX там записаны как регулярки по имени хоста (из sing-box domain_regex) и в
+    # Shadowrocket не срабатывают, поэтому отбрасываются.
+    "geoblock_ru.list": {"url": RCVPN + "category-geoblock-ru.list", "format": "shadowrocket",
+                         "drop_types": ["URL-REGEX"]},
 }
 
 UA = "Shadowrocket-routing sync (https://github.com/newzealandgrom/Shadowrocket-routing)"

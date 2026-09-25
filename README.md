@@ -20,12 +20,14 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 | `SR_RU.conf` | Главный конфиг: секции `[General]`, `[Rule]`, `[Host]`. Все списки подключаются через `RULE-SET` с raw-ссылок GitHub. |
 | `lists/` | Списки правил в формате Shadowrocket (см. таблицу ниже). |
 | `lists/overrides/` | Локальные правки к автоматически обновляемым спискам: `<имя>.exclude` (что выкинуть), `<имя>.append` (что добавить). |
-| `modules/YT-Premium-V1-RU.module` | Модуль блокировки рекламы YouTube (MITM + скрипт). |
-| `modules/Certificate.module` | Шаблон модуля с собственным MITM-сертификатом (`ca-p12` / `ca-passphrase`). |
-| `Script/youtube.response.js` | Скрипт, который использует YouTube-модуль. |
+| `modules/YT-Premium-V1-RU.module` | Модуль без рекламы для приложений YouTube и YouTube Music (MITM + скрипты Maasea). Собирается автоматически, см. раздел про модуль YouTube. |
+| `modules/Social-Ads.module` | Модуль без рекламы в Reddit и Pinterest через `[Body Rewrite]` (jq), без скриптов. |
+| `modules/Certificate.module` | Модуль-сертификат: хранит сертификат HTTPS-расшифровки отдельно от конфига, заполняется через «Редактировать параметры». |
+| `Script/youtube.response.js`, `Script/youtube.request.js` | Копии скриптов [Maasea/sgmodule](https://github.com/Maasea/sgmodule) (Apache-2.0), которые использует модуль YouTube. Обновляются вместе с модулем. |
 | `github_actions/validate_lists.py` | Валидатор списков и конфига (запускается в CI). |
 | `github_actions/normalize_lists.py` | Приведение списков к каноническому виду. |
 | `github_actions/sync_upstream.py` | Синхронизация списков с upstream-источниками. |
+| `github_actions/sync_youtube_module.py` | Сборка модуля YouTube и копий скриптов из актуальной версии YouTube Enhance (Maasea). |
 
 ### Списки
 
@@ -37,9 +39,11 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 | `private.list` | DIRECT | Локальные и служебные домены (`.local`, `.lan`, роутеры, `in-addr.arpa`) | автоматически, v2fly `private` |
 | `direct.list` | DIRECT | Российские сервисы, которые должны идти напрямую | вручную |
 | `domains_banking.list` | DIRECT | Сайты банков по списку ЦБ РФ | вручную |
+| `ru_direct_community.list` | DIRECT | Сайты, доступные только из РФ, белый список мобильного интернета и белый список roscomvpn | автоматически, [Master-Yoba](https://github.com/Master-Yoba/shadowrocket-rules) + [RCVPN-SR](https://github.com/nncat01/RCVPN-SR) |
 | `discord.list` | PROXY | Discord | вручную |
 | `domains_refilter.list` | PROXY | Домены, заблокированные в РФ (`domains_all.lst`), плюс сайты, ограничивающие доступ из РФ (`community.lst`) | автоматически, [Re-filter](https://github.com/1andrevich/Re-filter-lists) |
 | `domains_community.list` | PROXY | Ручные дополнения к списку заблокированного | вручную |
+| `geoblock_ru.list` | PROXY | Зарубежные сайты, которые сами блокируют российские IP (roscomvpn `category-geoblock-ru`) | автоматически, [RCVPN-SR](https://github.com/nncat01/RCVPN-SR) |
 | `TikTok.list` | PROXY | TikTok, CapCut | вручную |
 | `GitHub.list` | PROXY | GitHub, npm | автоматически, [blackmatrix7](https://github.com/blackmatrix7/ios_rule_script) |
 | `Google.list` | PROXY | Google (без YouTube) | автоматически, blackmatrix7 |
@@ -71,7 +75,7 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 
 1. Совместимость с Tailscale (`100.64.0.0/10`, `100.100.100.100/32`, `ts.net`, `tailscale.com`) — DIRECT; отдельное правило `meet.wcase.net` — PROXY.
 2. `reject.list` — REJECT. Стоит первым из списков, поэтому домен из него блокируется, даже если он есть в других списках.
-3. `private.list`, `direct.list`, `domains_banking.list` — DIRECT.
+3. `private.list`, `direct.list`, `domains_banking.list`, `ru_direct_community.list` — DIRECT.
 4. Доменные списки сервисов и заблокированных ресурсов — PROXY.
 5. Порты звонков и отдельные IP-списки (`ips_refilter.list`, `meta_ips.list`, `telegram_ips.list`) — PROXY, они стоят после доменных списков. Все IP-правила в конфиге, включая подсети и ASN внутри списков blackmatrix7, помечены `no-resolve`.
 6. `GEOIP,RU,DIRECT`, затем `FINAL,PROXY`.
@@ -103,20 +107,124 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 2. YouTube и Telegram должны показывать IP прокси, российские сайты (например, `yandex.ru`) — ваш реальный IP.
 3. Для проверки IP подойдут `https://2ip.ru` (идёт напрямую) и `https://browserleaks.com/ip` (идёт через прокси).
 
-### Шаг 4 (по желанию). Модуль YouTube без рекламы
+### Шаг 4 (по желанию). YouTube без рекламы
 
-Модуль вырезает рекламу в приложении YouTube и в веб-версии, блокирует Shorts (настраивается) и включает картинку-в-картинке. Работает через MITM, поэтому нужен сертификат.
+Подробная инструкция вынесена в отдельный раздел [Модуль YouTube: установка на iPhone](#модуль-youtube-установка-на-iphone).
 
-1. Shadowrocket → **Settings** → **HTTPS Decryption** (Расшифровка HTTPS): включите, сгенерируйте сертификат, установите его в iOS и включите доверие (**Settings → General → About → Certificate Trust Settings**).
-2. **Settings** → **Module** → **+** → вставьте ссылку:
+### Шаг 5 (по желанию). Reddit и Pinterest без рекламы
+
+Модуль вырезает рекламные посты из лент через `[Body Rewrite]` с jq, без JavaScript. Нужен тот же MITM-сертификат, что и для YouTube: шаги 1 и 2 из раздела про модуль YouTube.
+
+```
+https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/modules/Social-Ads.module
+```
+
+### Сторонние модули
+
+Проверенные модули сообщества. Они не входят в репозиторий и обновляются их авторами. Правила модулей имеют приоритет над правилами конфига, поэтому подключайте их осознанно.
+
+| Модуль | Что делает | Ссылка |
+|---|---|---|
+| AWAvenue Ads Rule | Компактный блокировщик рекламы и трекеров, около 1000 доменных правил с `pre-matching`. Сертификат не нужен. | `https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-module.sgmodule` |
+| X (Twitter) web без рекламы | Убирает промо-твиты в веб-версии x.com. Нужен сертификат. | `https://raw.githubusercontent.com/fmz200/wool_scripts/main/Surge/module/XWebAds.module` |
+| Sub-Store | Менеджер подписок: объединение, фильтрация и переименование узлов, веб-интерфейс `https://sub-store.vercel.app`. Нужен сертификат. Облегчённая версия без лишних параметров, меньше расход памяти. | `https://raw.githubusercontent.com/Qmxn/Tool/main/Shadowrocket/Module/Sub-Store.module` |
+| Script-Hub | Конвертер модулей Quantumult X, Loon и Surge в формат Shadowrocket. После установки откройте `http://script.hub`. | `https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.rocket.module` |
+
+Для Sub-Store авторы советуют добавить в `[Host]` строку `sub.store = 127.0.0.1`: если модуль выключен, запросы не уйдут на чужой публичный домен.
+
+## Модуль YouTube: установка на iPhone
+
+Модуль работает в приложениях **YouTube** и **YouTube Music**:
+
+- убирает рекламу перед роликами, в середине и в ленте;
+- включает картинку в картинке и фоновое воспроизведение;
+- по желанию скрывает вкладку Shorts, кнопку «Создать» и вкладку «Сэмплы» в YouTube Music;
+- может переводить субтитры.
+
+Модуль не убирает рекламу в YouTube в браузере и на телевизоре. Интеграции, которые блогер вшил в сам ролик, он тоже не вырезает.
+
+Основа модуля — скрипты [YouTube Enhance](https://github.com/Maasea/sgmodule) автора Maasea. Модуль и копии скриптов в этом репозитории каждый день сверяются с его версией: workflow `sync-youtube-module.yml`.
+
+### Что нужно заранее
+
+- Shadowrocket последней версии из App Store.
+- Подключённый профиль `SR_RU.conf` (шаги 1–3 выше). YouTube в нём идёт через прокси, поэтому Shadowrocket сам переводит YouTube с QUIC на TCP, и расшифровка работает.
+- На главном экране Shadowrocket в «Глобальной маршрутизации» (Global Routing) выбрано «Конфигурация» (Config).
+
+### Шаг 1. Включить HTTPS-расшифровку и установить сертификат
+
+1. Shadowrocket → вкладка **Конфигурация** (Config) → нажмите **ⓘ** справа от `SR_RU.conf` → **HTTPS-расшифровка** (HTTPS Decryption) → включите переключатель.
+2. Нажмите **Сертификат** → **Сгенерировать новый CA-сертификат** → **Установить сертификат** → разрешите загрузку профиля.
+3. Настройки iPhone → вверху появится **Профиль загружен** → **Установить** → введите код-пароль → **Установить**. Если спросят пароль сертификата, введите `Shadowrocket`.
+4. Настройки iPhone → **Основные** → **Об этом устройстве** → в самом низу **Доверие сертификатам** → включите переключатель у сертификата Shadowrocket → **Продолжить**.
+
+### Шаг 2. Защитить сертификат от автообновления конфига
+
+`SR_RU.conf` обновляется по ссылке, а обновление конфига перезаписывает сделанные на телефоне изменения, в том числе настройки расшифровки. Модуль-сертификат хранит сертификат отдельно, поэтому расшифровка переживает обновления. Параметры модуля при его обновлении не теряются.
+
+1. Конфигурация → **ⓘ** у `SR_RU.conf` → **HTTPS-расшифровка** → **ⓘ** справа от сертификата → **Копировать**.
+2. Конфигурация → **Модули** → **+** справа вверху → вставьте ссылку и нажмите **Загрузить**:
+
+   ```
+   https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/modules/Certificate.module
+   ```
+
+3. Нажмите на модуль **Сертификат MITM** → **Редактировать параметры**:
+   - `p12` — вставьте скопированный сертификат;
+   - `passphrase` — оставьте `Shadowrocket`, если не меняли пароль;
+   - `enable` — `true`.
+4. Сохраните и включите модуль переключателем. Не включайте его, пока не вставили сертификат: с пустым `p12` расшифровка работать не будет.
+
+### Шаг 3. Установить модуль YouTube
+
+1. Конфигурация → **Модули** → **+** → вставьте ссылку → **Загрузить**:
 
    ```
    https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/modules/YT-Premium-V1-RU.module
    ```
 
-3. Включите модуль. Аргументы модуля (`captionLang`, `lyricLang`, `blockUpload`, `blockImmersive`, `blockShorts`, `debug`) можно менять в его настройках.
+2. Проверьте, что переключатель модуля **YouTube Premium RU** включён.
+3. По желанию нажмите на модуль → **Редактировать параметры**:
 
-`modules/Certificate.module` — шаблон, чтобы использовать один и тот же MITM-сертификат на нескольких устройствах: подставьте вместо `${CA_P12}` и `${CA_PASSPHRASE}` экспортированный из Shadowrocket сертификат (base64 p12) и пароль к нему, сохраните под своим URL и подключите как модуль.
+   | Параметр | По умолчанию | Что делает |
+   |---|---|---|
+   | `blockShorts` | `true` | Скрывает вкладку Shorts |
+   | `blockUpload` | `true` | Скрывает кнопку «Создать» (+) |
+   | `blockImmersive` | `false` | Скрывает вкладку «Сэмплы» в YouTube Music |
+   | `captionLang` | `off` | Язык перевода субтитров: `ru`, `en` и т.д. |
+   | `debug` | `false` | Подробный журнал скриптов для диагностики |
+
+Если раньше стоял старый вариант модуля, удалите его и установите заново по ссылке выше.
+
+### Шаг 4. Применить
+
+1. Выключите и снова включите подключение в Shadowrocket.
+2. Закройте YouTube полностью: смахните его вверх в переключателе приложений. Затем откройте снова.
+
+### Шаг 5. Проверить
+
+1. Конфигурация → нажмите на `SR_RU.conf` → **Изменить конфигурацию** → **URL скриптов** (Script URL). У `youtube.response.js` и `youtube.request.js` должна стоять ✅.
+2. Откройте несколько роликов подряд: рекламы быть не должно.
+3. Во время ролика сверните YouTube: видео должно продолжиться в картинке в картинке.
+
+### Шаг 6. Включить автообновление
+
+Когда YouTube меняет показ рекламы, автор скриптов выпускает исправление. Модуль в репозитории подхватывает его в течение суток, а телефон — при следующем обновлении модулей.
+
+1. Настройки iPhone → **Основные** → **Обновление контента** → включите для Shadowrocket.
+2. Shadowrocket → **Настройки** → **Автообновление** (Auto Update) → **Модули** → включите фоновое обновление, интервал 1 день. То же сделайте для **Конфигурации**.
+
+### Если реклама осталась
+
+- **Обновите скрипты вручную.** Конфигурация → нажмите на `SR_RU.conf` → **Использовать конфигурацию**. Это перекачивает скрипты и пересобирает конфиг. Если пришло уведомление «YouTube Enhance: 脚本需要更新», сделайте то же самое.
+- **Проверьте расшифровку.** Сертификат должен быть доверен (шаг 1, пункт 4), а расшифровка включена или модуль-сертификат заполнен.
+- **Перезапустите YouTube.** Закройте приложение свайпом и откройте снова.
+- **Не работает картинка в картинке.** Отключите в YouTube автовоспроизведение следующего ролика и проверьте в Настройках iPhone → Основные → «Картинка в картинке», что включён автоматический запуск.
+- **Отключается VPN.** Shadowrocket → Настройки → **По требованию** → **Всегда включено**. Скрипты расходуют память, и iOS может выгрузить расширение.
+
+### Приватность
+
+Для части роликов YouTube отдаёт данные для запуска видео в зашифрованном виде вместе с рекламой. Скрипт автора отправляет такие запросы на его сервер Cloudflare `init-stream.maasea.workers.dev` вместе с ключом расшифровки, сервер вырезает рекламу и возвращает ответ. Этот сервер технически видит, какие ролики вы запускаете. Если это неприемлемо, не используйте модуль. Запросы к серверу идут через прокси: домен `workers.dev` есть в `proxy.list`.
 
 ## Как редактировать списки
 
@@ -149,7 +257,7 @@ python github_actions/normalize_lists.py     # привести списки к 
 | Российские сайты тоже идут через прокси | Убедитесь, что активен именно этот конфиг и он обновлён |
 | Сервис заблокирован в РФ, но идёт напрямую | Добавьте домен в `lists/domains_community.list` или `lists/proxy.list` |
 | Российский сервис идёт через прокси | Добавьте домен в `lists/direct.list` |
-| YouTube-модуль не убирает рекламу | Проверьте, что HTTPS Decryption включён, сертификат установлен и доверен, а модуль активен |
+| YouTube-модуль не убирает рекламу | См. раздел [«Если реклама осталась»](#если-реклама-осталась) |
 | Ошибка импорта конфига | Проверьте интернет и правильность raw-ссылки |
 
 ## Лицензия
