@@ -23,7 +23,7 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 | `modules/YT-Premium-V1-RU.module` | Модуль без рекламы для приложений YouTube и YouTube Music (MITM + скрипт Maasea), всё обрабатывается на телефоне. Собирается автоматически, см. раздел про модуль YouTube. |
 | `modules/YT-Premium-Worker-RU.module` | Запасной вариант модуля YouTube с полной схемой Maasea: часть запросов идёт на сервер автора. |
 | `modules/Social-Ads.module` | Модуль без рекламы в Reddit и Pinterest через `[Body Rewrite]` (jq), без скриптов. |
-| `modules/Service-Check-RU.module` | Страница `https://sr.test`: IP напрямую и через прокси, доступность сайтов, работа YouTube, ChatGPT, Netflix и других сервисов. |
+| `modules/Service-Check-RU.module` | Страница `http://sr.test`: IP напрямую и через прокси, доступность сайтов, работа YouTube, ChatGPT, Netflix и других сервисов. |
 | `modules/BoxJs.module` | BoxJs: хранилище настроек для скриптов с веб-интерфейсом `http://boxjs.com`. |
 | `modules/VPN-Detect-RU.module` | Для приложений, которые жалуются на VPN или прокси: банки и госсервисы обходят системный прокси, по желанию режим «только TUN». Собирается автоматически. |
 | `modules/Certificate.module` | Модуль-сертификат: хранит сертификат HTTPS-расшифровки отдельно от конфига, заполняется через «Редактировать параметры». |
@@ -267,7 +267,7 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 - **Репутация IP сервера** по Scamalytics: чем выше риск, тем чаще сервисы показывают капчу или блокируют вход.
 - **Утечка DNS:** какие DNS-серверы видит внешний сервис.
 
-Нужен MITM-сертификат.
+Сертификат не нужен.
 
 ```
 https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/modules/Service-Check-RU.module
@@ -276,11 +276,13 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 Как пользоваться:
 
 1. Установите и включите модуль.
-2. При включённом подключении откройте в Safari адрес целиком, с `https://`:
+2. При включённом подключении откройте в Safari адрес целиком, вместе с `http://`, иначе Safari начнёт поиск:
 
    ```
-   https://sr.test
+   http://sr.test
    ```
+
+   Адрес `https://sr.test` тоже работает, но только при включённой HTTPS-расшифровке с доверенным сертификатом.
 
 3. Нажмите **Проверить всё** или кнопку у нужной проверки.
 
@@ -290,7 +292,11 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 - **Сайты.** ✅ — сайт ответил. ⚠️ с кодом 4xx — сайт отвечает, но показывает проверку «я не робот» или ограничивает регион. ❌ — сайт не ответил.
 - **Сервисы.** `Yes` и регион — сервис доступен и видит эту страну. `No` — сервис недоступен из региона сервера.
 
-Проверки сервисов выполняют скрипты [huskydsb/Shadowrocket](https://github.com/huskydsb/Shadowrocket), поэтому их ответы на английском. Все запросы идут по правилам вашего конфига. Если страница не открывается, проверьте, что модуль включён, сертификат доверен, а в модуле «Приложения, которые жалуются на VPN» не включён режим «только TUN».
+Проверки сервисов выполняют скрипты [huskydsb/Shadowrocket](https://github.com/huskydsb/Shadowrocket), поэтому их ответы на английском. Все запросы идут по правилам вашего конфига. Если страница не открывается:
+
+- проверьте, что подключение включено, модуль включён, а в адресной строке именно `http://sr.test`;
+- если модуль был добавлен раньше, удалите его и добавьте заново по той же ссылке, затем выключите и включите подключение;
+- страница может не открыться в режиме «только TUN»: «Тип прокси: None» в настройках Shadowrocket или параметр `tun` модуля «Приложения, которые жалуются на VPN». В этом режиме Safari сам ищет адрес `sr.test` в DNS, а профиль отдаёт только настоящие ответы, и такого домена нет. На время проверки выключите этот режим.
 
 ### BoxJs
 
