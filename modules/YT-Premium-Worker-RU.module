@@ -1,0 +1,20 @@
+#!name=YouTube Premium RU (сервер Maasea)
+#!desc=Полная схема YouTube Enhance (Maasea): часть запросов запуска видео вместе с ключом расшифровки уходит на сервер автора init-stream.maasea.workers.dev. Пробуйте, только если основной модуль пропускает рекламу. Не включайте вместе с основным. Нужен MITM-сертификат.
+#!arguments=blockUpload:true,blockImmersive:false,blockShorts:true,captionLang:off,debug:false
+#!arguments-desc=blockUpload: true — скрыть кнопку «Создать» (+) на нижней панели\n\nblockImmersive: true — скрыть вкладку «Сэмплы» в YouTube Music\n\nblockShorts: true — скрыть вкладку Shorts\n\ncaptionLang: код языка для перевода субтитров (ru, en, uk…) или off, чтобы не переводить\n\ndebug: true — подробный журнал скриптов (для диагностики)
+#!homepage=https://github.com/newzealandgrom/Shadowrocket-routing
+# Источник: https://github.com/Maasea/sgmodule, коммит 65075cdb388fc5e3094afd7e7314c67b243f3525 (2026-07-19), лицензия Apache-2.0.
+# Файл генерирует github_actions/sync_youtube_module.py: правки вносите в генератор, а не сюда.
+
+[Rule]
+# QUIC (HTTP/3) не расшифровывается: переводим YouTube на TCP, иначе скрипты не срабатывают
+AND,((DOMAIN-SUFFIX,googlevideo.com),(PROTOCOL,UDP)),REJECT-NO-DROP
+AND,((DOMAIN,youtubei.googleapis.com),(PROTOCOL,UDP)),REJECT-NO-DROP
+
+[Script]
+youtube.response = type=http-response,pattern=^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch|log_event|config))(\?(.*))?$,requires-body=1,max-size=8388608,binary-body-mode=1,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/Script/youtube.response.js?v=65075cd,argument="{"captionLang":"{{{captionLang}}}","blockUpload":{{{blockUpload}}},"blockImmersive":{{{blockImmersive}}},"blockShorts":{{{blockShorts}}},"debug":{{{debug}}}}"
+youtube.request.init = type=http-request,pattern=^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&ack.*,requires-body=1,max-size=8388608,binary-body-mode=1,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/Script/youtube.request.js?v=65075cd,argument="{"captionLang":"{{{captionLang}}}"}"
+youtube.request.log_event = type=http-request,pattern=^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/log_event,requires-body=1,max-size=8388608,binary-body-mode=1,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/Script/youtube.request.js?v=65075cd
+
+[MITM]
+hostname = %APPEND% *.googlevideo.com, youtubei.googleapis.com
