@@ -6,7 +6,8 @@
  *   http://sr.test/sites     сайты: по какому правилу идут и отвечают ли. ?extra=[{"name":"…","url":"…"}]
  *                            добавляет свои сайты, ?nodefault=1 убирает стандартные;
  *   http://sr.test/rule      по какому правилу SR_RU.conf пойдёт адрес: ?host=&port=&scheme=&url=;
- *   http://sr.test/probe     открывается ли адрес через Shadowrocket: ?url=.
+ *   http://sr.test/probe     открывается ли адрес через Shadowrocket: ?url=;
+ *   http://sr.test/dns       какие DNS-серверы разрешали проверочный адрес (сервис surfsharkdns.com).
  *
  * Адреса https:// работают так же, если включена HTTPS-расшифровка.
  *
@@ -19,8 +20,8 @@
  * телефоне вручную, скрипт не видит.
  *
  * Проверки сервисов (YouTube, ChatGPT, Netflix и т.д.) выполняют скрипты huskydsb/Shadowrocket, их
- * подключает модуль. Все запросы идут по правилам текущего конфига, поэтому результаты показывают
- * реальную маршрутизацию.
+ * подключает модуль. Они отвечают на китайском и английском, страница переводит ответы по TRANSLATIONS.
+ * Все запросы идут по правилам текущего конфига, поэтому результаты показывают реальную маршрутизацию.
  */
 
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
@@ -66,6 +67,125 @@ const SERVICES = [
   ['wikipedia', 'Wikipedia'],
   ['scamalytics', 'Репутация IP сервера'],
   ['dns', 'Утечка DNS'],
+];
+
+// Ответы скриптов huskydsb приходят на китайском и отчасти на английском, страница переводит их на русский.
+// Порядок важен: сначала длинные и частные фразы, затем общие слова и китайская пунктуация.
+// Третий элемент true: первая строка — регулярное выражение.
+const TRANSLATIONS = [
+  // YouTube
+  ['YouTube Premium: Yes (Region: ', 'YouTube Premium: ✅ доступен (регион: '],
+  ['YouTube Premium: No (Region: CN)', 'YouTube Premium: ❌ недоступен (регион: CN)'],
+  ['YouTube Premium: No(?=<br>|$)', 'YouTube Premium: ❌ недоступен в стране сервера', true],
+  ['Failed (Network Connection)', '❌ нет соединения'],
+  ['Failed (Error: PAGE ERROR)', '❌ непонятный ответ страницы'],
+  ["Failed (No valid data found before 'Debug Info:')", '❌ нет данных'],
+  ['YouTube CDN: Unknown', 'YouTube CDN: не определён'],
+  ['YouTube CDN: ', 'Узел YouTube CDN: '],
+  // ChatGPT
+  ['ChatGPT: 恭喜你，服务全部可用。', 'ChatGPT: ✅ доступен полностью, и сайт, и приложение.'],
+  ['ChatGPT: 对不起，服务因国家和 VPN 限制而不可用。', 'ChatGPT: ❌ недоступен: ограничения и по стране, и по VPN.'],
+  ['ChatGPT: 对不起，服务仅限使用网页浏览器（VPN 限制）。', 'ChatGPT: ⚠️ работает только сайт в браузере, приложение не пускает через VPN.'],
+  ['ChatGPT: 对不起，服务仅限使用移动应用（国家限制）。', 'ChatGPT: ⚠️ работает только приложение, сайт недоступен в стране сервера.'],
+  ['ChatGPT: 对不起，该服务在您的国家不可用。', 'ChatGPT: ❌ недоступен в стране сервера.'],
+  ['ChatGPT: 检测失败（未知错误）。', 'ChatGPT: проверка не удалась, неизвестная ошибка.'],
+  ['ChatGPT: 检测失败（错误: ', 'ChatGPT: проверка не удалась (ошибка: '],
+  // Netflix
+  ['完整支持 ⟦未知地区⟧', '✅ доступен полностью ⟦регион не определён⟧'],
+  ['Netflix: 完整支持', 'Netflix: ✅ доступен полностью'],
+  ['Netflix: 支持自制剧集', 'Netflix: только собственные сериалы Netflix'],
+  ['Netflix: 未支持', 'Netflix: недоступен'],
+  // Disney+
+  ['Disney+: 支持 ➟', 'Disney+: ✅ доступен ➟'],
+  ['Disney+: 即将登陆 ➟', 'Disney+: скоро запуск в стране ➟'],
+  ['Disney+: 响应数据格式错误', 'Disney+: непонятный ответ сервиса'],
+  // Prime Video
+  ['Prime Video: 已解锁', 'Prime Video: доступен'],
+  ['Prime Video: 服务受限', 'Prime Video: недоступен'],
+  ['Prime Video: 连接失败', 'Prime Video: нет соединения'],
+  ['Prime Video: 检测异常', 'Prime Video: непонятный ответ сервиса'],
+  ['Prime Video: 无有效响应', 'Prime Video: нет ответа'],
+  // TikTok
+  ['TikTok:未解锁 ❌ (地区信息缺失)', 'TikTok: недоступен ❌ (регион не указан)'],
+  ['TikTok:未解锁', 'TikTok: недоступен'],
+  ['TikTok:已解锁', 'TikTok: доступен'],
+  ['TikTok:检测失败，未知状态', 'TikTok: проверка не удалась, непонятный ответ'],
+  ['TikTok:检测失败，无法获取响应', 'TikTok: проверка не удалась, нет ответа'],
+  ['TikTok:网络连接失败', 'TikTok: нет соединения'],
+  ['(地区: ', '(регион: '],
+  // Spotify
+  ['❌发生错误: undefined', '❌ Проверка Spotify не удалась'],
+  ['🎶查询成功 - Spotify 状态与价格', '🎶 Spotify: доступность и цена'],
+  ['Spotify Status: ', 'Статус: '],
+  ['🎉Yes', '🎉 доступен'],
+  ['🔴No', '🔴 недоступен'],
+  ['Price: N/A', 'Цена: нет данных'],
+  ['Price: ', 'Цена: '],
+  ['❌发生错误: ', '❌ Ошибка: '],
+  ['❌请求失败: ', '❌ запрос не удался: '],
+  ['❌响应解析失败', '❌ не удалось разобрать ответ'],
+  ['❌价格解析失败', '❌ не удалось разобрать цену'],
+  ['❌IP查询失败: ', '❌ не удалось определить IP: '],
+  ['🔴IP查询失败!', '🔴 не удалось определить IP'],
+  ['❌IP响应解析失败', '❌ не удалось разобрать ответ об IP'],
+  ['❌获取语言失败: ', '❌ не удалось определить язык: '],
+  ['每月', 'в месяц '],
+  ['个月', ' мес.'],
+  ['/月', '/мес.'],
+  // Steam
+  ['Steam地区: ', 'Регион Steam: '],
+  ['Steam货币: ', 'Валюта Steam: '],
+  ['无法检测地区信息', 'Steam: не удалось определить регион'],
+  ['未知错误', 'неизвестная ошибка'],
+  // Google Play
+  ['Google Play Store: ❌ Failed - 状态码：', 'Google Play: ❌ ошибка, код '],
+  ['Google Play Store: ❌ Failed', 'Google Play: ❌ проверка не удалась'],
+  ['Google Play Store: ', 'Google Play: '],
+  // Bing
+  ['Bing Region: 网络连接失败', 'Регион Bing: нет соединения'],
+  ['Bing Region:请求失败，状态码:', 'Регион Bing: запрос не удался, код '],
+  ['(Risky)', ' ⚠️ IP помечен как подозрительный'],
+  ['Bing Region:', 'Регион Bing: '],
+  // Wikipedia
+  ['无法连接到 Wikipedia (网络连接失败)', 'Wikipedia: нет соединения'],
+  ['Wikipedia :❌ 不可编辑 (被禁止访问)', 'Wikipedia: ❌ редактирование закрыто для этого IP'],
+  ['Wikipedia :✅ 可编辑', 'Wikipedia: ✅ можно редактировать'],
+  // Репутация IP (Scamalytics)
+  ['IP欺诈评分查询结果：', 'Оценка IP по Scamalytics:'],
+  ['IP地址: ', 'IP-адрес: '],
+  ['IP城市: ', 'Город: '],
+  ['IP国家: ', 'Страна: '],
+  ['IP欺诈分数: ', 'Оценка мошенничества (0–100): '],
+  ['IP风险等级: ', 'Уровень риска: '],
+  ['非常高风险', 'очень высокий'],
+  ['高风险', 'высокий'],
+  ['中等风险', 'средний'],
+  ['低风险', 'низкий'],
+  ['未知风险', 'неизвестен'],
+  ['组织: ', 'Организация: '],
+  ['获取IP信息失败，请检查接口或网络状态。', 'Не удалось получить данные об IP, проверьте подключение.'],
+  ['IP信息获取失败，请检查接口或网络状态。', 'Не удалось получить данные об IP, проверьте подключение.'],
+  ['解析IP信息JSON时出错:', 'Не удалось разобрать данные об IP:'],
+  ['获取Scamalytics IP详情时出错:', 'Scamalytics не ответил:'],
+  ['Scamalytics返回内容为空，请检查接口是否有效。', 'Scamalytics вернул пустой ответ.'],
+  // Общие фразы и пунктуация
+  ['检测失败: ', 'проверка не удалась: '],
+  ['请求失败，状态码[：:]', 'запрос не удался, код ', true],
+  ['状态码[：:]', 'код ', true],
+  ['网络连接失败', 'нет соединения'],
+  ['解析响应失败', 'не удалось разобрать ответ'],
+  ['请求失败', 'запрос не удался'],
+  ['检测失败', 'проверка не удалась'],
+  ['获取失败', 'нет данных'],
+  ['未知', 'неизвестно'],
+  ['超时', 'таймаут'],
+  ['月', ' мес.'],
+  ['：', ': '],
+  ['，', ', '],
+  ['（', ' ('],
+  ['）', ')'],
+  ['。', '.'],
+  ['！', '!'],
 ];
 
 // ─── Общее ──────────────────────────────────────────────────────────────────
@@ -818,6 +938,38 @@ async function probe(url) {
   return state + '<br><span class="muted small">Запрос прошёл через Shadowrocket со всеми правилами, включая модули.</span>';
 }
 
+function guid() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.floor(Math.random() * 16);
+    return (c === 'x' ? r : (r & 3) | 8).toString(16);
+  });
+}
+
+// Какие DNS-серверы разрешали случайный адрес *.ipv4.surfsharkdns.com (тот же сервис, что в скрипте
+// huskydsb). Адреса нет ни в одном списке, поэтому Shadowrocket спрашивает DNS из конфига, чтобы проверить
+// GEOIP,RU, а потом адрес разрешает DNS прокси-сервера. Показываются все серверы, а не только один.
+async function checkDns() {
+  const r = await get('https://' + guid() + '.ipv4.surfsharkdns.com');
+  const data = r.status === 200 ? parseJson(r.body) : null;
+  if (!data || typeof data !== 'object') {
+    return '❌ Сервис проверки DNS не ответил: ' + escapeHtml(r.error || (r.status === 200 ? 'неожиданный ответ' : 'код ' + r.status));
+  }
+  const servers = (Array.isArray(data) ? data : Object.keys(data).map((k) => data[k])).filter((s) => s && s.IP);
+  if (!servers.length) return '⚠️ Сервис не увидел ни одного DNS-сервера, повторите проверку.';
+  const rows = servers.map((s) => {
+    const cc = String(s.CountryCode || '').toUpperCase();
+    const place = [cc ? flag(cc) + ' ' + escapeHtml(cc) : '', s.City ? escapeHtml(s.City) : ''].filter(Boolean).join(' · ');
+    return '<div class="row"><b>' + escapeHtml(s.IP) + '</b>' + (place ? ' · ' + place : '') +
+      (s.ISP ? '<br><span class="muted">' + escapeHtml(s.ISP) + '</span>' : '') + '</div>';
+  });
+  const inRussia = servers.filter((s) => String(s.CountryCode || '').toUpperCase() === 'RU').length;
+  const verdict = inRussia
+    ? '⚠️ Серверов в России: ' + inRussia + ' из ' + servers.length + '. Они видят имена сайтов, которые не попали ни в один список правил.'
+    : '✅ Серверов в России среди них нет.';
+  return rows.join('') + '<div class="probe">' + verdict +
+    '<br><span class="muted small">Проверочный адрес не входит ни в один список. Его разрешают DNS-серверы из конфига, к которым Shadowrocket обращается для правила GEOIP, и DNS прокси-сервера.</span></div>';
+}
+
 async function checkRoute() {
   const [direct, proxy] = await Promise.all([
     get('https://ipv4-internet.yandex.net/api/v0/ip'),
@@ -956,7 +1108,6 @@ function clientMain(DATA) {
   const SETTINGS_KEY = 'sr-check-settings';
   const HISTORY_KEY = 'sr-check-history';
   const DEFAULTS = { hidden: [], sites: '', onlyMine: false, autorun: false, keepHistory: true, theme: 'auto' };
-  const RU = { '网络连接失败': 'нет соединения', '检测失败': 'проверка не удалась', '请求失败': 'запрос не удался', '未知': 'неизвестно', '超时': 'таймаут' };
   const $ = (sel) => document.querySelector(sel);
   const $$ = (sel) => Array.prototype.slice.call(document.querySelectorAll(sel));
 
@@ -978,10 +1129,13 @@ function clientMain(DATA) {
   function esc(s) {
     return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
+  const RULES = DATA.translations.map((t) => [t[2] ? new RegExp(t[0], 'g') : t[0], t[1]]);
   function translate(html) {
     let s = String(html);
-    Object.keys(RU).forEach((k) => { s = s.split(k).join(RU[k]); });
-    return s;
+    RULES.forEach((rule) => {
+      s = typeof rule[0] === 'string' ? s.split(rule[0]).join(rule[1]) : s.replace(rule[0], rule[1]);
+    });
+    return s.replace(/^\s*([а-яё])/, (m, c) => c.toUpperCase());
   }
   function errorText(e) {
     return e && e.message ? e.message : String(e);
@@ -1236,7 +1390,7 @@ function page() {
     '<button type="button" class="btn" data-run="' + id + '">Проверить</button></header><div class="out"></div></section>').join('');
   const checks = [['lookup', 'Проверить адрес']].concat(runnable).map(([id, name]) =>
     '<label class="check"><input type="checkbox" data-card="' + id + '"> ' + escapeHtml(name) + '</label>').join('');
-  const data = JSON.stringify({ maxExtraSites: MAX_EXTRA_SITES }).replace(/</g, '\\u003c');
+  const data = JSON.stringify({ maxExtraSites: MAX_EXTRA_SITES, translations: TRANSLATIONS }).replace(/</g, '\\u003c');
   return `<!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1271,7 +1425,7 @@ function page() {
 </section>
 <button type="button" class="all" id="all">Проверить всё</button>
 ${cards}
-<p class="muted foot">Проверки сервисов: скрипты huskydsb/Shadowrocket. Модуль и правила: newzealandgrom/Shadowrocket-routing.</p>
+<p class="muted foot">Проверки сервисов: скрипты huskydsb/Shadowrocket, ответы переведены. Утечка DNS: сервис surfsharkdns.com. Модуль и правила: newzealandgrom/Shadowrocket-routing.</p>
 </main>
 <script>(${clientMain.toString()})(${data});</script>
 </body></html>`;
@@ -1296,6 +1450,8 @@ function respondJson(value, status) {
       respondJson({ message: await checkRoute() });
     } else if (path === '/sites') {
       respondJson({ message: await checkSites(query) });
+    } else if (path === '/dns') {
+      respondJson({ message: await checkDns() });
     } else if (path === '/rule') {
       const t = makeTarget(query.host, query.port, query.scheme, query.url);
       if (!t) {
