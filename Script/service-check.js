@@ -7,7 +7,7 @@
  *                            добавляет свои сайты, ?nodefault=1 убирает стандартные;
  *   http://sr.test/rule      по какому правилу SR_RU.conf пойдёт адрес: ?host=&port=&scheme=&url=;
  *   http://sr.test/probe     открывается ли адрес через Shadowrocket: ?url=;
- *   http://sr.test/dns       какие DNS-серверы разрешали проверочный адрес (сервис surfsharkdns.com).
+ *   http://sr.test/dns       какие DNS-серверы разрешали проверочный адрес (сервис surfsharkdns.com);
  *
  * Адреса https:// работают так же, если включена HTTPS-расшифровка.
  *
@@ -19,9 +19,11 @@
  * целиком не помещаются в лимит памяти сетевого расширения iOS. Правила модулей и правила, добавленные на
  * телефоне вручную, скрипт не видит.
  *
- * Проверки сервисов (YouTube, ChatGPT, Netflix и т.д.) выполняют скрипты huskydsb/Shadowrocket, их
- * подключает модуль. Они отвечают на китайском и английском, страница переводит ответы по TRANSLATIONS.
- * Все запросы идут по правилам текущего конфига, поэтому результаты показывают реальную маршрутизацию.
+ *   http://sr.test/youtube   и другие пути из SERVICES: проверки сервисов (SERVICE_CHECKS).
+ *
+ * Проверки сервисов повторяют логику скриптов huskydsb/Shadowrocket и check.sh lmc999/RegionRestrictionCheck:
+ * те же адреса и признаки, но свой код и ответы на русском. Все запросы идут по правилам текущего конфига,
+ * поэтому результаты показывают реальную маршрутизацию.
  */
 
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';
@@ -52,7 +54,7 @@ const SITES = [
   { name: 'LinkedIn', url: 'https://www.linkedin.com/' },
 ];
 
-// Проверки из huskydsb/Shadowrocket: путь на sr.test и название на странице.
+// Проверки сервисов: путь на sr.test и название на странице. Код проверок в SERVICE_CHECKS.
 const SERVICES = [
   ['youtube', 'YouTube Premium'],
   ['chatgpt', 'ChatGPT'],
@@ -69,125 +71,6 @@ const SERVICES = [
   ['dns', 'Утечка DNS'],
 ];
 
-// Ответы скриптов huskydsb приходят на китайском и отчасти на английском, страница переводит их на русский.
-// Порядок важен: сначала длинные и частные фразы, затем общие слова и китайская пунктуация.
-// Третий элемент true: первая строка — регулярное выражение.
-const TRANSLATIONS = [
-  // YouTube
-  ['YouTube Premium: Yes (Region: ', 'YouTube Premium: ✅ доступен (регион: '],
-  ['YouTube Premium: No (Region: CN)', 'YouTube Premium: ❌ недоступен (регион: CN)'],
-  ['YouTube Premium: No(?=<br>|$)', 'YouTube Premium: ❌ недоступен в стране сервера', true],
-  ['Failed (Network Connection)', '❌ нет соединения'],
-  ['Failed (Error: PAGE ERROR)', '❌ непонятный ответ страницы'],
-  ["Failed (No valid data found before 'Debug Info:')", '❌ нет данных'],
-  ['YouTube CDN: Unknown', 'YouTube CDN: не определён'],
-  ['YouTube CDN: ', 'Узел YouTube CDN: '],
-  // ChatGPT
-  ['ChatGPT: 恭喜你，服务全部可用。', 'ChatGPT: ✅ доступен полностью, и сайт, и приложение.'],
-  ['ChatGPT: 对不起，服务因国家和 VPN 限制而不可用。', 'ChatGPT: ❌ недоступен: ограничения и по стране, и по VPN.'],
-  ['ChatGPT: 对不起，服务仅限使用网页浏览器（VPN 限制）。', 'ChatGPT: ⚠️ работает только сайт в браузере, приложение не пускает через VPN.'],
-  ['ChatGPT: 对不起，服务仅限使用移动应用（国家限制）。', 'ChatGPT: ⚠️ работает только приложение, сайт недоступен в стране сервера.'],
-  ['ChatGPT: 对不起，该服务在您的国家不可用。', 'ChatGPT: ❌ недоступен в стране сервера.'],
-  ['ChatGPT: 检测失败（未知错误）。', 'ChatGPT: проверка не удалась, неизвестная ошибка.'],
-  ['ChatGPT: 检测失败（错误: ', 'ChatGPT: проверка не удалась (ошибка: '],
-  // Netflix
-  ['完整支持 ⟦未知地区⟧', '✅ доступен полностью ⟦регион не определён⟧'],
-  ['Netflix: 完整支持', 'Netflix: ✅ доступен полностью'],
-  ['Netflix: 支持自制剧集', 'Netflix: только собственные сериалы Netflix'],
-  ['Netflix: 未支持', 'Netflix: недоступен'],
-  // Disney+
-  ['Disney+: 支持 ➟', 'Disney+: ✅ доступен ➟'],
-  ['Disney+: 即将登陆 ➟', 'Disney+: скоро запуск в стране ➟'],
-  ['Disney+: 响应数据格式错误', 'Disney+: непонятный ответ сервиса'],
-  // Prime Video
-  ['Prime Video: 已解锁', 'Prime Video: доступен'],
-  ['Prime Video: 服务受限', 'Prime Video: недоступен'],
-  ['Prime Video: 连接失败', 'Prime Video: нет соединения'],
-  ['Prime Video: 检测异常', 'Prime Video: непонятный ответ сервиса'],
-  ['Prime Video: 无有效响应', 'Prime Video: нет ответа'],
-  // TikTok
-  ['TikTok:未解锁 ❌ (地区信息缺失)', 'TikTok: недоступен ❌ (регион не указан)'],
-  ['TikTok:未解锁', 'TikTok: недоступен'],
-  ['TikTok:已解锁', 'TikTok: доступен'],
-  ['TikTok:检测失败，未知状态', 'TikTok: проверка не удалась, непонятный ответ'],
-  ['TikTok:检测失败，无法获取响应', 'TikTok: проверка не удалась, нет ответа'],
-  ['TikTok:网络连接失败', 'TikTok: нет соединения'],
-  ['(地区: ', '(регион: '],
-  // Spotify
-  ['❌发生错误: undefined', '❌ Проверка Spotify не удалась'],
-  ['🎶查询成功 - Spotify 状态与价格', '🎶 Spotify: доступность и цена'],
-  ['Spotify Status: ', 'Статус: '],
-  ['🎉Yes', '🎉 доступен'],
-  ['🔴No', '🔴 недоступен'],
-  ['Price: N/A', 'Цена: нет данных'],
-  ['Price: ', 'Цена: '],
-  ['❌发生错误: ', '❌ Ошибка: '],
-  ['❌请求失败: ', '❌ запрос не удался: '],
-  ['❌响应解析失败', '❌ не удалось разобрать ответ'],
-  ['❌价格解析失败', '❌ не удалось разобрать цену'],
-  ['❌IP查询失败: ', '❌ не удалось определить IP: '],
-  ['🔴IP查询失败!', '🔴 не удалось определить IP'],
-  ['❌IP响应解析失败', '❌ не удалось разобрать ответ об IP'],
-  ['❌获取语言失败: ', '❌ не удалось определить язык: '],
-  ['每月', 'в месяц '],
-  ['个月', ' мес.'],
-  ['/月', '/мес.'],
-  // Steam
-  ['Steam地区: ', 'Регион Steam: '],
-  ['Steam货币: ', 'Валюта Steam: '],
-  ['无法检测地区信息', 'Steam: не удалось определить регион'],
-  ['未知错误', 'неизвестная ошибка'],
-  // Google Play
-  ['Google Play Store: ❌ Failed - 状态码：', 'Google Play: ❌ ошибка, код '],
-  ['Google Play Store: ❌ Failed', 'Google Play: ❌ проверка не удалась'],
-  ['Google Play Store: ', 'Google Play: '],
-  // Bing
-  ['Bing Region: 网络连接失败', 'Регион Bing: нет соединения'],
-  ['Bing Region:请求失败，状态码:', 'Регион Bing: запрос не удался, код '],
-  ['(Risky)', ' ⚠️ IP помечен как подозрительный'],
-  ['Bing Region:', 'Регион Bing: '],
-  // Wikipedia
-  ['无法连接到 Wikipedia (网络连接失败)', 'Wikipedia: нет соединения'],
-  ['Wikipedia :❌ 不可编辑 (被禁止访问)', 'Wikipedia: ❌ редактирование закрыто для этого IP'],
-  ['Wikipedia :✅ 可编辑', 'Wikipedia: ✅ можно редактировать'],
-  // Репутация IP (Scamalytics)
-  ['IP欺诈评分查询结果：', 'Оценка IP по Scamalytics:'],
-  ['IP地址: ', 'IP-адрес: '],
-  ['IP城市: ', 'Город: '],
-  ['IP国家: ', 'Страна: '],
-  ['IP欺诈分数: ', 'Оценка мошенничества (0–100): '],
-  ['IP风险等级: ', 'Уровень риска: '],
-  ['非常高风险', 'очень высокий'],
-  ['高风险', 'высокий'],
-  ['中等风险', 'средний'],
-  ['低风险', 'низкий'],
-  ['未知风险', 'неизвестен'],
-  ['组织: ', 'Организация: '],
-  ['获取IP信息失败，请检查接口或网络状态。', 'Не удалось получить данные об IP, проверьте подключение.'],
-  ['IP信息获取失败，请检查接口或网络状态。', 'Не удалось получить данные об IP, проверьте подключение.'],
-  ['解析IP信息JSON时出错:', 'Не удалось разобрать данные об IP:'],
-  ['获取Scamalytics IP详情时出错:', 'Scamalytics не ответил:'],
-  ['Scamalytics返回内容为空，请检查接口是否有效。', 'Scamalytics вернул пустой ответ.'],
-  // Общие фразы и пунктуация
-  ['检测失败: ', 'проверка не удалась: '],
-  ['请求失败，状态码[：:]', 'запрос не удался, код ', true],
-  ['状态码[：:]', 'код ', true],
-  ['网络连接失败', 'нет соединения'],
-  ['解析响应失败', 'не удалось разобрать ответ'],
-  ['请求失败', 'запрос не удался'],
-  ['检测失败', 'проверка не удалась'],
-  ['获取失败', 'нет данных'],
-  ['未知', 'неизвестно'],
-  ['超时', 'таймаут'],
-  ['月', ' мес.'],
-  ['：', ': '],
-  ['，', ', '],
-  ['（', ' ('],
-  ['）', ')'],
-  ['。', '.'],
-  ['！', '!'],
-];
-
 // ─── Общее ──────────────────────────────────────────────────────────────────
 
 function escapeHtml(s) {
@@ -199,27 +82,53 @@ function flag(cc) {
   return String.fromCodePoint(...cc.toUpperCase().split('').map((c) => 127397 + c.charCodeAt(0)));
 }
 
-function get(url, headers) {
+// Запрос через Shadowrocket. Заголовки по умолчанию добавляются, только если их нет в headers (в любом регистре).
+function request(method, url, headers, body, limitMs) {
+  const limit = limitMs || REQUEST_LIMIT_MS;
   return new Promise((resolve) => {
     const started = Date.now();
     let finished = false;
     const finish = (result) => {
       if (finished) return;
       finished = true;
-      resolve(Object.assign({ ms: Date.now() - started }, result));
+      resolve(Object.assign({ ms: Date.now() - started, headers: {} }, result));
     };
     if (typeof setTimeout === 'function') {
-      setTimeout(() => finish({ error: 'нет ответа за ' + REQUEST_LIMIT_MS / 1000 + ' с' }), REQUEST_LIMIT_MS);
+      setTimeout(() => finish({ error: 'нет ответа за ' + limit / 1000 + ' с' }), limit);
     }
-    const allHeaders = Object.assign({ 'User-Agent': UA, 'Accept-Language': 'ru-RU,ru;q=0.9,en;q=0.8' }, headers || {});
-    $httpClient.get({ url, headers: allHeaders, timeout: 10000 }, (error, response, body) => {
+    const allHeaders = Object.assign({}, headers || {});
+    const has = (name) => Object.keys(allHeaders).some((k) => k.toLowerCase() === name);
+    if (!has('user-agent')) allHeaders['User-Agent'] = UA;
+    if (!has('accept-language')) allHeaders['Accept-Language'] = 'ru-RU,ru;q=0.9,en;q=0.8';
+    const params = { url, headers: allHeaders, timeout: 10000 };
+    if (body !== undefined) params.body = body;
+    const send = method === 'POST' ? $httpClient.post : $httpClient.get;
+    send.call($httpClient, params, (error, response, text) => {
       if (error) {
         finish({ error: String((error && (error.code || error.message)) || error) });
         return;
       }
-      finish({ status: response && (response.status || response.statusCode), body: body || '' });
+      finish({
+        status: response && (response.status || response.statusCode),
+        headers: (response && response.headers) || {},
+        body: text || '',
+      });
     });
   });
+}
+
+function get(url, headers, limitMs) {
+  return request('GET', url, headers, undefined, limitMs);
+}
+
+function post(url, headers, body, limitMs) {
+  return request('POST', url, headers, body, limitMs);
+}
+
+function headerValue(headers, name) {
+  const key = Object.keys(headers || {}).filter((k) => k.toLowerCase() === name)[0];
+  const value = key ? headers[key] : '';
+  return Array.isArray(value) ? value.join(', ') : String(value || '');
 }
 
 function parseJson(text) {
@@ -957,10 +866,12 @@ async function checkDns() {
   const servers = (Array.isArray(data) ? data : Object.keys(data).map((k) => data[k])).filter((s) => s && s.IP);
   if (!servers.length) return '⚠️ Сервис не увидел ни одного DNS-сервера, повторите проверку.';
   const rows = servers.map((s) => {
-    const cc = String(s.CountryCode || '').toUpperCase();
-    const place = [cc ? flag(cc) + ' ' + escapeHtml(cc) : '', s.City ? escapeHtml(s.City) : ''].filter(Boolean).join(' · ');
+    const cc = plain(s.CountryCode);
+    const city = plain(s.City);
+    const isp = plain(s.ISP);
+    const place = [cc ? regionText(cc) : '', city ? escapeHtml(city) : ''].filter(Boolean).join(' · ');
     return '<div class="row"><b>' + escapeHtml(s.IP) + '</b>' + (place ? ' · ' + place : '') +
-      (s.ISP ? '<br><span class="muted">' + escapeHtml(s.ISP) + '</span>' : '') + '</div>';
+      (isp ? '<br><span class="muted">' + escapeHtml(isp) + '</span>' : '') + '</div>';
   });
   const inRussia = servers.filter((s) => String(s.CountryCode || '').toUpperCase() === 'RU').length;
   const verdict = inRussia
@@ -969,6 +880,270 @@ async function checkDns() {
   return rows.join('') + '<div class="probe">' + verdict +
     '<br><span class="muted small">Проверочный адрес не входит ни в один список. Его разрешают DNS-серверы из конфига, к которым Shadowrocket обращается для правила GEOIP, и DNS прокси-сервера.</span></div>';
 }
+
+// ─── Проверки сервисов ──────────────────────────────────────────────────────
+
+const UA_DESKTOP = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
+const UA_MAC_SAFARI = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15';
+const ENGLISH = 'en-US,en;q=0.9';
+
+// Текст с сайтов без китайских, японских и корейских символов: если остаётся пусто, возвращает fallback.
+const CJK = /[\u2E80-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF]+/g;
+function plain(text, fallback) {
+  const s = String(text || '').replace(CJK, '').replace(/\s+/g, ' ').trim();
+  return s || fallback || '';
+}
+
+function regionText(code) {
+  const cc = plain(code).toUpperCase();
+  if (/^[A-Z]{2}$/.test(cc)) return flag(cc) + ' ' + cc;
+  return cc ? escapeHtml(cc) : 'не определён';
+}
+
+// Частые сетевые ошибки iOS приходят по-английски.
+const NETWORK_ERRORS = [
+  [/timed out/i, 'сервер не ответил вовремя'],
+  [/offline|not connected to the internet/i, 'нет интернета'],
+  [/could not connect|connection refused/i, 'не удалось подключиться к серверу'],
+  [/hostname could not be found|cannot find host/i, 'сервер не найден'],
+  [/connection was lost|reset by peer/i, 'соединение прервалось'],
+  [/secure connection|ssl|certificate/i, 'ошибка защищённого соединения'],
+  [/cancell?ed/i, 'запрос отменён'],
+];
+
+function noConnection(r) {
+  const raw = plain(r.error, 'неизвестная ошибка').replace(/\.+$/, '');
+  const known = NETWORK_ERRORS.filter((e) => e[0].test(raw))[0];
+  return '❌ Нет соединения: ' + escapeHtml(known ? known[1] : raw) + '.';
+}
+
+function decodeEntities(s) {
+  return String(s).replace(/&amp;/g, '&').replace(/&#39;|&#x27;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ');
+}
+
+const SERVICE_CHECKS = {
+  async youtube() {
+    const [page, cdn] = await Promise.all([
+      get('https://www.youtube.com/premium', { 'Accept-Language': ENGLISH }),
+      get('https://redirector.googlevideo.com/report_mapping'),
+    ]);
+    let premium;
+    if (page.error) {
+      premium = noConnection(page);
+    } else if (page.body.indexOf('www.google.cn') >= 0) {
+      premium = '❌ Недоступен, регион ' + regionText('CN') + '.';
+    } else if (/Premium is not available in your country/i.test(page.body)) {
+      premium = '❌ Недоступен в стране сервера.';
+    } else if (/ad-free/i.test(page.body)) {
+      const m = /"INNERTUBE_CONTEXT_GL"\s*:\s*"([^"]+)"/.exec(page.body);
+      premium = '✅ Доступен' + (m ? ', регион ' + regionText(m[1]) : '') + '.';
+    } else {
+      premium = '⚠️ Не удалось разобрать страницу, код ' + page.status + '.';
+    }
+    let node;
+    if (cdn.error) {
+      node = 'нет соединения';
+    } else {
+      const m = /=>\s*([a-z]{3})/i.exec(cdn.body.split('Debug Info:')[0]);
+      node = m ? m[1].toUpperCase() + ', код ближайшего аэропорта' : 'не определён';
+    }
+    return '<b>Premium:</b> ' + premium + '<br><b>Сервер видео:</b> ' + node + '.';
+  },
+
+  async chatgpt() {
+    const [api, app] = await Promise.all([
+      get('https://api.openai.com/compliance/cookie_requirements', {
+        'Accept': '*/*',
+        'Accept-Language': ENGLISH,
+        'Authorization': 'Bearer null',
+        'Content-Type': 'application/json',
+        'Origin': 'https://platform.openai.com',
+        'Referer': 'https://platform.openai.com/',
+        'User-Agent': UA_DESKTOP,
+      }),
+      get('https://ios.chat.openai.com/', { 'Accept': '*/*', 'Accept-Language': ENGLISH, 'User-Agent': UA_DESKTOP }),
+    ]);
+    if (api.error || app.error) return noConnection(api.error ? api : app);
+    const country = api.body.toLowerCase().indexOf('unsupported_country') >= 0;
+    const vpn = app.body.toLowerCase().indexOf('vpn') >= 0;
+    if (!country && !vpn) return '✅ Доступен полностью: и сайт, и приложение.';
+    if (country && vpn) return '❌ Недоступен: страна сервера не поддерживается, а приложение считает IP сервера VPN.';
+    if (vpn) return '⚠️ Работает сайт в браузере. Приложение считает IP сервера VPN и не пускает.';
+    return '⚠️ Страна сервера не поддерживается сайтом, приложение может работать.';
+  },
+
+  async netflix() {
+    // Фильм не из собственной библиотеки Netflix: 404 значит, что доступны только собственные фильмы и сериалы.
+    const r = await get('https://www.netflix.com/title/80211492', { 'Accept-Language': ENGLISH, 'User-Agent': UA_MAC_SAFARI }, 12000);
+    if (r.error) return noConnection(r);
+    if (r.status === 403) return '❌ Недоступен в стране сервера.';
+    if (r.status === 404) return '⚠️ Доступны только собственные фильмы и сериалы Netflix.';
+    if (r.status !== 200) return '❌ Проверка не удалась: код ' + r.status + '.';
+    const origin = headerValue(r.headers, 'x-originating-url');
+    if (!origin) return '✅ Доступен полностью, регион не определён.';
+    let cc = (origin.split('/')[3] || 'title').split('-')[0];
+    if (cc === 'title') cc = 'us';
+    return '✅ Доступен полностью, регион ' + regionText(cc) + '.';
+  },
+
+  async spotify() {
+    const r = await post('https://spclient.wg.spotify.com/signup/public/v1/account',
+      { 'Accept-Language': 'en', 'Content-Type': 'application/x-www-form-urlencoded', 'User-Agent': UA_DESKTOP },
+      'birth_day=11&birth_month=11&birth_year=2000&collect_personal_info=undefined&creation_flow=' +
+      '&creation_point=https%3A%2F%2Fwww.spotify.com%2Fus%2F&displayname=Test&gender=male&iagree=1' +
+      '&key=a1e486e2729f46d6bb368d6b2bcda326&platform=www&referrer=&send-email=0&thirdpartyemail=0' +
+      '&identifier_token=AgE6YTvEzkReHNfJpO114514');
+    if (r.error) return noConnection(r);
+    const data = parseJson(r.body);
+    if (!data || data.status === undefined) return '❌ Проверка не удалась: непонятный ответ, код ' + r.status + '.';
+    const status = String(data.status);
+    if (status === '311' && data.is_country_launched !== false) return '✅ Доступен, регион ' + regionText(data.country) + '.';
+    if (status === '311' || status === '320' || status === '120') {
+      return '❌ Недоступен в стране сервера' + (data.country ? ': ' + regionText(data.country) : '') + '.';
+    }
+    return '⚠️ Непонятный ответ Spotify: статус ' + escapeHtml(status) + '.';
+  },
+
+  async tiktok() {
+    const r = await get('https://www.tiktok.com/', {
+      'Accept-Language': ENGLISH,
+      'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 TikTok/35.0.0',
+    });
+    if (r.error) return noConnection(r);
+    if (!r.body) return '❌ Пустой ответ, код ' + r.status + '.';
+    const m = /"region":"([^"]*)"/.exec(r.body);
+    if (m && m[1]) {
+      const cc = m[1].toUpperCase();
+      if (cc === 'RU') return '⚠️ TikTok видит Россию: регион ' + regionText(cc) + '. Новые видео и прямые эфиры в России ограничены.';
+      return '✅ Доступен, регион ' + regionText(cc) + '.';
+    }
+    if (r.body.indexOf('The #TikTokTraditions') >= 0 || r.body.indexOf("This LIVE isn't available") >= 0) {
+      return '❌ Недоступен в стране сервера.';
+    }
+    if (r.body.indexOf('region') < 0) return '❌ Недоступен: TikTok не сообщил регион.';
+    return '⚠️ Не удалось разобрать ответ TikTok.';
+  },
+
+  async disney() {
+    const r = await post('https://disney.api.edge.bamgrid.com/graph/v1/device/graphql', {
+      'Accept-Language': 'en',
+      // Открытый ключ браузерного приложения Disney+, тот же, что в других проверках доступности.
+      'Authorization': 'ZGlzbmV5JmJyb3dzZXImMS4wLjA.Cu56AgSfBTDag5NiRA81oLHkDZfu5L3CKadnefEAY84',
+      'Content-Type': 'application/json',
+      'User-Agent': UA_DESKTOP,
+    }, JSON.stringify({
+      query: 'mutation registerDevice($input: RegisterDeviceInput!) { registerDevice(registerDevice: $input) { grant { grantType assertion } } }',
+      variables: {
+        input: {
+          applicationRuntime: 'chrome',
+          attributes: {
+            browserName: 'chrome',
+            browserVersion: '131.0.0',
+            manufacturer: 'microsoft',
+            model: null,
+            operatingSystem: 'windows',
+            operatingSystemVersion: '10.0',
+            osDeviceIds: [],
+          },
+          deviceFamily: 'browser',
+          deviceLanguage: 'en',
+          deviceProfile: 'windows',
+        },
+      },
+    }));
+    if (r.error) return noConnection(r);
+    if (r.status !== 200) return '❌ Проверка не удалась: код ' + r.status + '.';
+    const data = parseJson(r.body);
+    const session = data && data.extensions && data.extensions.sdk && data.extensions.sdk.session;
+    if (!session || !session.location) return '⚠️ Непонятный ответ Disney+.';
+    const cc = session.location.countryCode;
+    if (session.inSupportedLocation) return '✅ Доступен, регион ' + regionText(cc) + '.';
+    return '❌ Недоступен в стране сервера: ' + regionText(cc) + '.';
+  },
+
+  async primevideo() {
+    const r = await get('https://www.primevideo.com/', { 'Accept-Language': ENGLISH, 'User-Agent': UA_DESKTOP });
+    if (r.error) return noConnection(r);
+    if (!r.body) return '❌ Пустой ответ, код ' + r.status + '.';
+    if (r.body.indexOf('isServiceRestricted') >= 0) return '❌ Недоступен в стране сервера.';
+    const m = /"currentTerritory":"([^"]*)"/.exec(r.body);
+    if (m) return '✅ Доступен, регион ' + regionText(m[1]) + '.';
+    return '⚠️ Не удалось разобрать ответ Prime Video, код ' + r.status + '.';
+  },
+
+  async steam() {
+    const r = await get('https://store.steampowered.com/app/761830', { 'Accept-Language': ENGLISH, 'User-Agent': UA_DESKTOP });
+    if (r.error) return noConnection(r);
+    const country = /steamCountry=([A-Za-z]{2})/.exec(headerValue(r.headers, 'set-cookie'));
+    const currency = /priceCurrency"\s+content="([A-Z]{3})"/.exec(r.body) || /"priceCurrency"\s*:\s*"([A-Z]{3})"/.exec(r.body);
+    if (!country && !currency) return '⚠️ Не удалось определить регион магазина, код ' + r.status + '.';
+    return '✅ Регион магазина: ' + (country ? regionText(country[1]) : 'не определён') +
+      (currency ? ', цены в ' + currency[1] : '') + '.';
+  },
+
+  async googleplay() {
+    const r = await get('https://play.google.com/', { 'Accept-Language': ENGLISH, 'User-Agent': UA_DESKTOP });
+    if (r.error) return noConnection(r);
+    if (r.status !== 200) return '❌ Не открывается: код ' + r.status + '.';
+    const m = /<div class="yVZQTb">([^<]+)<\/div>/.exec(r.body);
+    if (!m) return '✅ Открывается, но страну магазина определить не удалось.';
+    return '✅ Открывается, страна магазина: ' + escapeHtml(plain(decodeEntities(m[1]), 'не определена')) + '.';
+  },
+
+  async bing() {
+    const r = await get('https://www.bing.com/search?q=curl', { 'Accept-Language': ENGLISH, 'User-Agent': UA_DESKTOP });
+    if (r.error) return noConnection(r);
+    if (r.status !== 200) return '❌ Не открывается: код ' + r.status + '.';
+    let cc = '';
+    if (r.body.indexOf('cn.bing.com') >= 0) {
+      cc = 'CN';
+    } else {
+      const m = /Region\s*:\s*"([^"]+)"/.exec(r.body);
+      if (m) cc = m[1];
+    }
+    let text = cc ? '✅ Регион Bing: ' + regionText(cc) + '.' : '⚠️ Регион Bing не определён.';
+    if (r.body.indexOf('sj_cook.set("SRCHHPGUSR","HV"') >= 0) text += '<br>⚠️ Bing считает IP сервера подозрительным и может показывать капчу.';
+    return text;
+  },
+
+  async wikipedia() {
+    // Та же проверка, что у huskydsb и lmc999: страница правки песочницы, «Banned» означает блокировку IP.
+    const r = await get('https://zh.wikipedia.org/w/index.php?title=Wikipedia%3A%E6%B2%99%E7%9B%92&action=edit',
+      { 'Accept-Language': ENGLISH, 'User-Agent': UA_DESKTOP });
+    if (r.error) return noConnection(r);
+    if (r.status !== 200) return '❌ Не открывается: код ' + r.status + '.';
+    if (r.body.indexOf('Banned') >= 0) return '❌ Править статьи с IP сервера нельзя: он заблокирован.';
+    return '✅ Править статьи можно.';
+  },
+
+  async scamalytics() {
+    const info = await get('https://ipinfo.io/json');
+    const ip = info.status === 200 ? parseJson(info.body) : null;
+    if (!ip || !ip.ip) return '❌ Не удалось узнать IP сервера: ' + escapeHtml(failure(info)) + '.';
+    const page = await get('https://scamalytics.com/search?ip=' + encodeURIComponent(ip.ip), { 'Accept-Language': ENGLISH });
+    const city = plain(ip.city);
+    const org = plain(ip.org);
+    const lines = ['<b>IP сервера:</b> ' + escapeHtml(ip.ip) + (ip.country ? ' · ' + regionText(ip.country) : '') +
+      (city ? ' · ' + escapeHtml(city) : '') + (org ? '<br><span class="muted">' + escapeHtml(org) + '</span>' : '')];
+    if (page.error) {
+      lines.push(noConnection(page));
+      return lines.join('<br>');
+    }
+    const pre = /<pre[^>]*>([\s\S]*?)<\/pre>/i.exec(page.body);
+    const text = pre ? pre[1] : '';
+    const score = /"?score"?\s*:\s*"?(\d+)/i.exec(text);
+    const risk = /"?risk"?\s*:\s*"?([a-z]+(?: [a-z]+)?)/i.exec(text);
+    const RISK = { 'very high': '🔴 очень высокий', high: '🟠 высокий', medium: '🟡 средний', low: '🟢 низкий' };
+    if (!score && !risk) {
+      lines.push('⚠️ Scamalytics не отдал оценку, код ' + page.status + '.');
+    } else {
+      lines.push('<b>Оценка мошенничества:</b> ' + (score ? score[1] + ' из 100' : 'нет данных'));
+      lines.push('<b>Уровень риска:</b> ' + ((risk && RISK[risk[1].toLowerCase()]) || '⚪ неизвестен'));
+    }
+    lines.push('<span class="muted small">Чем выше риск, тем чаще сервисы показывают капчу или не пускают.</span>');
+    return lines.join('<br>');
+  },
+};
 
 async function checkRoute() {
   const [direct, proxy] = await Promise.all([
@@ -1129,13 +1304,9 @@ function clientMain(DATA) {
   function esc(s) {
     return String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
-  const RULES = DATA.translations.map((t) => [t[2] ? new RegExp(t[0], 'g') : t[0], t[1]]);
-  function translate(html) {
-    let s = String(html);
-    RULES.forEach((rule) => {
-      s = typeof rule[0] === 'string' ? s.split(rule[0]).join(rule[1]) : s.replace(rule[0], rule[1]);
-    });
-    return s.replace(/^\s*([а-яё])/, (m, c) => c.toUpperCase());
+  // Страховка: китайские, японские и корейские символы из ответов сайтов на страницу не попадают.
+  function clean(html) {
+    return String(html).replace(/[\u2E80-\u9FFF\uAC00-\uD7AF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF]+/g, '');
   }
   function errorText(e) {
     return e && e.message ? e.message : String(e);
@@ -1216,7 +1387,7 @@ function clientMain(DATA) {
       if (params.length) path += '?' + params.join('&');
     }
     try {
-      out.innerHTML = translate((await getJson(path)).message);
+      out.innerHTML = clean((await getJson(path)).message);
     } catch (e) {
       out.textContent = '❌ проверка не выполнилась: ' + errorText(e);
     }
@@ -1276,7 +1447,7 @@ function clientMain(DATA) {
     }
     probeBox.innerHTML = '<span class="muted">проверяю соединение…</span>';
     try {
-      probeBox.innerHTML = translate((await getJson('/probe?url=' + encodeURIComponent(t.url))).message);
+      probeBox.innerHTML = clean((await getJson('/probe?url=' + encodeURIComponent(t.url))).message);
     } catch (e) {
       probeBox.textContent = '❌ проверка соединения не выполнилась: ' + errorText(e);
     }
@@ -1390,7 +1561,7 @@ function page() {
     '<button type="button" class="btn" data-run="' + id + '">Проверить</button></header><div class="out"></div></section>').join('');
   const checks = [['lookup', 'Проверить адрес']].concat(runnable).map(([id, name]) =>
     '<label class="check"><input type="checkbox" data-card="' + id + '"> ' + escapeHtml(name) + '</label>').join('');
-  const data = JSON.stringify({ maxExtraSites: MAX_EXTRA_SITES, translations: TRANSLATIONS }).replace(/</g, '\\u003c');
+  const data = JSON.stringify({ maxExtraSites: MAX_EXTRA_SITES }).replace(/</g, '\\u003c');
   return `<!doctype html>
 <html lang="ru"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1425,7 +1596,7 @@ function page() {
 </section>
 <button type="button" class="all" id="all">Проверить всё</button>
 ${cards}
-<p class="muted foot">Проверки сервисов: скрипты huskydsb/Shadowrocket, ответы переведены. Утечка DNS: сервис surfsharkdns.com. Модуль и правила: newzealandgrom/Shadowrocket-routing.</p>
+<p class="muted foot">Проверки сервисов написаны по образцу скриптов huskydsb/Shadowrocket и lmc999/RegionRestrictionCheck. Утечка DNS: сервис surfsharkdns.com. Модуль и правила: newzealandgrom/Shadowrocket-routing.</p>
 </main>
 <script>(${clientMain.toString()})(${data});</script>
 </body></html>`;
@@ -1452,6 +1623,8 @@ function respondJson(value, status) {
       respondJson({ message: await checkSites(query) });
     } else if (path === '/dns') {
       respondJson({ message: await checkDns() });
+    } else if (Object.prototype.hasOwnProperty.call(SERVICE_CHECKS, path.slice(1))) {
+      respondJson({ message: await SERVICE_CHECKS[path.slice(1)]() });
     } else if (path === '/rule') {
       const t = makeTarget(query.host, query.port, query.scheme, query.url);
       if (!t) {
