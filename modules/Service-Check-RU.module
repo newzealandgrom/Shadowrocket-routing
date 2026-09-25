@@ -1,7 +1,7 @@
 #!name=Проверка сервисов
-#!desc=Страница http://sr.test в Safari, сертификат не нужен: IP напрямую и через прокси, доступность ключевых сайтов и работа YouTube Premium, ChatGPT, Netflix, Spotify, TikTok и других сервисов через текущий сервер. Работает и при типе прокси HTTP, и при None. Адрес https://sr.test тоже работает, если включена HTTPS-расшифровка.
+#!desc=Страница http://sr.test в Safari, сертификат не нужен: проверка любого адреса по правилам конфига (напрямую, через прокси или блокируется), IP напрямую и через прокси, доступность сайтов и работа YouTube Premium, ChatGPT, Netflix, Spotify, TikTok и других сервисов через текущий сервер. Работает и при типе прокси HTTP, и при None. Адрес https://sr.test тоже работает, если включена HTTPS-расшифровка.
 #!homepage=https://github.com/newzealandgrom/Shadowrocket-routing
-# Страница, проверка маршрута и сайтов: Script/service-check.js этого репозитория.
+# Страница, проверка адреса по правилам, маршрута и сайтов: Script/service-check.js этого репозитория.
 # Проверки отдельных сервисов: скрипты huskydsb/Shadowrocket (https://github.com/huskydsb/Shadowrocket).
 
 [General]
@@ -9,7 +9,7 @@
 force-http-engine-hosts = %APPEND% sr.test
 
 [Script]
-sr-check = type=http-request,pattern=^https?:\/\/sr\.test\/(route|sites)?\/?(\?.*)?$,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/Script/service-check.js,timeout=60
+sr-check = type=http-request,pattern=^https?:\/\/sr\.test\/(route|sites|rule|probe)?\/?(\?.*)?$,script-path=https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/Script/service-check.js,timeout=60
 sr-check-youtube = type=http-request,pattern=^https?:\/\/sr\.test\/youtube\/?$,script-path=https://raw.githubusercontent.com/huskydsb/Shadowrocket/main/Streaming/js/youtube.js,timeout=60
 sr-check-chatgpt = type=http-request,pattern=^https?:\/\/sr\.test\/chatgpt\/?$,script-path=https://raw.githubusercontent.com/huskydsb/Shadowrocket/main/Streaming/js/chatgpt.js,timeout=60
 sr-check-netflix = type=http-request,pattern=^https?:\/\/sr\.test\/netflix\/?$,script-path=https://raw.githubusercontent.com/huskydsb/Shadowrocket/main/Streaming/js/netflix.js,timeout=60

@@ -33,6 +33,10 @@ jobs:
       - name: Собрать модуль для приложений, которые жалуются на VPN
         run: python github_actions/build_vpn_module.py
 
+      # Индекс для проверки адреса на странице http://sr.test: догоняет ручные правки списков за сутки.
+      - name: Собрать индекс правил для страницы проверки
+        run: python github_actions/build_rule_index.py
+
       - name: Закоммитить изменения
         run: |
           git add -A modules/YT-Premium-V1-RU.module modules/YT-Premium-Worker-RU.module modules/VPN-Detect-RU.module Script

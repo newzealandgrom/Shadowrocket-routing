@@ -1,0 +1,645 @@
+{
+ "format": 1,
+ "config": "SR_RU.conf",
+ "domainShards": 128,
+ "splitKeys": [
+  "cloudfront.net",
+  "co.uk",
+  "com.au",
+  "com.br"
+ ],
+ "ip4Parts": [
+  [
+   "0.0.0.0/5",
+   631
+  ],
+  [
+   "8.0.0.0/5",
+   210
+  ],
+  [
+   "16.0.0.0/5",
+   846
+  ],
+  [
+   "24.0.0.0/5",
+   234
+  ],
+  [
+   "32.0.0.0/5",
+   517
+  ],
+  [
+   "40.0.0.0/5",
+   716
+  ],
+  [
+   "48.0.0.0/5",
+   618
+  ],
+  [
+   "56.0.0.0/5",
+   180
+  ],
+  [
+   "64.0.0.0/5",
+   1191
+  ],
+  [
+   "72.0.0.0/5",
+   475
+  ],
+  [
+   "80.0.0.0/5",
+   571
+  ],
+  [
+   "88.0.0.0/5",
+   1245
+  ],
+  [
+   "96.0.0.0/5",
+   305
+  ],
+  [
+   "104.0.0.0/5",
+   569
+  ],
+  [
+   "112.0.0.0/5",
+   81
+  ],
+  [
+   "120.0.0.0/5",
+   13
+  ],
+  [
+   "128.0.0.0/5",
+   159
+  ],
+  [
+   "136.0.0.0/5",
+   256
+  ],
+  [
+   "144.0.0.0/5",
+   370
+  ],
+  [
+   "152.0.0.0/5",
+   325
+  ],
+  [
+   "160.0.0.0/5",
+   577
+  ],
+  [
+   "168.0.0.0/8",
+   25
+  ],
+  [
+   "169.0.0.0/8",
+   11
+  ],
+  [
+   "170.0.0.0/8",
+   13
+  ],
+  [
+   "171.0.0.0/8",
+   8
+  ],
+  [
+   "172.0.0.0/11",
+   0
+  ],
+  [
+   "172.32.0.0/11",
+   0
+  ],
+  [
+   "172.64.0.0/17",
+   0
+  ],
+  [
+   "172.64.128.0/17",
+   213
+  ],
+  [
+   "172.65.0.0/17",
+   1
+  ],
+  [
+   "172.65.128.0/17",
+   4
+  ],
+  [
+   "172.66.0.0/17",
+   165
+  ],
+  [
+   "172.66.128.0/17",
+   303
+  ],
+  [
+   "172.67.0.0/17",
+   666
+  ],
+  [
+   "172.67.128.0/20",
+   1499
+  ],
+  [
+   "172.67.144.0/23",
+   181
+  ],
+  [
+   "172.67.146.0/23",
+   185
+  ],
+  [
+   "172.67.148.0/23",
+   185
+  ],
+  [
+   "172.67.150.0/23",
+   181
+  ],
+  [
+   "172.67.152.0/23",
+   201
+  ],
+  [
+   "172.67.154.0/23",
+   190
+  ],
+  [
+   "172.67.156.0/23",
+   185
+  ],
+  [
+   "172.67.158.0/23",
+   195
+  ],
+  [
+   "172.67.160.0/20",
+   1485
+  ],
+  [
+   "172.67.176.0/20",
+   1485
+  ],
+  [
+   "172.67.192.0/23",
+   195
+  ],
+  [
+   "172.67.194.0/23",
+   195
+  ],
+  [
+   "172.67.196.0/23",
+   184
+  ],
+  [
+   "172.67.198.0/23",
+   176
+  ],
+  [
+   "172.67.200.0/23",
+   194
+  ],
+  [
+   "172.67.202.0/23",
+   188
+  ],
+  [
+   "172.67.204.0/23",
+   196
+  ],
+  [
+   "172.67.206.0/23",
+   187
+  ],
+  [
+   "172.67.208.0/23",
+   184
+  ],
+  [
+   "172.67.210.0/23",
+   186
+  ],
+  [
+   "172.67.212.0/23",
+   194
+  ],
+  [
+   "172.67.214.0/23",
+   188
+  ],
+  [
+   "172.67.216.0/23",
+   191
+  ],
+  [
+   "172.67.218.0/23",
+   192
+  ],
+  [
+   "172.67.220.0/23",
+   185
+  ],
+  [
+   "172.67.222.0/23",
+   184
+  ],
+  [
+   "172.67.224.0/20",
+   0
+  ],
+  [
+   "172.67.240.0/20",
+   0
+  ],
+  [
+   "172.68.0.0/14",
+   0
+  ],
+  [
+   "172.72.0.0/14",
+   0
+  ],
+  [
+   "172.76.0.0/14",
+   0
+  ],
+  [
+   "172.80.0.0/14",
+   1
+  ],
+  [
+   "172.84.0.0/14",
+   1
+  ],
+  [
+   "172.88.0.0/14",
+   0
+  ],
+  [
+   "172.92.0.0/14",
+   4
+  ],
+  [
+   "172.96.0.0/11",
+   28
+  ],
+  [
+   "172.128.0.0/11",
+   0
+  ],
+  [
+   "172.160.0.0/11",
+   0
+  ],
+  [
+   "172.192.0.0/11",
+   3
+  ],
+  [
+   "172.224.0.0/11",
+   28
+  ],
+  [
+   "173.0.0.0/8",
+   111
+  ],
+  [
+   "174.0.0.0/8",
+   12
+  ],
+  [
+   "175.0.0.0/8",
+   15
+  ],
+  [
+   "176.0.0.0/5",
+   499
+  ],
+  [
+   "184.0.0.0/8",
+   35
+  ],
+  [
+   "185.0.0.0/8",
+   1233
+  ],
+  [
+   "186.0.0.0/8",
+   23
+  ],
+  [
+   "187.0.0.0/8",
+   3
+  ],
+  [
+   "188.0.0.0/8",
+   239
+  ],
+  [
+   "189.0.0.0/8",
+   0
+  ],
+  [
+   "190.0.0.0/8",
+   78
+  ],
+  [
+   "191.0.0.0/8",
+   6
+  ],
+  [
+   "192.0.0.0/5",
+   1174
+  ],
+  [
+   "200.0.0.0/5",
+   327
+  ],
+  [
+   "208.0.0.0/5",
+   592
+  ],
+  [
+   "216.0.0.0/5",
+   231
+  ],
+  [
+   "224.0.0.0/5",
+   0
+  ],
+  [
+   "232.0.0.0/5",
+   0
+  ],
+  [
+   "240.0.0.0/5",
+   0
+  ],
+  [
+   "248.0.0.0/5",
+   0
+  ]
+ ],
+ "lists": [
+  {
+   "name": "reject.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/reject.list",
+   "rules": {
+    "DOMAIN-SUFFIX": 170301
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "private.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/private.list",
+   "rules": {
+    "DOMAIN": 12,
+    "DOMAIN-SUFFIX": 118
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "direct.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/direct.list",
+   "rules": {
+    "DOMAIN-SUFFIX": 665,
+    "IP-CIDR": 2
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "domains_banking.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/domains_banking.list",
+   "rules": {
+    "DOMAIN-SUFFIX": 646
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "ru_direct_community.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/ru_direct_community.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 9,
+    "DOMAIN-SUFFIX": 497
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "discord.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/discord.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 2,
+    "DOMAIN-SUFFIX": 29
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "domains_refilter.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/domains_refilter.list",
+   "rules": {
+    "DOMAIN-SUFFIX": 74649
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "domains_community.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/domains_community.list",
+   "rules": {
+    "DOMAIN-SUFFIX": 47
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "geoblock_ru.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/geoblock_ru.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 105,
+    "DOMAIN-SUFFIX": 769
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "TikTok.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/TikTok.list",
+   "rules": {
+    "DOMAIN": 4,
+    "DOMAIN-KEYWORD": 2,
+    "DOMAIN-SUFFIX": 25,
+    "USER-AGENT": 1
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "GitHub.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/GitHub.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 1,
+    "DOMAIN-SUFFIX": 30
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "Google.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/Google.list",
+   "rules": {
+    "DOMAIN": 1,
+    "DOMAIN-KEYWORD": 5,
+    "DOMAIN-SUFFIX": 660,
+    "IP-CIDR": 5,
+    "USER-AGENT": 3
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "Telegram.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/Telegram.list",
+   "rules": {
+    "DOMAIN": 2,
+    "DOMAIN-KEYWORD": 1,
+    "DOMAIN-SUFFIX": 22,
+    "IP-ASN": 5,
+    "IP-CIDR": 10
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "OpenAI.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/OpenAI.list",
+   "rules": {
+    "DOMAIN": 7,
+    "DOMAIN-KEYWORD": 1,
+    "DOMAIN-SUFFIX": 23,
+    "IP-ASN": 1,
+    "IP-CIDR": 2
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "Facebook.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/Facebook.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 2,
+    "DOMAIN-SUFFIX": 544,
+    "IP-ASN": 1,
+    "IP-CIDR": 23
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "Twitter.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/Twitter.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 1,
+    "DOMAIN-SUFFIX": 26,
+    "IP-CIDR": 6
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "Apple.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/Apple.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 7,
+    "IP-CIDR": 13,
+    "USER-AGENT": 23
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "domains_geo_detect.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/domains_geo_detect.list",
+   "rules": {
+    "DOMAIN": 11,
+    "DOMAIN-SUFFIX": 220
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "YouTube.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/YouTube.list",
+   "rules": {
+    "DOMAIN-KEYWORD": 1,
+    "DOMAIN-SUFFIX": 179,
+    "IP-CIDR": 1,
+    "USER-AGENT": 7
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "proxy.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/proxy.list",
+   "rules": {
+    "DOMAIN": 1,
+    "DOMAIN-KEYWORD": 13,
+    "DOMAIN-SUFFIX": 93
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "voice_ports.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/voice_ports.list",
+   "rules": {
+    "DST-PORT": 7
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "ips_refilter.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/ips_refilter.list",
+   "rules": {
+    "IP-CIDR": 24973
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "meta_ips.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/meta_ips.list",
+   "rules": {
+    "IP-CIDR": 138
+   },
+   "cidrResolve": 0
+  },
+  {
+   "name": "telegram_ips.list",
+   "type": "RULE-SET",
+   "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/telegram_ips.list",
+   "rules": {
+    "IP-CIDR": 15
+   },
+   "cidrResolve": 0
+  }
+ ]
+}

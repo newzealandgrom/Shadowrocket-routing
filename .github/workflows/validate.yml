@@ -40,3 +40,7 @@ jobs:
       - name: Модуль VPN собран из текущих SR_RU.conf и банковского списка (только информация)
         continue-on-error: true
         run: python github_actions/build_vpn_module.py --check
+
+      - name: Индекс правил для страницы проверки собран из текущих списков (только информация)
+        continue-on-error: true
+        run: python github_actions/build_rule_index.py --check
