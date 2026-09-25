@@ -1,0 +1,13 @@
+#!name=BoxJs
+#!desc=Хранилище настроек и данных для скриптов с веб-интерфейсом. Откройте http://boxjs.com в Safari. Для https://boxjs.com нужен MITM-сертификат.
+#!homepage=https://docs.boxjs.app/
+# По официальному модулю chavyleung/scripts: box/rewrite/boxjs.rewrite.surge.sgmodule.
+
+[General]
+force-http-engine-hosts = %APPEND% boxjs.com, boxjs.net, *.boxjs.com, *.boxjs.net
+
+[Script]
+boxjs = type=http-request,pattern=^https?:\/\/(.+\.)?boxjs\.(com|net),script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/box/chavy.boxjs.js,requires-body=true,timeout=120
+
+[MITM]
+hostname = %APPEND% boxjs.com, boxjs.net, *.boxjs.com, *.boxjs.net
