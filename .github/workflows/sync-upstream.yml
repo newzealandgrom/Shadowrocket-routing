@@ -31,10 +31,13 @@ jobs:
       - name: Проверить результат
         run: python github_actions/validate_lists.py
 
+      - name: Пересобрать индекс правил для страницы проверки
+        run: python github_actions/build_rule_index.py
+
       - name: Закоммитить изменения
         run: |
-          git add -A lists
-          if git diff --cached --quiet -- lists; then
+          git add -A lists Script/rule-index
+          if git diff --cached --quiet -- lists Script/rule-index; then
             echo "Списки не изменились."
             exit 0
           fi

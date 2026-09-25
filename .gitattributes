@@ -7,3 +7,7 @@
 *.js text eol=lf
 *.yml text eol=lf
 *.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+# Индекс правил собирает github_actions/build_rule_index.py: GitHub сворачивает его в диффах.
+Script/rule-index/** linguist-generated=true
