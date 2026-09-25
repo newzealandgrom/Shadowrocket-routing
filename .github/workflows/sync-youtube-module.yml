@@ -32,7 +32,7 @@ jobs:
 
       - name: Закоммитить изменения
         run: |
-          git add -A modules/YT-Premium-V1-RU.module Script
+          git add -A modules/YT-Premium-V1-RU.module modules/YT-Premium-Worker-RU.module Script
           if git diff --cached --quiet; then
             echo "Модуль и скрипты не изменились."
             exit 0
