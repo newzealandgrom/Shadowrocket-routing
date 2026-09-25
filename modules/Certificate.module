@@ -1,5 +1,13 @@
-#!name=Certificate Module
+#!name=Сертификат MITM
+#!desc=Хранит сертификат HTTPS-расшифровки отдельно от конфига, чтобы автообновление SR_RU.conf его не стирало. Перед включением заполните через «Редактировать параметры».
+#!arguments=enable:false,p12:вставьте_сертификат,passphrase:Shadowrocket,h2:false
+#!arguments-desc=enable: true — модуль работает. Включайте только после того, как вставили сертификат\n\np12: содержимое сертификата. Скопируйте его в Shadowrocket: Конфигурация → ⓘ справа от конфига → HTTPS-расшифровка → ⓘ справа от сертификата → Копировать\n\npassphrase: пароль сертификата, по умолчанию Shadowrocket\n\nh2: true — расшифровка поверх HTTP/2 (Shadowrocket 2.2.81 и новее). Перекрывает настройку конфига, по умолчанию выключена
+#!homepage=https://github.com/newzealandgrom/Shadowrocket-routing
+# По образцу модуля-сертификата из руководства Shadowrocket (LOWERTOP/Shadowrocket, раздел «编辑参数»).
+# Значения из «Редактировать параметры» не теряются при обновлении модуля.
+
 [MITM]
-enable=true
-ca-passphrase=${CA_PASSPHRASE}
-ca-p12=${CA_P12}
+enable={{{enable}}}
+h2 = {{{h2}}}
+ca-passphrase={{{passphrase}}}
+ca-p12={{{p12}}}
