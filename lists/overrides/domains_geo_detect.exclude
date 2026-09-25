@@ -1,0 +1,2 @@
+# 2ip.ru должен идти напрямую (есть в direct.list), чтобы показывать реальный IP.
+DOMAIN-SUFFIX,2ip.ru

@@ -1,0 +1,26 @@
+# Рекламные и аналитические домены Google из upstream-списка blackmatrix7 здесь не нужны:
+# то, что должно блокироваться, есть в reject.list, остальное и так уходит через FINAL,PROXY.
+DOMAIN-SUFFIX,0emm.com
+DOMAIN-SUFFIX,2mdn-cn.net
+DOMAIN-SUFFIX,2mdn.net
+DOMAIN-SUFFIX,admeld.com
+DOMAIN-SUFFIX,admob-cn.com
+DOMAIN-SUFFIX,admob.com
+DOMAIN-SUFFIX,adsensecustomsearchads.com
+DOMAIN-SUFFIX,app-analytics-services.com
+DOMAIN-SUFFIX,appbridge.it
+DOMAIN-SUFFIX,apps5.oingo.com
+DOMAIN-SUFFIX,apture.com
+DOMAIN-SUFFIX,crashlytics.com
+DOMAIN-SUFFIX,doubleclick-cn.net
+DOMAIN-SUFFIX,doubleclick.com
+DOMAIN-SUFFIX,doubleclick.net
+DOMAIN-SUFFIX,google-analytics-cn.com
+DOMAIN-SUFFIX,google-analytics.com
+DOMAIN-SUFFIX,googleadservices-cn.com
+DOMAIN-SUFFIX,googleadservices.com
+DOMAIN-SUFFIX,googleanalytics.com
+DOMAIN-SUFFIX,googlemashups.com
+DOMAIN-SUFFIX,googleoptimize-cn.com
+DOMAIN-SUFFIX,googlesyndication.com
+DOMAIN-SUFFIX,googletagmanager-cn.com

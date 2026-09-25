@@ -1,12 +1,11 @@
-# NAME: YouTube
+# NAME: YouTube.list
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
 # UPDATED: 2025-06-06 09:15:10
-# DOMAIN-KEYWORD: 1
-# DOMAIN-SUFFIX: 179
-# IP-CIDR: 3
-# USER-AGENT: 7
-# TOTAL: 190
+# SOURCE: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/YouTube/YouTube.list
+# OVERRIDES: lists/overrides/YouTube.exclude / .append
+# Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
+# TOTAL: 188
 DOMAIN-SUFFIX,ggpht.cn
 DOMAIN-SUFFIX,ggpht.com
 DOMAIN-SUFFIX,googlevideo.com
