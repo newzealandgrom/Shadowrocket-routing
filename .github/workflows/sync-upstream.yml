@@ -1,0 +1,49 @@
+name: Sync upstream lists
+
+on:
+  schedule:
+    # Каждый понедельник в 04:17 UTC (07:17 МСК)
+    - cron: '17 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-upstream
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Скачать и сконвертировать upstream-списки
+        run: python github_actions/sync_upstream.py
+
+      - name: Проверить результат
+        run: python github_actions/validate_lists.py
+
+      - name: Закоммитить изменения
+        run: |
+          git add -A lists
+          if git diff --cached --quiet -- lists; then
+            echo "Списки не изменились."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          {
+            echo "Sync upstream lists"
+            echo
+            git diff --cached --stat -- lists
+          } > /tmp/commit-msg.txt
+          git commit -F /tmp/commit-msg.txt
+          git push

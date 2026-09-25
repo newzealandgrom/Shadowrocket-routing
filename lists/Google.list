@@ -1,4 +1,11 @@
-# TOTAL: 698
+# NAME: Google.list
+# AUTHOR: blackmatrix7
+# REPO: https://github.com/blackmatrix7/ios_rule_script
+# UPDATED: 2026-05-12 02:38:11
+# SOURCE: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Google/Google.list
+# OVERRIDES: lists/overrides/Google.exclude / .append
+# Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
+# TOTAL: 674
 DOMAIN,voice.telephony.goog
 DOMAIN-SUFFIX,1e100.net
 DOMAIN-SUFFIX,1ucrs.com

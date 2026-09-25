@@ -1,0 +1,38 @@
+name: Validate lists and config
+
+on:
+  push:
+    paths:
+      - 'lists/**'
+      - 'SR_RU.conf'
+      - 'github_actions/**'
+      - '.github/workflows/validate.yml'
+  pull_request:
+    paths:
+      - 'lists/**'
+      - 'SR_RU.conf'
+      - 'github_actions/**'
+      - '.github/workflows/validate.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Проверка списков и SR_RU.conf (ошибки роняют сборку)
+        run: python github_actions/validate_lists.py
+
+      - name: Канонический вид списков (только информация)
+        continue-on-error: true
+        run: python github_actions/normalize_lists.py --check

@@ -1,0 +1,9 @@
+# Все текстовые файлы храним с LF: Shadowrocket и валидатор ожидают Unix-переводы строк.
+* text=auto eol=lf
+*.list text eol=lf
+*.conf text eol=lf
+*.module text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+*.yml text eol=lf
+*.md text eol=lf

@@ -1,11 +1,9 @@
-# NAME: Facebook
+# NAME: Facebook.list
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
 # UPDATED: 2025-06-06 09:16:55
-# DOMAIN-KEYWORD: 2
-# DOMAIN-SUFFIX: 544
-# IP-ASN: 1
-# IP-CIDR: 23
+# SOURCE: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Facebook/Facebook.list
+# Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
 # TOTAL: 570
 DOMAIN-SUFFIX,aboutfacebook.com
 DOMAIN-SUFFIX,accessfacebookfromschool.com

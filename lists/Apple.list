@@ -1,13 +1,10 @@
-# NAME: Apple
+# NAME: Apple.list
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
-# UPDATED: 2026-07-14 03:17:35
-# DOMAIN: 9
-# DOMAIN-KEYWORD: 7
-# DOMAIN-SUFFIX: 1551
-# IP-CIDR: 13
-# USER-AGENT: 23
-# TOTAL: 1603
+# UPDATED: 2026-09-22 05:31:11
+# SOURCE: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Apple/Apple.list
+# Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
+# TOTAL: 43
 DOMAIN-KEYWORD,apple-support.akadns.net
 DOMAIN-KEYWORD,apple.com.akadns.net
 DOMAIN-KEYWORD,apple.com.edgekey.net

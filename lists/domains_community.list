@@ -32,9 +32,7 @@ DOMAIN-SUFFIX,anzu-us.com
 DOMAIN-SUFFIX,cdn.id.supercell.com
 DOMAIN-SUFFIX,clashofclans.com
 DOMAIN-SUFFIX,clashofclans.inbox.supercell.com
-DOMAIN-SUFFIX,game-assets.clashofclans.com
 DOMAIN-SUFFIX,game.boombeachgame.com
-DOMAIN-SUFFIX,game.clashofclans.com
 DOMAIN-SUFFIX,gameloft.com
 DOMAIN-SUFFIX,security.id.supercell.com
 
@@ -59,7 +57,7 @@ DOMAIN-SUFFIX,xsts.auth.xboxlive.com
 # jetbrains
 DOMAIN-SUFFIX,jetbrains.com
 
-# ukrainian 
+# ukrainian
 DOMAIN-SUFFIX,semrush.com
 DOMAIN-SUFFIX,setapp.com
 DOMAIN-SUFFIX,netpeaksoftware.com

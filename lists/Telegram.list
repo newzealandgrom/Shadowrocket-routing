@@ -1,12 +1,9 @@
-# NAME: Telegram
+# NAME: Telegram.list
 # AUTHOR: blackmatrix7
 # REPO: https://github.com/blackmatrix7/ios_rule_script
 # UPDATED: 2025-09-10 02:08:26
-# DOMAIN: 2
-# DOMAIN-KEYWORD: 1
-# DOMAIN-SUFFIX: 22
-# IP-ASN: 5
-# IP-CIDR: 10
+# SOURCE: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/Telegram/Telegram.list
+# Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
 # TOTAL: 40
 DOMAIN,api.imem.app
 DOMAIN,api.swiftgram.app
@@ -21,7 +18,6 @@ DOMAIN-SUFFIX,stel.com
 DOMAIN-SUFFIX,t.me
 DOMAIN-SUFFIX,tdesktop.com
 DOMAIN-SUFFIX,telega.one
-DOMAIN-SUFFIX,tdesktop.com
 DOMAIN-SUFFIX,telegra.ph
 DOMAIN-SUFFIX,telegram-cdn.org
 DOMAIN-SUFFIX,telegram.dog
