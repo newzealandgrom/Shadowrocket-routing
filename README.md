@@ -64,16 +64,16 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 
 - DNS: DoH Google, ControlD, Cloudflare (`1.1.1.1`) и xbox-dns.ru; резервные Cloudflare DoH, Яндекс DoT/DoH и системный DNS.
 - `always-real-ip = *` (fake-IP отключён), `hijack-dns = *:53` (перехват всех DNS-запросов), IPv6 выключен.
-- `skip-proxy` и `bypass-tun` исключают локальные сети из туннеля.
+- `skip-proxy` и `bypass-tun` исключают локальные сети из туннеля; `skip-proxy` дополнительно пускает напрямую `captive.apple.com` и все домены `*.ru` (для трафика через системный HTTP-прокси).
 - `update-url` — конфиг обновляется из этого репозитория.
 
 **`[Rule]`**, по порядку:
 
-1. Совместимость с Tailscale (`100.64.0.0/10`, `ts.net`) — DIRECT.
-2. `reject.list` — REJECT. Стоит первым, поэтому домен из него блокируется, даже если он есть в других списках.
+1. Совместимость с Tailscale (`100.64.0.0/10`, `100.100.100.100/32`, `ts.net`, `tailscale.com`) — DIRECT; отдельное правило `meet.wcase.net` — PROXY.
+2. `reject.list` — REJECT. Стоит первым из списков, поэтому домен из него блокируется, даже если он есть в других списках.
 3. `private.list`, `direct.list`, `domains_banking.list` — DIRECT.
 4. Доменные списки сервисов и заблокированных ресурсов — PROXY.
-5. Порты звонков и IP-списки — PROXY. IP-правила стоят после доменных и помечены `no-resolve`.
+5. Порты звонков и отдельные IP-списки (`ips_refilter.list`, `meta_ips.list`, `telegram_ips.list`) — PROXY, они стоят после доменных списков. Все IP-правила в конфиге, включая подсети и ASN внутри списков blackmatrix7, помечены `no-resolve`.
 6. `GEOIP,RU,DIRECT`, затем `FINAL,PROXY`.
 
 В `SR_RU.conf` нет секции `[MITM]` и модулей: они подключаются отдельно (см. ниже), поэтому базовый профиль работает без установки сертификата.
@@ -131,6 +131,8 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 ### Проверка
 
 При каждом изменении `lists/` или `SR_RU.conf` в CI запускается `validate_lists.py`. Сборка падает при: неизвестных типах правил, невидимых символах и типографских тире, wildcard в доменных правилах, заглавных буквах, некорректных IP/портах, дубликатах внутри файла, одной и той же записи в списках с политиками DIRECT и PROXY, ссылке `RULE-SET` на несуществующий файл. Предупреждения (пересечения с `reject.list`, записи, перекрытые родительским суффиксом, политика внутри файла списка) сборку не роняют.
+
+Кроме точных совпадений валидатор ловит и перекрытия: если в списке выше по конфигу есть `DOMAIN-SUFFIX,spb.ru` (DIRECT), то `DOMAIN-SUFFIX,echomsk.spb.ru` (PROXY) ниже никогда не сработает, это тоже ошибка. Такие случаи решаются через `lists/overrides/*.exclude`.
 
 Локально:
 

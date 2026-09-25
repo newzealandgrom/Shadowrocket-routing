@@ -3,7 +3,7 @@
 # SOURCE: https://raw.githubusercontent.com/1andrevich/Re-filter-lists/main/domains_all.lst
 # OVERRIDES: lists/overrides/domains_refilter.exclude / .append
 # Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
-# TOTAL: 74657
+# TOTAL: 74649
 DOMAIN-SUFFIX,4pda.ru
 DOMAIN-SUFFIX,4pda.to
 DOMAIN-SUFFIX,abook-club.ru
@@ -16465,7 +16465,6 @@ DOMAIN-SUFFIX,echohoho.online
 DOMAIN-SUFFIX,echohoho.site
 DOMAIN-SUFFIX,echohoho.website
 DOMAIN-SUFFIX,echoloveyou.website
-DOMAIN-SUFFIX,echomsk.spb.ru
 DOMAIN-SUFFIX,echospherepro.com
 DOMAIN-SUFFIX,echospring.net
 DOMAIN-SUFFIX,echospring.online
@@ -30255,7 +30254,6 @@ DOMAIN-SUFFIX,kupimkarton.ru
 DOMAIN-SUFFIX,kupimzip.ru
 DOMAIN-SUFFIX,kupisport.ru
 DOMAIN-SUFFIX,kupizakisazot.ru
-DOMAIN-SUFFIX,kuplu-avto.spb.ru
 DOMAIN-SUFFIX,kuplulekarstva.ru
 DOMAIN-SUFFIX,kuplupreparat.ru
 DOMAIN-SUFFIX,kuplupreparaty.ru
@@ -35699,7 +35697,6 @@ DOMAIN-SUFFIX,minsvyazrd.ru
 DOMAIN-SUFFIX,mintbit.co
 DOMAIN-SUFFIX,mintonecoin.org
 DOMAIN-SUFFIX,mintpressnews.ru
-DOMAIN-SUFFIX,mintrans.spb.ru
 DOMAIN-SUFFIX,mintrans22.ru
 DOMAIN-SUFFIX,mintrudrd.ru
 DOMAIN-SUFFIX,mintur04.ru
@@ -44867,7 +44864,6 @@ DOMAIN-SUFFIX,portal-nord.ru
 DOMAIN-SUFFIX,portal-r.ru
 DOMAIN-SUFFIX,portal-smi-by.ru
 DOMAIN-SUFFIX,portal.lviv.ua
-DOMAIN-SUFFIX,portal.nov.ru
 DOMAIN-SUFFIX,portal.shcba.org
 DOMAIN-SUFFIX,portal.switchmarkets.com
 DOMAIN-SUFFIX,portal8.info
@@ -48323,7 +48319,6 @@ DOMAIN-SUFFIX,rodniy-ludi.ru
 DOMAIN-SUFFIX,rodnya.org
 DOMAIN-SUFFIX,rodobozhie.ru
 DOMAIN-SUFFIX,rodoswet.ru
-DOMAIN-SUFFIX,rofss.spb.ru
 DOMAIN-SUFFIX,rogachevo-admin.ru
 DOMAIN-SUFFIX,rogaine-spb.ru
 DOMAIN-SUFFIX,rogsummit.ru
@@ -48497,7 +48492,6 @@ DOMAIN-SUFFIX,rosnauka.ru
 DOMAIN-SUFFIX,rosoperator.ru
 DOMAIN-SUFFIX,rospens.ru
 DOMAIN-SUFFIX,rosphoto.com
-DOMAIN-SUFFIX,rospotreb.spb.ru
 DOMAIN-SUFFIX,rospres.mobi
 DOMAIN-SUFFIX,rospres.site
 DOMAIN-SUFFIX,rosprom-gov-ru.ru
@@ -58514,7 +58508,6 @@ DOMAIN-SUFFIX,trendex.pro
 DOMAIN-SUFFIX,trendexglobal.net
 DOMAIN-SUFFIX,trendi.live
 DOMAIN-SUFFIX,trending.network
-DOMAIN-SUFFIX,trendinvesst.nov.ru
 DOMAIN-SUFFIX,trendinvesst.nov.su
 DOMAIN-SUFFIX,trendinvesst.pp.ru
 DOMAIN-SUFFIX,trendium-prism-software.com
@@ -59287,7 +59280,6 @@ DOMAIN-SUFFIX,tuxautostock.com
 DOMAIN-SUFFIX,tuxlervpn.com
 DOMAIN-SUFFIX,tuxproject.de
 DOMAIN-SUFFIX,tuxy.com.ru
-DOMAIN-SUFFIX,tuxy.spb.ru
 DOMAIN-SUFFIX,tuyana.ru
 DOMAIN-SUFFIX,tuyetnhijapan.com
 DOMAIN-SUFFIX,tuzdes.cc

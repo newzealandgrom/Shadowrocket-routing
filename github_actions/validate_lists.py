@@ -15,7 +15,9 @@
   * wildcard (*) в DOMAIN / DOMAIN-SUFFIX, заглавные буквы в домене, некорректный домен;
   * некорректный IP/CIDR, порт или диапазон портов, ASN, GEOIP;
   * точные дубликаты внутри одного файла;
-  * одна и та же запись в списках с политиками DIRECT и PROXY (реальный конфликт маршрутизации);
+  * одна и та же запись в списках с политиками DIRECT и PROXY (реальный конфликт маршрутизации),
+    а также более широкое правило (родительский DOMAIN-SUFFIX, более широкая подсеть) в списке,
+    который стоит выше в конфиге, чем список с более узкой записью другой политики;
   * RULE-SET в конфиге ссылается на файл, которого нет в lists/.
 
 ПРЕДУПРЕЖДЕНИЯ (работает, но стоит поправить):
@@ -37,12 +39,13 @@ from dataclasses import dataclass, field
 from urllib.parse import urlparse
 
 DOMAIN_TYPES = {"DOMAIN", "DOMAIN-SUFFIX", "DOMAIN-KEYWORD"}
+WILDCARD_TYPES = {"DOMAIN-WILDCARD"}  # Shadowrocket >= 2.2.65: «*» и «?» в домене
 IP_TYPES = {"IP-CIDR", "IP-CIDR6", "SRC-IP-CIDR"}
 PORT_TYPES = {"DST-PORT", "SRC-PORT"}
 LOGIC_TYPES = {"AND", "OR", "NOT"}
 SIMPLE_TYPES = {"IP-ASN", "GEOIP", "USER-AGENT", "URL-REGEX", "PROTOCOL", "PROCESS-NAME"}
 CONF_ONLY_TYPES = {"RULE-SET", "DOMAIN-SET", "SCRIPT", "FINAL"}
-ALL_TYPES = DOMAIN_TYPES | IP_TYPES | PORT_TYPES | LOGIC_TYPES | SIMPLE_TYPES | CONF_ONLY_TYPES
+ALL_TYPES = DOMAIN_TYPES | WILDCARD_TYPES | IP_TYPES | PORT_TYPES | LOGIC_TYPES | SIMPLE_TYPES | CONF_ONLY_TYPES
 
 POLICIES = {
     "DIRECT", "PROXY", "REJECT", "REJECT-DROP", "REJECT-NO-DROP", "REJECT-TINYGIF",
@@ -67,6 +70,7 @@ DASH_CHARS = {
 }
 DOMAIN_LABEL_RE = re.compile(r"^(?!-)[a-z0-9-]{1,63}(?<!-)$")
 KEYWORD_RE = re.compile(r"^[a-z0-9.\-_]+$")
+WILDCARD_RE = re.compile(r"^[a-z0-9.*?\-]+$")
 
 REPO_LISTS_PREFIX = "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/"
 
@@ -137,8 +141,31 @@ def split_logic_rule(rest: str) -> tuple[str, list[str]]:
     return rest, []
 
 
-def parse_rule_line(file: str, lineno: int, line: str) -> Rule | None:
-    """Разобрать строку правила. Возвращает None для пустых строк и комментариев."""
+def split_logic_items(group: str) -> list[str] | None:
+    """`((A,x),(B,y))` -> ['A,x', 'B,y']; None, если скобки не сбалансированы."""
+    if not (group.startswith("(") and group.endswith(")")):
+        return None
+    inner = group[1:-1]
+    items: list[str] = []
+    depth, start = 0, -1
+    for i, ch in enumerate(inner):
+        if ch == "(":
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+            if depth < 0:
+                return None
+            if depth == 0:
+                items.append(inner[start + 1:i].strip())
+    return items if depth == 0 else None
+
+
+def parse_rule_line(file: str, lineno: int, line: str, in_list_file: bool = True) -> Rule | None:
+    """Разобрать строку правила. Возвращает None для пустых строк и комментариев.
+
+    in_list_file=False — строка из конфига: последняя часть может быть именем группы политик."""
     stripped = line.strip()
     if not stripped or stripped.startswith("#") or stripped.startswith("//") or stripped.startswith(";"):
         return None
@@ -150,12 +177,16 @@ def parse_rule_line(file: str, lineno: int, line: str) -> Rule | None:
     if rtype in LOGIC_TYPES:
         value, opts = split_logic_rule(rest)
     elif rtype in {"URL-REGEX", "USER-AGENT"}:
-        # Регулярка/UA могут содержать запятые: опции распознаём только по известным словам в хвосте.
-        parts = [p.strip() for p in rest.split(",")]
+        # Регулярка/UA могут содержать запятые и пробелы после них: значение не трогаем,
+        # опции распознаём только по известным словам в хвосте.
+        parts = rest.split(",")
         opts: list[str] = []
-        while len(parts) > 1 and (parts[-1] in RULE_OPTIONS or parts[-1].upper() in POLICIES):
-            opts.insert(0, parts.pop())
-        value = ",".join(parts)
+        while len(parts) > 1 and (parts[-1].strip() in RULE_OPTIONS or parts[-1].strip().upper() in POLICIES):
+            opts.insert(0, parts.pop().strip())
+        # В конфиге политикой может быть имя группы из [Proxy Group].
+        if not in_list_file and len(parts) > 1 and not any(o.upper() in POLICIES for o in opts):
+            opts.insert(0, parts.pop().strip())
+        value = ",".join(parts).strip()
     else:
         parts = [p.strip() for p in rest.split(",")]
         value, opts = parts[0], parts[1:]
@@ -194,6 +225,22 @@ def check_domain_value(rule: Rule, issues: list[Issue]) -> None:
             return
 
 
+def check_wildcard_value(rule: Rule, issues: list[Issue]) -> None:
+    v = rule.value
+    err = lambda msg: issues.append(Issue("error", rule.file, rule.line, msg))
+    if not v:
+        err(f"{rule.type}: пустое значение")
+    elif any(ord(c) > 127 for c in v):
+        err(f"{rule.type},{v}: не-ASCII символы в домене; используйте punycode (xn--...)")
+    elif v != v.lower():
+        err(f"{rule.type},{v}: заглавные буквы в домене; приведите к нижнему регистру")
+    elif not WILDCARD_RE.match(v):
+        err(f"{rule.type},{v}: допустимы только буквы, цифры, точки, дефисы, «*» и «?»")
+    elif "*" not in v and "?" not in v:
+        issues.append(Issue("warning", rule.file, rule.line,
+                            f"{rule.type},{v}: без «*»/«?» это обычный DOMAIN, используйте DOMAIN или DOMAIN-SUFFIX"))
+
+
 def check_ip_value(rule: Rule, issues: list[Issue]) -> None:
     try:
         net = ipaddress.ip_network(rule.value, strict=False)
@@ -230,6 +277,8 @@ def check_rule(rule: Rule, issues: list[Issue], in_list_file: bool) -> None:
 
     if rule.type in DOMAIN_TYPES:
         check_domain_value(rule, issues)
+    elif rule.type in WILDCARD_TYPES:
+        check_wildcard_value(rule, issues)
     elif rule.type in IP_TYPES:
         check_ip_value(rule, issues)
     elif rule.type in PORT_TYPES:
@@ -251,8 +300,22 @@ def check_rule(rule: Rule, issues: list[Issue], in_list_file: bool) -> None:
     elif rule.type in {"USER-AGENT", "PROCESS-NAME"} and not rule.value:
         issues.append(Issue("error", rule.file, rule.line, f"{rule.type}: пустое значение"))
     elif rule.type in LOGIC_TYPES:
-        if not (rule.value.startswith("(") and rule.value.endswith(")")):
+        items = split_logic_items(rule.value)
+        if not items:
             issues.append(Issue("error", rule.file, rule.line, f"{rule.type}: ожидается скобочная группа ((RULE,value),(RULE,value))"))
+        else:
+            if rule.type == "NOT" and len(items) != 1:
+                issues.append(Issue("error", rule.file, rule.line, "NOT принимает ровно одно вложенное правило"))
+            for item in items:
+                inner = parse_rule_line(rule.file, rule.line, item)
+                if inner is None or inner.type in LOGIC_TYPES | CONF_ONLY_TYPES:
+                    issues.append(Issue("error", rule.file, rule.line, f"{rule.type}: недопустимое вложенное правило «{item}»"))
+                    continue
+                if inner.options:
+                    issues.append(Issue("error", rule.file, rule.line,
+                                        f"{rule.type}: у вложенного правила «{item}» не должно быть политики/опций"))
+                    inner.options = []
+                check_rule(inner, issues, in_list_file=True)
 
     # Хвост правила: опции и (в конфиге) политика.
     for i, opt in enumerate(rule.options):
@@ -377,23 +440,27 @@ def check_conf(conf_path: str, lists_dir: str, issues: list[Issue]) -> dict[str,
     if text is None:
         return policies
     section = ""
-    last_rule: Rule | None = None
+    rule_section_seen = False
     final_seen_at = 0
     for lineno, line in enumerate(text.split("\n"), 1):
         check_line_chars(conf_path, lineno, line, issues)
         s = line.strip()
         if s.startswith("[") and s.endswith("]"):
             section = s[1:-1].strip().lower()
+            if section == "rule":
+                rule_section_seen = True
             continue
         if section != "rule":
             continue
-        rule = parse_rule_line(conf_path, lineno, line)
+        rule = parse_rule_line(conf_path, lineno, line, in_list_file=False)
         if rule is None:
             continue
         if final_seen_at:
             issues.append(Issue("warning", conf_path, lineno, f"правило после FINAL (строка {final_seen_at}) никогда не сработает"))
         if rule.type == "FINAL":
             final_seen_at = lineno
+            if not rule.value:
+                issues.append(Issue("error", conf_path, lineno, "FINAL без политики"))
             continue
         if rule.type == "RULE-SET" or rule.type == "DOMAIN-SET":
             url = rule.value
@@ -415,12 +482,11 @@ def check_conf(conf_path: str, lists_dir: str, issues: list[Issue]) -> dict[str,
                     policies[name] = policy.upper()
             continue
         check_rule(rule, issues, in_list_file=False)
-        if not rule.options:
+        if not rule.options or not rule.options[0]:
             issues.append(Issue("error", conf_path, lineno, f"правило без политики: {s}"))
-        last_rule = rule
-    if section == "" and not policies:
+    if not rule_section_seen:
         issues.append(Issue("error", conf_path, 0, "в конфиге нет секции [Rule]"))
-    if not final_seen_at:
+    elif not final_seen_at:
         issues.append(Issue("warning", conf_path, 0, "в секции [Rule] нет правила FINAL"))
     return policies
 
@@ -445,6 +511,7 @@ def check_cross_file(all_rules: dict[str, list[Rule]], policies: dict[str, str],
             first_in_file.add(r.key)
             by_key[r.key].append(r)
 
+    order = {name: i for i, name in enumerate(policies)}  # порядок RULE-SET в конфиге
     for key, rules in sorted(by_key.items()):
         files = sorted({r.file for r in rules})
         if len(files) < 2:
@@ -454,19 +521,79 @@ def check_cross_file(all_rules: dict[str, list[Rule]], policies: dict[str, str],
         rule_txt = f"{key[0]},{key[1]}"
         known = {p for p in pols.values() if p != "?"}
         non_reject = {p for p in known if not is_reject(p)}
-        if "?" in pols.values():
-            issues.append(Issue("warning", rules[0].file, rules[0].line,
-                                f"{rule_txt} есть в нескольких списках ({where}), политика одного из них неизвестна (файл не подключён в конфиге)"))
-        elif len(non_reject) > 1:
+        if len(non_reject) > 1:
             issues.append(Issue("error", rules[0].file, rules[0].line,
                                 f"КОНФЛИКТ: {rule_txt} в списках с разными политиками {dict(pols)} ({where}); победит тот, что выше в конфиге"))
-        elif any(is_reject(p) for p in known) and non_reject:
-            other = [f"{os.path.basename(r.file)}:{r.line}" for r in rules if not is_reject(policies.get(os.path.basename(r.file), ""))]
+        elif "?" in pols.values():
             issues.append(Issue("warning", rules[0].file, rules[0].line,
-                                f"{rule_txt} блокируется reject-списком, запись в {', '.join(other)} не работает"))
+                                f"{rule_txt} есть в нескольких списках ({where}), политика одного из них неизвестна (файл не подключён в конфиге)"))
+        elif any(is_reject(p) for p in known) and non_reject:
+            # Побеждает список, который стоит выше в конфиге.
+            winner = min(rules, key=lambda r: order.get(os.path.basename(r.file), len(order)))
+            wname = os.path.basename(winner.file)
+            losers = ", ".join(f"{os.path.basename(r.file)}:{r.line}" for r in rules if r is not winner)
+            issues.append(Issue("warning", rules[0].file, rules[0].line,
+                                f"{rule_txt}: сработает {wname}:{winner.line} ({pols[wname]}), стоящий выше; запись в {losers} не работает"))
         else:
             issues.append(Issue("warning", rules[0].file, rules[0].line,
                                 f"{rule_txt} повторяется в списках с одной политикой ({where}); достаточно одного"))
+
+
+def check_cross_file_containment(all_rules: dict[str, list[Rule]], policies: dict[str, str], issues: list[Issue]) -> None:
+    """Более широкое правило из списка, стоящего ВЫШЕ в конфиге, перекрывает более узкое из списка ниже:
+    DOMAIN-SUFFIX,spb.ru (DIRECT) выше DOMAIN-SUFFIX,echomsk.spb.ru (PROXY); IP-CIDR,10.0.0.0/8 выше 10.1.0.0/16.
+    Точные совпадения обрабатывает check_cross_file; совпадения с одинаковой политикой не выводятся."""
+    order = {name: i for i, name in enumerate(policies)}
+    files = sorted((p for p in all_rules if os.path.basename(p) in order), key=lambda p: order[os.path.basename(p)])
+    suffix_seen: dict[str, Rule] = {}   # DOMAIN-SUFFIX -> первое правило из списков выше
+    nets_seen: dict = {}                # ip_network -> первое правило из списков выше
+
+    def report(r: Rule, e: Rule, wide: str) -> None:
+        name, ename = os.path.basename(r.file), os.path.basename(e.file)
+        pol, epol = policies[name], policies[ename]
+        if epol == pol:
+            return
+        txt = f"{r.type},{r.value} ({pol}) перекрыт более широким {wide} из {ename}:{e.line} ({epol}), стоящего выше в конфиге"
+        if is_reject(epol) or is_reject(pol):
+            issues.append(Issue("warning", r.file, r.line, f"{txt}; запись в {name} не работает"))
+        else:
+            issues.append(Issue("error", r.file, r.line, f"КОНФЛИКТ: {txt}; запись в {name} не работает"))
+
+    for path in files:
+        for r in all_rules[path]:
+            if r.type in {"DOMAIN", "DOMAIN-SUFFIX"}:
+                cands = list(parent_suffixes(r.value))
+                if r.type == "DOMAIN":
+                    cands.insert(0, r.value)
+                for p in cands:
+                    e = suffix_seen.get(p)
+                    if e is not None:
+                        report(r, e, f"DOMAIN-SUFFIX,{p}")
+                        break
+            elif r.type in IP_TYPES:
+                try:
+                    net = ipaddress.ip_network(r.value, strict=False)
+                except ValueError:
+                    continue
+                e = nets_seen.get(net)
+                if e is not None and e.type != r.type:
+                    report(r, e, f"{e.type},{e.value}")
+                    continue
+                parent = net
+                while parent.prefixlen > 0:
+                    parent = parent.supernet()
+                    e = nets_seen.get(parent)
+                    if e is not None:
+                        report(r, e, f"{e.type},{e.value}")
+                        break
+        for r in all_rules[path]:
+            if r.type == "DOMAIN-SUFFIX":
+                suffix_seen.setdefault(r.value, r)
+            elif r.type in IP_TYPES:
+                try:
+                    nets_seen.setdefault(ipaddress.ip_network(r.value, strict=False), r)
+                except ValueError:
+                    pass
 
 
 # ----------------------------------------------------------------------------
@@ -507,6 +634,7 @@ def main() -> int:
             issues.append(Issue("warning", path, 0, f"файл не подключён ни одним RULE-SET в {args.conf}"))
 
     check_cross_file(all_rules, policies, issues)
+    check_cross_file_containment(all_rules, policies, issues)
 
     gha = bool(os.environ.get("GITHUB_ACTIONS"))
     errors = [i for i in issues if i.level == "error"]

@@ -33,8 +33,8 @@ import urllib.error
 import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from normalize_lists import normalize_text  # noqa: E402
-from validate_lists import parse_rule_line  # noqa: E402
+from normalize_lists import normalize_rule, normalize_text  # noqa: E402
+from validate_lists import ALL_TYPES, CONF_ONLY_TYPES, parse_rule_line  # noqa: E402
 
 BM7 = "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Shadowrocket/"
 REFILTER = "https://raw.githubusercontent.com/1andrevich/Re-filter-lists/main/"
@@ -136,18 +136,25 @@ def convert(text: str, fmt: str) -> tuple[list[str], list[str]]:
 
 
 def rule_key(line: str) -> tuple[str, str] | None:
+    """Ключ правила в каноническом виде (нижний регистр, каноническая сеть), чтобы
+    exclude-записи совпадали с upstream независимо от регистра."""
     r = parse_rule_line("", 0, line)
-    return r.key if r else None
+    return normalize_rule(r).key if r else None
 
 
 def load_override(path: str) -> list[str]:
+    """Строки override-файла; неверная строка (без типа правила и т.п.) — ошибка, а не тихий пропуск."""
     if not os.path.isfile(path):
         return []
     out = []
-    for line in open(path, encoding="utf-8"):
+    for lineno, line in enumerate(open(path, encoding="utf-8"), 1):
         s = line.strip()
-        if s and not s.startswith("#"):
-            out.append(s)
+        if not s or s.startswith("#"):
+            continue
+        r = parse_rule_line(path, lineno, s)
+        if r is None or not r.value or r.type not in ALL_TYPES - CONF_ONLY_TYPES:
+            raise ValueError(f"{path}:{lineno}: ожидается правило вида ТИП,значение (например DOMAIN-SUFFIX,example.com), получено «{s}»")
+        out.append(s)
     return out
 
 
@@ -208,6 +215,8 @@ def main() -> int:
     ap.add_argument("names", nargs="*", help="имена списков (по умолчанию все из SOURCES)")
     ap.add_argument("--lists", default="lists")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--force", action="store_true",
+                    help="записать, даже если список опустел или сократился более чем вдвое")
     args = ap.parse_args()
 
     names = args.names or list(SOURCES)
@@ -229,6 +238,12 @@ def main() -> int:
         old_rules = rules_of(old_text)
         new_rules = rules_of(new_text)
         detail = ", ".join(f"{k}={v}" for k, v in stats.items())
+        # Защита от пустого/обрезанного ответа upstream (HTTP 200 с неполным телом).
+        if not args.force and (not new_rules or (old_rules and len(new_rules) < 0.5 * len(old_rules))):
+            print(f"{name}: ОШИБКА: upstream дал {len(new_rules)} правил вместо {len(old_rules)} — похоже на обрезанный "
+                  f"ответ, файл не тронут (--force, чтобы записать; {detail})")
+            failed += 1
+            continue
         if old_rules == new_rules and old_text == new_text:
             print(f"{name}: без изменений ({detail})")
             continue

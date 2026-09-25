@@ -1,2 +1,10 @@
 # 2ip.ru должен идти напрямую (есть в direct.list), чтобы показывать реальный IP.
 DOMAIN-SUFFIX,2ip.ru
+# Российские сервисы проверки IP: их родительские домены (yandex.net, mail.ru, gov.ru)
+# стоят в direct.list выше по конфигу, поэтому эти записи всё равно не сработали бы.
+DOMAIN-SUFFIX,ip.mail.ru
+DOMAIN-SUFFIX,ipv4-internet.yandex.net
+DOMAIN-SUFFIX,ipv6-internet.yandex.net
+DOMAIN-SUFFIX,ipv4.internet.yandex.net
+DOMAIN-SUFFIX,ipv6.internet.yandex.net
+DOMAIN-SUFFIX,geoip.noc.gov.ru

@@ -29,7 +29,7 @@ from validate_lists import (  # noqa: E402
     Rule, parent_suffixes, parse_rule_line,
 )
 
-LOWERCASE_TYPES = DOMAIN_TYPES | IP_TYPES | PORT_TYPES | {"IP-ASN"}
+LOWERCASE_TYPES = DOMAIN_TYPES | IP_TYPES | PORT_TYPES | {"IP-ASN", "DOMAIN-WILDCARD"}
 
 
 def clean_chars(line: str) -> str:

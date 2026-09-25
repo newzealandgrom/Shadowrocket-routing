@@ -2,7 +2,7 @@
 # SOURCE: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ip-geo-detect.list
 # OVERRIDES: lists/overrides/domains_geo_detect.exclude / .append
 # Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
-# TOTAL: 237
+# TOTAL: 231
 DOMAIN,checkip.amazonaws.com
 DOMAIN,checkip.dyn.com
 DOMAIN,checkip.dyndns.org
@@ -221,18 +221,12 @@ DOMAIN-SUFFIX,test-ipv6.roedu.net
 DOMAIN-SUFFIX,test-ipv6.arauc.br
 DOMAIN-SUFFIX,test-ipv6.alpinedc.ch
 DOMAIN-SUFFIX,test.version6.ru
-DOMAIN-SUFFIX,ip.mail.ru
 DOMAIN-SUFFIX,test-ipv6.fratec.net
-DOMAIN-SUFFIX,ipv6-internet.yandex.net
 DOMAIN-SUFFIX,ip.nic.ru
-DOMAIN-SUFFIX,ipv4-internet.yandex.net
 DOMAIN-SUFFIX,ip.pe.kr
 DOMAIN-SUFFIX,ip.tyk.nu
 DOMAIN-SUFFIX,ipgeo.vercel.app
-DOMAIN-SUFFIX,geoip.noc.gov.ru
-DOMAIN-SUFFIX,ipv4.internet.yandex.net
 DOMAIN-SUFFIX,test-ipv6.csclub.uwaterloo.ca
-DOMAIN-SUFFIX,ipv6.internet.yandex.net
 DOMAIN-SUFFIX,test-ipv6.ams.vr.org
 DOMAIN-SUFFIX,ipify.cn
 DOMAIN-SUFFIX,iplark.com
