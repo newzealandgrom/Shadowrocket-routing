@@ -36,3 +36,7 @@ jobs:
       - name: Канонический вид списков (только информация)
         continue-on-error: true
         run: python github_actions/normalize_lists.py --check
+
+      - name: Модуль VPN собран из текущих SR_RU.conf и банковского списка (только информация)
+        continue-on-error: true
+        run: python github_actions/build_vpn_module.py --check

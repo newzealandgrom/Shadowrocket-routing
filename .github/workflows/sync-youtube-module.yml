@@ -1,4 +1,4 @@
-name: Sync YouTube module
+name: Sync modules
 
 on:
   schedule:
@@ -27,20 +27,23 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Собрать модуль из свежего YouTube Enhance (Maasea)
+      - name: Собрать модули YouTube из свежего YouTube Enhance (Maasea)
         run: python github_actions/sync_youtube_module.py
+
+      - name: Собрать модуль для приложений, которые жалуются на VPN
+        run: python github_actions/build_vpn_module.py
 
       - name: Закоммитить изменения
         run: |
-          git add -A modules/YT-Premium-V1-RU.module modules/YT-Premium-Worker-RU.module Script
+          git add -A modules/YT-Premium-V1-RU.module modules/YT-Premium-Worker-RU.module modules/VPN-Detect-RU.module Script
           if git diff --cached --quiet; then
-            echo "Модуль и скрипты не изменились."
+            echo "Модули и скрипты не изменились."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           {
-            echo "Sync YouTube module with Maasea/sgmodule"
+            echo "Sync generated modules"
             echo
             grep -m1 '^# Источник:' modules/YT-Premium-V1-RU.module
           } > /tmp/commit-msg.txt
