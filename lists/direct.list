@@ -663,3 +663,8 @@ DOMAIN-SUFFIX,ican-sinocare.ru
 DOMAIN-SUFFIX,freestylediabetes.ru
 DOMAIN-SUFFIX,rsscenter.cloud
 DOMAIN-SUFFIX,dbankcloud.ru
+# MAX, VK Видео, Яндекс Go: без DIRECT дают «ошибка соединения с сервером»
+DOMAIN-SUFFIX,max-api.ru
+DOMAIN-SUFFIX,express.ms
+DOMAIN-SUFFIX,yataxi.net
+DOMAIN-SUFFIX,yandex.taxi

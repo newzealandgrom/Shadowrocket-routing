@@ -21,6 +21,7 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 | `lists/` | Списки правил в формате Shadowrocket (см. таблицу ниже). |
 | `lists/overrides/` | Локальные правки к автоматически обновляемым спискам: `<имя>.exclude` (что выкинуть), `<имя>.append` (что добавить). |
 | `modules/YT-Premium-V1-RU.module` | Модуль блокировки рекламы YouTube (MITM + скрипт). |
+| `modules/Social-Ads.module` | Модуль без рекламы в Reddit и Pinterest через `[Body Rewrite]` (jq), без скриптов. |
 | `modules/Certificate.module` | Шаблон модуля с собственным MITM-сертификатом (`ca-p12` / `ca-passphrase`). |
 | `Script/youtube.response.js` | Скрипт, который использует YouTube-модуль. |
 | `github_actions/validate_lists.py` | Валидатор списков и конфига (запускается в CI). |
@@ -37,9 +38,11 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 | `private.list` | DIRECT | Локальные и служебные домены (`.local`, `.lan`, роутеры, `in-addr.arpa`) | автоматически, v2fly `private` |
 | `direct.list` | DIRECT | Российские сервисы, которые должны идти напрямую | вручную |
 | `domains_banking.list` | DIRECT | Сайты банков по списку ЦБ РФ | вручную |
+| `ru_direct_community.list` | DIRECT | Сайты, доступные только из РФ, белый список мобильного интернета и белый список roscomvpn | автоматически, [Master-Yoba](https://github.com/Master-Yoba/shadowrocket-rules) + [RCVPN-SR](https://github.com/nncat01/RCVPN-SR) |
 | `discord.list` | PROXY | Discord | вручную |
 | `domains_refilter.list` | PROXY | Домены, заблокированные в РФ (`domains_all.lst`), плюс сайты, ограничивающие доступ из РФ (`community.lst`) | автоматически, [Re-filter](https://github.com/1andrevich/Re-filter-lists) |
 | `domains_community.list` | PROXY | Ручные дополнения к списку заблокированного | вручную |
+| `geoblock_ru.list` | PROXY | Зарубежные сайты, которые сами блокируют российские IP (roscomvpn `category-geoblock-ru`) | автоматически, [RCVPN-SR](https://github.com/nncat01/RCVPN-SR) |
 | `TikTok.list` | PROXY | TikTok, CapCut | вручную |
 | `GitHub.list` | PROXY | GitHub, npm | автоматически, [blackmatrix7](https://github.com/blackmatrix7/ios_rule_script) |
 | `Google.list` | PROXY | Google (без YouTube) | автоматически, blackmatrix7 |
@@ -71,7 +74,7 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 
 1. Совместимость с Tailscale (`100.64.0.0/10`, `100.100.100.100/32`, `ts.net`, `tailscale.com`) — DIRECT; отдельное правило `meet.wcase.net` — PROXY.
 2. `reject.list` — REJECT. Стоит первым из списков, поэтому домен из него блокируется, даже если он есть в других списках.
-3. `private.list`, `direct.list`, `domains_banking.list` — DIRECT.
+3. `private.list`, `direct.list`, `domains_banking.list`, `ru_direct_community.list` — DIRECT.
 4. Доменные списки сервисов и заблокированных ресурсов — PROXY.
 5. Порты звонков и отдельные IP-списки (`ips_refilter.list`, `meta_ips.list`, `telegram_ips.list`) — PROXY, они стоят после доменных списков. Все IP-правила в конфиге, включая подсети и ASN внутри списков blackmatrix7, помечены `no-resolve`.
 6. `GEOIP,RU,DIRECT`, затем `FINAL,PROXY`.
@@ -117,6 +120,27 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 3. Включите модуль. Аргументы модуля (`captionLang`, `lyricLang`, `blockUpload`, `blockImmersive`, `blockShorts`, `debug`) можно менять в его настройках.
 
 `modules/Certificate.module` — шаблон, чтобы использовать один и тот же MITM-сертификат на нескольких устройствах: подставьте вместо `${CA_P12}` и `${CA_PASSPHRASE}` экспортированный из Shadowrocket сертификат (base64 p12) и пароль к нему, сохраните под своим URL и подключите как модуль.
+
+### Шаг 5 (по желанию). Reddit и Pinterest без рекламы
+
+Модуль вырезает рекламные посты из лент через `[Body Rewrite]` с jq, без JavaScript. Нужен тот же MITM-сертификат, что и для YouTube.
+
+```
+https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/modules/Social-Ads.module
+```
+
+### Сторонние модули
+
+Проверенные модули сообщества. Они не входят в репозиторий и обновляются их авторами. Правила модулей имеют приоритет над правилами конфига, поэтому подключайте их осознанно.
+
+| Модуль | Что делает | Ссылка |
+|---|---|---|
+| AWAvenue Ads Rule | Компактный блокировщик рекламы и трекеров, около 1000 доменных правил с `pre-matching`. Сертификат не нужен. | `https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Surge-module.sgmodule` |
+| X (Twitter) web без рекламы | Убирает промо-твиты в веб-версии x.com. Нужен сертификат. | `https://raw.githubusercontent.com/fmz200/wool_scripts/main/Surge/module/XWebAds.module` |
+| Sub-Store | Менеджер подписок: объединение, фильтрация и переименование узлов, веб-интерфейс `https://sub-store.vercel.app`. Нужен сертификат. Облегчённая версия без лишних параметров, меньше расход памяти. | `https://raw.githubusercontent.com/Qmxn/Tool/main/Shadowrocket/Module/Sub-Store.module` |
+| Script-Hub | Конвертер модулей Quantumult X, Loon и Surge в формат Shadowrocket. После установки откройте `http://script.hub`. | `https://raw.githubusercontent.com/Script-Hub-Org/Script-Hub/main/modules/script-hub.rocket.module` |
+
+Для Sub-Store авторы советуют добавить в `[Host]` строку `sub.store = 127.0.0.1`: если модуль выключен, запросы не уйдут на чужой публичный домен.
 
 ## Как редактировать списки
 
