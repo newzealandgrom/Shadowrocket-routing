@@ -38,7 +38,7 @@ https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads
 | `direct.list` | DIRECT | Российские сервисы, которые должны идти напрямую | вручную |
 | `domains_banking.list` | DIRECT | Сайты банков по списку ЦБ РФ | вручную |
 | `discord.list` | PROXY | Discord | вручную |
-| `domains_refilter.list` | PROXY | Домены, заблокированные в РФ | автоматически, [Re-filter](https://github.com/1andrevich/Re-filter-lists) |
+| `domains_refilter.list` | PROXY | Домены, заблокированные в РФ (`domains_all.lst`), плюс сайты, ограничивающие доступ из РФ (`community.lst`) | автоматически, [Re-filter](https://github.com/1andrevich/Re-filter-lists) |
 | `domains_community.list` | PROXY | Ручные дополнения к списку заблокированного | вручную |
 | `TikTok.list` | PROXY | TikTok, CapCut | вручную |
 | `GitHub.list` | PROXY | GitHub, npm | автоматически, [blackmatrix7](https://github.com/blackmatrix7/ios_rule_script) |

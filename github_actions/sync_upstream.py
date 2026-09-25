@@ -8,7 +8,7 @@
     python github_actions/sync_upstream.py --dry-run        # показать, что изменилось бы, не записывая
 
 Для каждого списка из SOURCES:
-  1. скачивается upstream-файл;
+  1. скачивается upstream-файл (или несколько, если url — список: они склеиваются);
   2. конвертируется в формат Shadowrocket (DOMAIN-SUFFIX,... / IP-CIDR,...,no-resolve);
   3. убираются типы правил из drop_types (если заданы);
   4. применяются локальные правки из lists/overrides/<имя>.exclude (что выкинуть)
@@ -60,7 +60,10 @@ SOURCES: dict[str, dict] = {
     # доменные правила лежат в Apple/Apple_Domain.list, который здесь намеренно не подключён
     # (домены Apple попадают под GEOIP,RU / FINAL).
     "Apple.list": {"url": BM7 + "Apple/Apple.list", "format": "shadowrocket"},
-    "domains_refilter.list": {"url": REFILTER + "domains_all.lst", "format": "domains"},
+    # community.lst — сайты, которые сами ограничивают доступ из РФ (Adobe, JetBrains, Intel...),
+    # domains_all.lst — реестр заблокированного. Склеиваются в один список.
+    "domains_refilter.list": {"url": [REFILTER + "community.lst", REFILTER + "domains_all.lst"],
+                              "format": "domains"},
     "ips_refilter.list": {"url": REFILTER + "ipsum.lst", "format": "cidrs"},
     "domains_geo_detect.list": {"url": METACUBEX + "category-ip-geo-detect.list", "format": "clash-domains"},
     "private.list": {"url": V2FLY + "private", "format": "v2fly"},
@@ -153,8 +156,13 @@ def rules_of(text: str) -> list[str]:
 
 
 def build(name: str, spec: dict, lists_dir: str) -> tuple[str, dict]:
-    text = fetch(spec["url"])
-    header, rules = convert(text, spec["format"])
+    urls = spec["url"] if isinstance(spec["url"], list) else [spec["url"]]
+    header: list[str] = []
+    rules: list[str] = []
+    for url in urls:
+        h, r = convert(fetch(url), spec["format"])
+        header += [x for x in h if x not in header]
+        rules += r
     stats = {"upstream": len(rules)}
 
     drop = {t.upper() for t in spec.get("drop_types", [])}
@@ -185,7 +193,7 @@ def build(name: str, spec: dict, lists_dir: str) -> tuple[str, dict]:
     head = [f"# NAME: {name}"]
     head += [h for h in header if not re.match(r"^#\s*NAME\s*:", h, re.I)]
     if not any(re.match(r"^#\s*SOURCE\s*:", h, re.I) for h in header):
-        head.append(f"# SOURCE: {spec['url']}")
+        head += [f"# SOURCE: {u}" for u in urls]
     if drop:
         head.append(f"# DROPPED-TYPES: {', '.join(sorted(drop))}")
     if exclude or append:
