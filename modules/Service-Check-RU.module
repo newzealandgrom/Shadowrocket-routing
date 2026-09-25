@@ -1,5 +1,5 @@
 #!name=Проверка сервисов
-#!desc=Страница http://sr.test в Safari, сертификат не нужен: IP напрямую и через прокси, доступность ключевых сайтов и работа YouTube Premium, ChatGPT, Netflix, Spotify, TikTok и других сервисов через текущий сервер. Адрес https://sr.test тоже работает, если включена HTTPS-расшифровка.
+#!desc=Страница http://sr.test в Safari, сертификат не нужен: IP напрямую и через прокси, доступность ключевых сайтов и работа YouTube Premium, ChatGPT, Netflix, Spotify, TikTok и других сервисов через текущий сервер. Работает и при типе прокси HTTP, и при None. Адрес https://sr.test тоже работает, если включена HTTPS-расшифровка.
 #!homepage=https://github.com/newzealandgrom/Shadowrocket-routing
 # Страница, проверка маршрута и сайтов: Script/service-check.js этого репозитория.
 # Проверки отдельных сервисов: скрипты huskydsb/Shadowrocket (https://github.com/huskydsb/Shadowrocket).
@@ -23,6 +23,13 @@ sr-check-bing = type=http-request,pattern=^https?:\/\/sr\.test\/bing\/?$,script-
 sr-check-wikipedia = type=http-request,pattern=^https?:\/\/sr\.test\/wikipedia\/?$,script-path=https://raw.githubusercontent.com/huskydsb/Shadowrocket/main/Streaming/js/wikipedia.js,timeout=60
 sr-check-scamalytics = type=http-request,pattern=^https?:\/\/sr\.test\/scamalytics\/?$,script-path=https://raw.githubusercontent.com/huskydsb/Shadowrocket/main/Streaming/js/scamalytics.js,timeout=60
 sr-check-dns = type=http-request,pattern=^https?:\/\/sr\.test\/dns\/?$,script-path=https://raw.githubusercontent.com/huskydsb/Shadowrocket/main/Streaming/js/surfsharkdns.js,timeout=60
+
+[Host]
+# При типе прокси None (режим TUN) Safari сначала сам ищет адрес sr.test в DNS. Профиль с
+# always-real-ip = * отдаёт только настоящие ответы, а домена sr.test в интернете нет, поэтому без
+# этой записи Safari пишет, что не может открыть страницу. Запись даёт домену адрес, и запрос доходит
+# до Shadowrocket. До самого 1.2.3.4 он не уходит: страницу отдаёт скрипт модуля.
+sr.test = 1.2.3.4
 
 [MITM]
 hostname = %APPEND% sr.test
