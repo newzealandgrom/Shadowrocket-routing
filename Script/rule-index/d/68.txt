@@ -1533,7 +1533,6 @@
 6	ebar11.com
 6	ecolav24.biz
 6	edem38.ru
-6	elpha.com
 6	en.slmag.ru
 6	endohealth.net
 6	engindagitim.com
@@ -1623,6 +1622,7 @@
 6	innovativeerp.com
 6	invexanixtech.com
 6	ironshieldukraine.com
+6	ishr.ch
 6	iteex-ekb.ru
 6	izhfcb.ru
 6	izziclub4.top
@@ -1668,7 +1668,6 @@
 6	livesport365.net
 6	lootmw.run
 6	luxvide.org
-6	madre.org
 6	mailfence.com
 6	maisk-adm.ru
 6	makeupgames.ru
@@ -1770,6 +1769,7 @@
 6	privat-safe.ru
 6	produktaltai.ru
 6	proneobux.ru
+6	propublica.org
 6	prostoporno.info
 6	pulsarmag.com
 6	punch-2.fast-now50.online

@@ -1301,6 +1301,7 @@
 6	bitcoin-revolution.software
 6	bitcoinhelixai.com
 6	bitz11.io
+6	blackseatv.com
 6	blankmed.online
 6	blitz-14.king12.online
 6	bohitam.online
@@ -1316,7 +1317,6 @@
 6	cfstom.ru
 6	charter97.link
 6	chasi8.ru
-6	chat.nuvon.app
 6	chemsconnect.com
 6	cinerama.pro
 6	cirkdusoley.ru
@@ -1332,6 +1332,7 @@
 6	cryptolorvian-platform.com
 6	customicecubes.com
 6	dance16.ru
+6	deal.by
 6	declarantus.ru
 6	detdom20-b.ru
 6	detiznaut.online
@@ -1398,6 +1399,7 @@
 6	goswapp.io
 6	gradus1-247-surgut.ru
 6	grivna.ua
+6	guerrillagirls.com
 6	guitar-uke.com
 6	hadleybags.ru
 6	halzen.ru
@@ -1623,7 +1625,6 @@
 6	steffnomidi.ru
 6	studently.net
 6	tarbagcrb.ru
-6	tarpit.fun
 6	tastygo.gg
 6	teamskeet.us
 6	telegram.me

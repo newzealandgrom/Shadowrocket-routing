@@ -1434,7 +1434,6 @@
 6	flashgames.cx
 6	fond-zynar-tech.com
 6	forcedrop.io
-6	freedominfo.org
 6	freeje.com
 6	freewatchtv.top
 6	freshonline4.top
@@ -1686,6 +1685,7 @@
 6	soviet-encyclopedia.ru
 6	spabanyan.ru
 6	spbgrs.ru
+6	sproot.it
 6	sredyakuhska.ru
 6	st-cars.ru
 6	stabileobraxpro.net
@@ -1739,6 +1739,7 @@
 6	upgoalreach.com
 6	upornoz.icu
 6	uspetnaperehod.captivate.fm
+6	uyghuramerican.org
 6	venom24.vip
 6	veraciox.com
 6	videogaydream.com

@@ -1619,6 +1619,7 @@
 6	naturismv.com
 6	netmen2.site
 6	neuroai.in
+6	newgrodno.by
 6	newipnow.com
 6	newretro-big.ru
 6	newscs.ru
@@ -1679,6 +1680,7 @@
 6	recitvolleyball.com
 6	regimovie.com
 6	rent-nlk.ru
+6	reseed-pl.i2pd.xyz
 6	resoluteoncology.com
 6	rest.mrutor.site
 6	rieberson.ru

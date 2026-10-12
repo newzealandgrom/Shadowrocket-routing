@@ -1453,6 +1453,7 @@
 6	bitcoinmasteryapp.com
 6	bl-credo.ru
 6	blue-yellow.lt
+6	blueskyswimwear.com
 6	boingboing.net
 6	bombafilms.ru
 6	bosch-plus.ru
@@ -1487,7 +1488,6 @@
 6	cs-grom.ru
 6	cveti-altaya.ru
 6	cyborg.vodka
-6	d.gaufr.es
 6	d66.buzz
 6	damboo.ru
 6	dcment-shop.ru

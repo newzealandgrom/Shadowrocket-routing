@@ -2081,6 +2081,7 @@
 6	catsmy.ru
 6	cbot-us.com
 6	cbsuvao.ru
+6	celebmafia.com
 6	chain-imovax2u.com
 6	chaine.streamonsport.biz
 6	chasteban.ru
@@ -2288,6 +2289,7 @@
 6	o.eruditor.one
 6	obraz-as6.ru
 6	obshchayagazeta.eu
+6	officelife.media
 6	ogarkov.online
 6	oi7pd.com
 6	ok-mir.ru
@@ -2453,6 +2455,7 @@
 6	tutsport.net
 6	tvtorrent.me
 6	uaf.ua
+6	ubuntu.com
 6	ufcfreepass.xyz
 6	uno-kaihatsu.co.jp
 6	uoplfiigka.online

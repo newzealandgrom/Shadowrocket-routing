@@ -1429,6 +1429,7 @@
 6	chel-nadezhda.ru
 6	chir-unvd.ru
 6	chuykarep.online
+6	cis.minsk.by
 6	clevoxlabs.shop
 6	clubtone.do.am
 6	coedcherry.com
@@ -1826,7 +1827,6 @@
 6	transushka.art
 6	tributeprintedpics.com
 6	trip-skan57.cc
-6	triplebit.org
 6	tripskan41.cc
 6	trustgemi.com
 6	turok-tv11x.online

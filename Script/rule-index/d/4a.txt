@@ -1786,6 +1786,7 @@
 6	tabloid.one
 6	tagil-murmur.com
 6	talantorium.ru
+6	teafund.org
 6	tenec.click
 6	territoriya-cafe.ru
 6	the-dog-house.org

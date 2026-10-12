@@ -1429,12 +1429,14 @@
 6	333.run2me.top
 6	52.bordel.house
 6	55k.buzz
+6	5element.by
 6	99bitcoins.com
 6	99c.buzz
 6	99p.click
 6	a-book.top
 6	a3artplau.com
 6	abc.run2me.top
+6	abpr2.railfan.net
 6	acf.international
 6	adtqaz.kz
 6	adventureseeker.in.net
@@ -1521,6 +1523,7 @@
 6	descargaseriestv.com
 6	detdom4-kras.ru
 6	dipdips.com
+6	dns.nextdns.io
 6	docspec.top
 6	dom31.knopka25.icu
 6	domstroi-key.ru
@@ -1550,6 +1553,7 @@
 6	existingstamps.com
 6	expertcmotors.ru
 6	expertfutureconnect.com
+6	experty.by
 6	expressauracargo.com
 6	fabrika23.ru
 6	fap-guru.site
@@ -1655,7 +1659,6 @@
 6	kush365amp.ru
 6	langmech.ru
 6	lazybuguru.lt
-6	leap.se
 6	lekarstvadarom1.ru
 6	leveragepointinc.com
 6	lex-laz2.top

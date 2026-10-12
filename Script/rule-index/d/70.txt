@@ -1341,6 +1341,7 @@
 6	4eku.info
 6	5music.online
 6	8230.host
+6	94.242.58.19
 6	a.roscadastres.com
 6	acid-berlin.de
 6	agil-valtrix-app.com
@@ -1483,6 +1484,7 @@
 6	fuvin.ru
 6	gainwhealfundslimited.com
 6	galam.kz
+6	galasla.org
 6	gardengnomes.top
 6	gdzlol.biz
 6	genuinefastequity.com
@@ -1604,7 +1606,6 @@
 6	myeasytravel.ru
 6	myfreecams.ru
 6	mykhilafah.com
-6	myspace.com
 6	nash-sssr.ru
 6	newretrogame.ru
 6	news-opposition.ru
@@ -1624,8 +1625,10 @@
 6	onlyteenblowjobs.com
 6	opg666.biz
 6	orbiss.fun
+6	orldcoalition.org
 6	oss.lozonefilms.buzz
 6	out.com
+6	packagist.org
 6	painart.club
 6	pesokpenza.ru
 6	pets-top.ru
@@ -1644,6 +1647,7 @@
 6	ppblog.ru
 6	press.lv
 6	prezident-pechatniki.ru
+6	pro-life.by
 6	prodaja-prav.oxda.ru
 6	proinfobiz.net
 6	promo-pro27.ru

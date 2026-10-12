@@ -1314,7 +1314,6 @@
 6	10minemail.com
 6	14-01.buzz
 6	15dragoncoins.top
-6	185.88.36.151
 6	1plus1tv7.online
 6	1vv7pa782.life
 6	1vv9kx7.life
@@ -1438,6 +1437,7 @@
 6	domashny-rayon.ru
 6	domklimatvent.ru
 6	domodedovo-pivo.ru
+6	dongtaiwang.com
 6	doramafox.ru
 6	dotjocoin.site
 6	dpdrf.shop

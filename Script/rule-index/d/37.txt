@@ -1515,6 +1515,7 @@
 6	gladiators-suba-etalon.space
 6	golyedevki.onl
 6	goodmusicallday.com
+6	gov.pl
 6	gowotvy.glutaph.xyz
 6	gpb-1donetsk.ru
 6	gptchatforge.blog

@@ -1498,6 +1498,7 @@
 6	1.ultadox.studio
 6	10musa.com.ua
 6	10shagov.org
+6	124.225.213.74
 6	1540.com.ua
 6	1aj.ru
 6	1news.com.ua
@@ -1627,6 +1628,7 @@
 6	blaze4und.org
 6	blitz.uz.ua
 6	blogjquery.ru
+6	bluearchiveyostar.com
 6	bongstar.com.ua
 6	bonration.ru
 6	book-ye.com.ua
@@ -1852,6 +1854,7 @@
 6	goodbyedpi.ru
 6	goodreads.com
 6	goodsnus.com.ua
+6	google.com.tr
 6	gordonshop.com.ua
 6	gorozhanin.com.ua
 6	gorsovet.com.ua
@@ -1866,6 +1869,7 @@
 6	grizzlysms.com
 6	gsminfo.com.ua
 6	guildwork.com
+6	gunboyugazetesi.com.tr
 6	gyqadoy4.ru
 6	gzpt.com.ua
 6	hairycorner.com
@@ -2563,6 +2567,7 @@
 6	zelenets.ru
 6	zenpulse.vip
 6	zhalobi.com.ua
+6	zharov-lox.telegramproxy.me
 6	zhitomirgaz.com.ua
 6	zhiznpovyzovuseries.online
 6	zhurawell.com.ua

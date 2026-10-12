@@ -1408,6 +1408,7 @@
 6	cubinos.ru
 6	cyxogiy3.ru
 6	d2dj0qptshsals.cloudfront.net
+6	d6hnm3uzmmstw.cloudfront.net
 6	dashboard.flx-crm.com
 6	dava-vyntrix.com
 6	de.vesti.news
@@ -1519,6 +1520,7 @@
 6	hrust.dep-mega58.online
 6	hudeem-legko.ru
 6	hugeinc.site
+6	i-store.by
 6	idpo-kostroma.ru
 6	igrovoetv.online
 6	imperator.city
@@ -1615,7 +1617,6 @@
 6	oootplus.ru
 6	openaicomproductionae4b.blob.core.windows.net
 6	optimafundrelixai.com
-6	or.team
 6	orb.allfirms.co
 6	otel-hazbin.top
 6	our-faith.ru
@@ -1732,6 +1733,7 @@
 6	topscarzy.ru
 6	torgstellaz.ru
 6	treloriae.com
+6	triller.co
 6	tripscan101.cc
 6	trodantexapp-engine.com
 6	truledgermarkets.com

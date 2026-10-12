@@ -1371,7 +1371,6 @@
 6	catalog-sveta.ru
 6	central-bc.ru
 6	certu.ru
-6	chat.privittytech.com
 6	check-forsplityou.ru
 6	chk-dshi.online
 6	cideck.online
@@ -1421,7 +1420,6 @@
 6	dvamh-20250322.top
 6	dynarisflex7-ai.com
 6	e-medcenter.ru
-6	e2ee.wang
 6	eblinet.net
 6	ee-business.online
 6	eixoinviolex.com
@@ -1507,6 +1505,7 @@
 6	instant-750-arvo.com
 6	invaders-rf.com
 6	ipukr.com
+6	iskcon.com
 6	itcloud.academy
 6	jac-smr.ru
 6	jofilm.net
@@ -1620,6 +1619,7 @@
 6	nevyda.com
 6	nexus24.biz
 6	nintendo.com.au
+6	njal.la
 6	nlofact.com
 6	nnovosti.info
 6	nord-bitrevo.net
@@ -1753,6 +1753,7 @@
 6	the-cinema.net
 6	the-cinema4.online
 6	the-lichi.ru
+6	tibetpolicy.eu
 6	tiktokcdn.com
 6	tjournal.ru
 6	to4ka-rosta.ru

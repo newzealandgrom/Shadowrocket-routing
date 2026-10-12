@@ -1423,7 +1423,6 @@
 6	lc.cx
 6	ledy77.e-xoops.ru
 6	leftforum2019.info
-6	letterboxd.com
 6	levs-payline.top
 6	lib.knigiskachat.ru
 6	live.mercijmsnap.com
@@ -1636,6 +1635,7 @@
 6	tr.casig.ru
 6	tradingthug.com
 6	tripscans01.cc
+6	turkishdirect.com
 6	tvngra.pl
 6	uchetunet3.sbs
 6	ugetube.com

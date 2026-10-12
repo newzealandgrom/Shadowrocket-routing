@@ -1265,6 +1265,7 @@
 6	1vv1li5.life
 6	1vv4as23.life
 6	1vvmob.run
+6	21vek.by
 6	365parma.net
 6	433g.buzz
 6	4pets4you.com
@@ -1692,6 +1693,7 @@
 6	tvgid.org
 6	txukrainians.com
 6	u15x.com
+6	ucansupurge.org
 6	ufneva.ru
 6	ukrainianworldcongress.org
 6	ukrpolitforum.com

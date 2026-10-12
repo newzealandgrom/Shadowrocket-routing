@@ -1402,6 +1402,8 @@
 6	cityprosperpath.click
 6	cloudcointech.com
 6	clubrusfishing.ru
+6	cn.blizzard.com
+6	cnvax.com
 6	co167.ru
 6	coachinstitut.ru
 6	comperai.com
@@ -1475,7 +1477,6 @@
 6	fr.casmr.ru
 6	free-vpn-planet.com
 6	freelance-youdo.ru
-6	fri-gate.org
 6	fshupwfq.ru
 6	fuckinggaytube.com
 6	fundfoundry-app.net

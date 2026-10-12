@@ -1320,7 +1320,6 @@
 4	vkuseraudio.net
 4	vladikavkaz.ru
 6	0chna.ru
-6	15minut.org
 6	1tvnet.ru
 6	1vv0d.life
 6	25-april-promo.com
@@ -1392,6 +1391,7 @@
 6	bookmakersratings.ru
 6	branham.org
 6	brintelexispro-app.com
+6	btcchina.com
 6	bundesliga-stream.live
 6	bungepro.ru
 6	bunnyhd.com

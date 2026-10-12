@@ -1365,6 +1365,7 @@
 6	35.shkola-35.theworkpc.com
 6	3spborig.ru
 6	4itai.ru
+6	77.91.127.244
 6	79735.amarkets.life
 6	a-m-o.pro
 6	a.mobkomiksi.top
@@ -1533,7 +1534,6 @@
 6	igrysonik.ru
 6	inessa-ra.ru
 6	informeffluents.xyz
-6	insecure.org
 6	insteppodiatry.com.au
 6	intellectualexperts.ru
 6	invalidnost-kupit.ru
@@ -1590,6 +1590,7 @@
 6	malinochka.com
 6	mangatoday.fun
 6	mansurovoagro.ru
+6	map.sogou.com
 6	marketsoptions.com
 6	martin-mirr102.ru
 6	martin-sobraty1.ru
@@ -1709,6 +1710,7 @@
 6	redisocial.com
 6	ref-ampsecwc.com
 6	relife.global
+6	reprouncensored.org
 6	rf.amarkets.life
 6	rikudou.ru
 6	rillabox.com

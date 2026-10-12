@@ -1475,7 +1475,6 @@
 6	fainemisto.tv
 6	fasanaragroup.com
 6	feed.rutracker.cc
-6	feminist.org
 6	filmtrim.fun
 6	financecorpltd.com
 6	findtheorigin.com
@@ -1539,6 +1538,7 @@
 6	inpauto.ru
 6	interelcom.ru
 6	iri-ran.ru
+6	irna.ir
 6	isesaki-chuorc.com
 6	iva1.tvfilms.club
 6	iva2.tvfilms.club
@@ -1704,6 +1704,7 @@
 6	pornvideos1.com
 6	pornxp.tv
 6	pravnomer.ru
+6	pridemedia.com
 6	primalbase.net
 6	privoroter.ru
 6	providusmarket.com

@@ -1390,7 +1390,6 @@
 6	enmitupper.com
 6	enshi.ru
 6	equaldex.com
-6	erimedia.ge
 6	erocom.hou.su
 6	etotops.one
 6	eva-atelier.ru
@@ -1574,7 +1573,6 @@
 6	nikita.herrutor.site
 6	nikola.herrutor.site
 6	nootropicdesign.com
-6	nothing-else.run.place
 6	novorossiysknb.com
 6	nvhai30.top
 6	nvsaransk.ru
@@ -1672,7 +1670,6 @@
 6	school3vrn.ru
 6	schooleinstein.ru
 6	scrrs.ru
-6	seclists.org
 6	serko.info
 6	servicecentermsi.ru
 6	set.rostabs.org

@@ -1261,6 +1261,7 @@
 6	91rb.com
 6	9mesyacev44.ru
 6	adaptometriya.ru
+6	afisha.relax.by
 6	agroprognoz.ru
 6	akiratakahashi.net
 6	aldmistroy.ru
@@ -1346,6 +1347,7 @@
 6	d-t.club
 6	darmed-beauty.ru
 6	ddna.me
+6	debian.org
 6	dendy-252.89m.buzz
 6	digitalocean.com
 6	disi9.xyz
@@ -1426,6 +1428,7 @@
 6	hotsoska.com
 6	hubmnr.com
 6	i.chzbgr.com
+6	ibb.istanbul
 6	icsignalsmartrading.com
 6	image-ine.net
 6	imereti.org

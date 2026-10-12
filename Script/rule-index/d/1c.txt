@@ -1866,6 +1866,7 @@
 6	youtube.googleapis.com
 6	youtubeembeddedplayer.googleapis.com
 6	youtubei.googleapis.com
+6	yuemei.com
 6	zags.net.ua
 6	zakarpattya.net.ua
 6	zanosikentik.ru

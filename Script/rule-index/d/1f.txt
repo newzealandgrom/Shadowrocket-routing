@@ -1415,6 +1415,7 @@
 6	domashka.live
 6	dominity.com
 6	donmai.us
+6	doovi.com
 6	dopethc.com
 6	dostavim-alco-omsk.shop
 6	dreamhookah.net
@@ -1422,6 +1423,7 @@
 6	dst66.ru
 6	dune24.cc
 6	dykishershni.com
+6	dytt8.net
 6	dzkrasnodar.ru
 6	eahentai.com
 6	ebar10.com
@@ -1702,7 +1704,6 @@
 6	suhoytuman.kz
 6	sushiostrov163.ru
 6	svetlanahelp.ru
-6	sweetfern.net
 6	t-motors-city.ru
 6	tabfilm.online
 6	targetmatch.click

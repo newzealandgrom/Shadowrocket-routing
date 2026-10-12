@@ -2101,7 +2101,6 @@
 6	ros-boloto.blogspot.com
 6	rossiyskiy-diktator.blogspot.com
 6	rrrdoc.blogspot.com
-6	ru-news.us
 6	ru-odnoklassniki.blogspot.com
 6	ru.uptodown.com
 6	ru4.the-cinema.world
@@ -2216,6 +2215,7 @@
 6	topsport-tv.ru
 6	torgmeh.ru
 6	tornet.biz
+6	torrentbus.com
 6	tr.tizam.org
 6	tramalretard.okis.ru
 6	trek002.ru

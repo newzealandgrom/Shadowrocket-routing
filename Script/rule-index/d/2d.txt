@@ -1520,6 +1520,7 @@
 6	i2pd.website
 6	iburner.ru
 6	iklad.biz
+6	ilga-europe.org
 6	ilivestream.com
 6	illuxor.net
 6	infallouti.online
@@ -1580,6 +1581,7 @@
 6	megaresheba-z.ru
 6	megatfile.cc
 6	merojax.me
+6	metart.com
 6	midistock.ru
 6	millioner-nan.site
 6	mistral-club.ru
@@ -1762,6 +1764,7 @@
 6	tv-lenta.com
 6	tvmtb.online
 6	udo-dpo.shop
+6	urban-vpn.com
 6	urbanculture.live
 6	v.mixporn.cam
 6	ves24.cc

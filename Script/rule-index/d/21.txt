@@ -1565,6 +1565,7 @@
 6	aussiedlerbote.de
 6	autocad.com
 6	avonline.space
+6	avtovelomoto.by
 6	ayurveda-nk.ru
 6	azovbattalionmerch.com
 6	barvikha21-kp.ru
@@ -1712,7 +1713,6 @@
 6	hrust-2.rush-super65.online
 6	hypnosissy.com
 6	ichkeria.info
-6	ici.radio-canada.ca
 6	imperiabus.ru
 6	india-help24.ru
 6	inferno24.biz
@@ -1937,7 +1937,6 @@
 6	snr.clan.su
 6	snusline.com
 6	soczashita.com
-6	south-park.mult-fan.tv
 6	sowewe.cc
 6	speedify.com
 6	standupoffice.ru
@@ -1975,6 +1974,7 @@
 6	trivevip.com
 6	tron-cap.cc
 6	tur-info1.ru
+6	turkeypurge.com
 6	turoktvs5.online
 6	tvmuq.online
 6	ukrafoto.com

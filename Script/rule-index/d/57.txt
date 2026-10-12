@@ -1300,6 +1300,7 @@
 6	bezsetey.ru
 6	bezsms.org
 6	bilozerska.info
+6	bip.com
 6	bit-app-alora.com
 6	bit-pro-reopro.com
 6	bitcoinbillionairesoftware.com
@@ -1398,7 +1399,6 @@
 6	gameport.fun
 6	garmonia-chel.ru
 6	garmoniya-sln.ru
-6	gaymenshealth.org
 6	gdzd.ru
 6	gemhalla.top
 6	geyporno.xyz

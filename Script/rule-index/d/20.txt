@@ -1397,7 +1397,6 @@
 6	bor-uno.ru
 6	boss-porno.com
 6	brightvpn.com
-6	broadvoice.com
 6	browsers-download.com
 6	bsweb.zone
 6	btc-edonesoftware.com
@@ -1410,7 +1409,6 @@
 6	centrsvoboda.online
 6	cgscholar.com
 6	chainmyst.com
-6	chat.in-the.eu
 6	cherek-crb.ru
 6	chess.com
 6	cinema-24.online
@@ -1548,6 +1546,7 @@
 6	lakorny365.top
 6	lakylike.ru
 6	lalafleur.ru
+6	lambdaistanbul.org
 6	landing.transangelsnetwork.com
 6	le-vpn.com
 6	les-skazka8.ru
@@ -1781,6 +1780,7 @@
 6	univermolodyesm.online
 6	uwolnenie.ru
 6	vale-davvero.com
+6	valence.community
 6	vanyavpn.cc
 6	vaultrazefundsolution.com
 6	vendixs-carpets.ru

@@ -1434,7 +1434,6 @@
 6	campus-fest.com
 6	centre-t.ru
 6	centrgrand.ru
-6	chat.vim.wtf
 6	check-you.online
 6	checkrus.top
 6	childrenofyhwh.com
@@ -1443,6 +1442,7 @@
 6	cikava-ideya.top
 6	cilajao9.ru
 6	cloudview.ru
+6	cn.cmcm.com
 6	cohereai.net
 6	coinsgame8.com
 6	conradlotz.com
@@ -1511,7 +1511,6 @@
 6	forum.kamorka.com
 6	forum.psyonica.com
 6	francoexperts.com
-6	frant.me
 6	fraumadamz.online
 6	freedubstudio.club
 6	gaygo.tv
@@ -1532,6 +1531,7 @@
 6	guaranty-ventures.com
 6	hackzone16.rssing.com
 6	hackzone8.rssing.com
+6	halyq-uni.kz
 6	helencreator.ru
 6	hentai-sharing.net
 6	hentai.tv

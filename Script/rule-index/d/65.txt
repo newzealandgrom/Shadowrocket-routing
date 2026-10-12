@@ -1460,6 +1460,7 @@
 6	anapa-extrim.online
 6	anapico-russia.com
 6	anchorgainlux-app.com
+6	android.myapp.com
 6	antifriztv.net
 6	antimaydan.info
 6	appyo.xyz
@@ -1516,6 +1517,7 @@
 6	cat-8.00k.buzz
 6	catshop.cc
 6	censortracker.org
+6	charity.foodblockchain.com.cn
 6	checki1-911.info
 6	chetra-mini.ru
 6	classifieds.russianamerica.com

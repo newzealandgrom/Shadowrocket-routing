@@ -1637,6 +1637,7 @@
 6	ochphilxvertex.live
 6	ogopogo.ru
 6	ohmyswift.ru
+6	okayfreedom.com
 6	olma-realtygroup.ru
 6	omgwp15.at
 6	omnistec.kz
@@ -1688,6 +1689,7 @@
 6	pro-lazertag.ru
 6	prodam-yad.com
 6	prodam.avitomoskva.ru
+6	production.cloudfront.docker.com
 6	proektor.in.ua
 6	pu-60.ru
 6	pureglowweb.info
@@ -1795,7 +1797,6 @@
 6	trackermix.xyz
 6	traktor-orel.ru
 6	transport.in.ua
-6	transwhiz.com
 6	trb.in.ua
 6	trebi-af.com
 6	trickymasseur.com

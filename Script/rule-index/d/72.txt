@@ -1306,6 +1306,7 @@
 6	allseries.online
 6	altayresort.ru
 6	amateur.tv
+6	anca.org
 6	anydiapers.com
 6	archvault.icu
 6	asia-tv.su
@@ -1537,6 +1538,7 @@
 6	mimehunter.icu
 6	mirrorstream.org
 6	mk68.ru
+6	mmozg.net
 6	mn.ashoo.solar
 6	mobileproxy.online
 6	mocanvaltrix-app.com
@@ -1578,6 +1580,7 @@
 6	on.millennium2.ru
 6	one-vv255.life
 6	onlylust.net
+6	opensea.io
 6	optexgainlimited.org
 6	opulence-nerxontech.com
 6	p.millennium2.ru

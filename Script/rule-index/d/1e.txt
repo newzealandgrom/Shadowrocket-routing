@@ -1538,6 +1538,7 @@
 5	bigbeans.solutions
 6	062.landing-for-arkada.com
 6	1.hutor.top
+6	15880.com
 6	1go69.buzz
 6	1vv0lx983.life
 6	1vv9lw22.life
@@ -1640,6 +1641,7 @@
 6	civilplatform.ru
 6	cocksinvr.com
 6	coin-birds.com
+6	collegehumor.com
 6	continue-rww.com
 6	cookathome.ru
 6	corbinfisher.com
@@ -1735,7 +1737,6 @@
 6	hotel-veronika.ru
 6	hotwild100.top
 6	i-h-m.ru
-6	i2pgit.org
 6	idpanorama.ru
 6	ikrm2.me
 6	ilianhostel.ru
@@ -1823,6 +1824,7 @@
 6	msk-chekk.ru
 6	mu.fm
 6	musicbar11.ru
+6	muslima.com
 6	my.amarkets.city
 6	myflixerz.to
 6	nasdaqkgroup.com
@@ -2107,7 +2109,6 @@
 6	zanrixa.click
 6	zaytcevo-child.com
 6	zell-karaoke.ru
-6	zenhub.com
 6	zizh.org
 6	zoogvpn.click
 6	zrhak.cfd

@@ -1430,6 +1430,7 @@
 6	battleclub.top
 6	bcwz.ru
 6	beefycow.com
+6	beian.gov.cn
 6	ben10.hentaidesires.com
 6	benefitmarkets.com
 6	bestgamemobile.ru
@@ -1642,6 +1643,7 @@
 6	mistaua.com
 6	mizugadro.mydns.jp
 6	mnr.gov.cn
+6	mofcom.gov.cn
 6	molniyavpn.click
 6	molot96.ru
 6	moskids.ru
@@ -1674,6 +1676,7 @@
 6	newstbilisi.info
 6	nine.testrun.org
 6	noclip.tech
+6	ntu.edu.tw
 6	nur-ali.kz
 6	nuzhnye-veshchi.ru
 6	nyempirestate.biz
@@ -1727,6 +1730,7 @@
 6	richbirds.store
 6	rocoloi.info
 6	romanvega.ru
+6	rongshuxia.com
 6	rootagroup.ru
 6	rosagro.su
 6	ross-dlplom.ru

@@ -1377,7 +1377,6 @@
 6	anifilm.net
 6	anime1.best
 6	animhent.com
-6	appstore.com
 6	artic-circle.com
 6	artisticbook.ru
 6	as-elektrik.ru
@@ -1427,7 +1426,6 @@
 6	canwaz.com
 6	casplex.ru
 6	cdo-rostov.ru
-6	chatmail.email
 6	chemical969.biz
 6	cherepovec.vip-steroid.com
 6	chodilinh.com
@@ -1437,6 +1435,7 @@
 6	comingoutspb.com
 6	copytracking.com
 6	countries-cities.ru
+6	covidcon.org
 6	crdru.com
 6	creative-sol.ru
 6	croxy.network
@@ -1467,7 +1466,6 @@
 6	erocex.com
 6	erodrom.bup.su
 6	erziclub.ru
-6	esternunion.com
 6	etotoper.top
 6	eu-objective.online
 6	euroskatechamp.com

@@ -1394,7 +1394,9 @@
 6	arsteklo.ru
 6	aspekt.animelinks.ru
 6	asterios.la2man.ru
+6	atlasvpn.com
 6	avintegration.ru
+6	avira.com
 6	avtomobili-rnd.ru
 6	aweza.co
 6	azotmoskva24.ru
@@ -1550,12 +1552,14 @@
 6	gllto.glpals.com
 6	globoscope.ru
 6	globus-science.ru
+6	gnu.org
 6	gojtnssun.buzz
 6	goliejopki.com
 6	gorin31.ru
 6	gradus-24-7-samara.online
 6	gradus-247-kaliningrad.online
 6	grxton.live
+6	haamash.wordpress.com
 6	hanime.tv
 6	hanime.xxx
 6	happyforest.store
@@ -1721,7 +1725,6 @@
 6	pornuhabesplatno.ru
 6	portumag.ru
 6	posmotre.li
-6	postmaster.co.uk
 6	press-center.news
 6	prima-news.ru
 6	private.privat-space.pro
@@ -1731,7 +1734,6 @@
 6	propishu-rus.ru
 6	providosiki.ru
 6	psosallya1.site
-6	putinbog.wordpress.com
 6	putinvor.wordpress.com
 6	quantax9bumexsystem.com
 6	qulpynai02.kz
@@ -1854,6 +1856,7 @@
 6	vikimo.ru
 6	vinthanglong.com
 6	vlaruneks.ru
+6	voachinese.com
 6	voen-xxuoger.top
 6	voennik3.top
 6	volosnya.com

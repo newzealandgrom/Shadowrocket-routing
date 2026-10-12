@@ -1576,7 +1576,6 @@
 6	ijappdf3d7.execute-api.eu-central-1.amazonaws.com
 6	imag.one
 6	inatu.ru
-6	inespectator.com
 6	informnapalm.rocks
 6	invidious.nussfell.doesntexist.org
 6	irongateluxten-app.com
@@ -1677,7 +1676,6 @@
 6	natwallets.com
 6	navigatorcorp.ru
 6	nch.kz
-6	nclrights.org
 6	nedvizhimost-ravda.ru
 6	neofincap.com
 6	new-team.org

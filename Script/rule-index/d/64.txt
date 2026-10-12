@@ -1437,6 +1437,7 @@
 6	blancvpablog.link
 6	blancvpn.com
 6	blankfinvex-platform.com
+6	blued.com
 6	bluesystem.me
 6	blum-coin.ru
 6	box4u.ru
@@ -1557,7 +1558,6 @@
 6	hd.multfilms.one
 6	healingpandemic.click
 6	hentakli.com
-6	herdict.org
 6	highlightsfootball.net
 6	himerexpro-engine.com
 6	hitvpnbot.biz
@@ -1582,6 +1582,7 @@
 6	interracialreality.com
 6	invidious.ribesnigrum.eu
 6	iotsosa.net
+6	islam.by
 6	ivolga-fond.ru
 6	j2t.com
 6	jaruga.ru
@@ -1634,7 +1635,6 @@
 6	mefberi.com
 6	megasb.info
 6	megasb.shop
-6	mehl.cloud
 6	mentalwarjourney.digital
 6	metaset-ai-solution.com
 6	mfmr.ru
@@ -1715,6 +1715,7 @@
 6	pt.bteye.org
 6	ptaff.live
 6	ptkl1.ru
+6	pyramidseeds.com
 6	raduga-70.ru
 6	raidforums.com
 6	railwayz.info
@@ -1732,6 +1733,7 @@
 6	rojadirectaenvivo.cc
 6	rondell-group.ru
 6	roskarta.co
+6	rottentomatoes.com
 6	rt.bonga-cams.com
 6	rt.bonga.live
 6	ru-tenec.uk

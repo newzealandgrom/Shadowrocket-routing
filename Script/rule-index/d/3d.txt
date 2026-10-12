@@ -1314,6 +1314,7 @@
 6	bit-3-evista-soft.com
 6	bitaura.live
 6	bitz12.io
+6	bl.ink
 6	bloodway.com
 6	bormiteg.ru
 6	bradyid.com
@@ -1692,6 +1693,7 @@
 6	sushi-house24.ru
 6	suyhuy.com
 6	tabachnic.ru
+6	tails.net
 6	taker.icu
 6	te-st.ru
 6	tebyan.net
