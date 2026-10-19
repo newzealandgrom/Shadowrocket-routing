@@ -3,7 +3,7 @@
 # SOURCE: https://raw.githubusercontent.com/1andrevich/Re-filter-lists/main/domains_all.lst
 # OVERRIDES: lists/overrides/domains_refilter.exclude / .append
 # Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
-# TOTAL: 74844
+# TOTAL: 74845
 DOMAIN-SUFFIX,4pda.ru
 DOMAIN-SUFFIX,4pda.to
 DOMAIN-SUFFIX,abook-club.ru
@@ -185,6 +185,7 @@ DOMAIN-SUFFIX,essential.gg
 DOMAIN-SUFFIX,etsy.com
 DOMAIN-SUFFIX,event.on24.com
 DOMAIN-SUFFIX,events.ccc.de
+DOMAIN-SUFFIX,elevenlabs.io
 DOMAIN-SUFFIX,exler.ru
 DOMAIN-SUFFIX,e621.net
 DOMAIN-SUFFIX,excitebots.com

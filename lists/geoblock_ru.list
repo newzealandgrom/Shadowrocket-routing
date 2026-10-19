@@ -1,10 +1,10 @@
 # NAME: geoblock_ru.list
-# UPDATED: 2026-10-12 02:50:41
+# UPDATED: 2026-10-19 02:00:58
 # SOURCE: https://raw.githubusercontent.com/nncat01/RCVPN-SR/release/rules-geosite/category-geoblock-ru.list
 # DROPPED-TYPES: URL-REGEX
 # OVERRIDES: lists/overrides/geoblock_ru.exclude / .append
 # Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
-# TOTAL: 874
+# TOTAL: 875
 DOMAIN-SUFFIX,2407.pl
 DOMAIN-SUFFIX,37signals.com
 DOMAIN-SUFFIX,4pda.ru
@@ -606,6 +606,7 @@ DOMAIN-SUFFIX,setapp.com
 DOMAIN-SUFFIX,sfdcopens.com
 DOMAIN-SUFFIX,sgpstatp.com
 DOMAIN-SUFFIX,sgsnssdk.com
+DOMAIN-SUFFIX,shikimori.io
 DOMAIN-SUFFIX,shiksha.com
 DOMAIN-SUFFIX,shinyhardware.co.uk
 DOMAIN-SUFFIX,showtime.com

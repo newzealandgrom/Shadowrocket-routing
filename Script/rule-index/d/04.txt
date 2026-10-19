@@ -1889,5 +1889,6 @@
 14	fbmarketing.com
 14	fpacebook.com
 14	intagrm.com
+17	bulkgeoip.com
 17	db-ip.com
 18	youtube.com.mk

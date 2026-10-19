@@ -1366,6 +1366,8 @@
 0	zsojxqnwplhim.online
 0	zudver.matsmart.se
 0	zvlfeheeolslq.online
+1	=localhost.weixin.qq.com
+1	=localhost.work.weixin.qq.com
 1	localhost.ptlogin2.qq.com
 1	localhost.sec.qq.com
 2	1cfresh.com

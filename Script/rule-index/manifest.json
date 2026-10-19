@@ -405,7 +405,7 @@
    "type": "RULE-SET",
    "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/private.list",
    "rules": {
-    "DOMAIN": 12,
+    "DOMAIN": 14,
     "DOMAIN-SUFFIX": 118
    },
    "cidrResolve": 0
@@ -454,7 +454,7 @@
    "type": "RULE-SET",
    "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/domains_refilter.list",
    "rules": {
-    "DOMAIN-SUFFIX": 74844
+    "DOMAIN-SUFFIX": 74845
    },
    "cidrResolve": 0
   },
@@ -473,7 +473,7 @@
    "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/geoblock_ru.list",
    "rules": {
     "DOMAIN-KEYWORD": 105,
-    "DOMAIN-SUFFIX": 769
+    "DOMAIN-SUFFIX": 770
    },
    "cidrResolve": 0
   },
@@ -578,7 +578,7 @@
    "url": "https://raw.githubusercontent.com/newzealandgrom/Shadowrocket-routing/refs/heads/master/lists/domains_geo_detect.list",
    "rules": {
     "DOMAIN": 11,
-    "DOMAIN-SUFFIX": 220
+    "DOMAIN-SUFFIX": 221
    },
    "cidrResolve": 0
   },

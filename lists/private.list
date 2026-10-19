@@ -1,7 +1,7 @@
 # NAME: private.list
 # SOURCE: https://raw.githubusercontent.com/v2fly/domain-list-community/master/data/private
 # Генерируется скриптом github_actions/sync_upstream.py, правки вносите в overrides.
-# TOTAL: 130
+# TOTAL: 132
 DOMAIN-SUFFIX,lan
 DOMAIN-SUFFIX,localdomain
 DOMAIN-SUFFIX,example
@@ -123,6 +123,8 @@ DOMAIN-SUFFIX,router.ctc
 DOMAIN-SUFFIX,plex.direct
 DOMAIN-SUFFIX,localhost.sec.qq.com
 DOMAIN-SUFFIX,localhost.ptlogin2.qq.com
+DOMAIN,localhost.weixin.qq.com
+DOMAIN,localhost.work.weixin.qq.com
 DOMAIN-SUFFIX,tendawifi.com
 DOMAIN-SUFFIX,tplinkwifi.net
 DOMAIN,tplogin.cn

@@ -1906,6 +1906,7 @@
 7	tableau.com
 8	nflxso.net
 8	qaweb.dev
+8	shikimori.io
 8	tmdb-image-prod.b-cdn.net
 8	watchguard.com
 11	ampproject.org
